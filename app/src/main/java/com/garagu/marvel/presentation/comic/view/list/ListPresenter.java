@@ -1,6 +1,7 @@
 package com.garagu.marvel.presentation.comic.view.list;
 
-import com.garagu.marvel.domain.Comic;
+import com.garagu.marvel.BuildConfig;
+import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.domain.usecase.GetComicsByCharacter;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
 import com.garagu.marvel.presentation.common.BasePresenter;
@@ -20,6 +21,10 @@ public class ListPresenter extends BasePresenter<ListView> {
     @Inject
     ListPresenter(GetComicsByCharacter getComicsByCharacter) {
         this.getComicsByCharacter = getComicsByCharacter;
+    }
+
+    void init() {
+        getComicsByCharacter.execute(BuildConfig.CHARACTER_ID);
     }
 
     void onComicClicked(Comic comic) {

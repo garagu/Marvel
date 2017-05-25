@@ -1,6 +1,9 @@
 package com.garagu.marvel.presentation.comic.di;
 
-import com.garagu.marvel.domain.repository.ComicRepository;
+import com.garagu.marvel.data.repository.ComicDataRepository;
+import com.garagu.marvel.data.repository.ComicRepository;
+import com.garagu.marvel.data.datasource.ComicDatasource;
+import com.garagu.marvel.data.datasource.remote.ComicRemoteDatasource;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,7 +16,8 @@ public class ComicModule {
 
     @Provides
     ComicRepository provideComicRepository() {
-        // TODO
-        return new ComicRepository();
+        ComicDatasource datasource = new ComicRemoteDatasource();
+        return new ComicDataRepository(datasource);
     }
+
 }

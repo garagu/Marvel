@@ -1,9 +1,8 @@
 package com.garagu.marvel.domain.usecase;
 
-import com.garagu.marvel.domain.Comic;
-import com.garagu.marvel.domain.repository.ComicRepository;
-
-import java.util.List;
+import com.garagu.marvel.data.repository.ComicRepository;
+import com.garagu.marvel.domain.model.Comic;
+import com.garagu.marvel.domain.model.PaginatedList;
 
 import javax.inject.Inject;
 
@@ -13,7 +12,7 @@ import io.reactivex.Observable;
  * Created by garagu.
  */
 
-public class GetComicsByCharacter extends UseCase<Integer, List<Comic>> {
+public class GetComicsByCharacter extends UseCase<String, PaginatedList<Comic>> {
 
     private ComicRepository repository;
 
@@ -23,7 +22,7 @@ public class GetComicsByCharacter extends UseCase<Integer, List<Comic>> {
     }
 
     @Override
-    Observable<List<Comic>> buildObservable(Integer id) {
+    Observable<PaginatedList<Comic>> buildObservable(String id) {
         return repository.getComicsByCharacter(id);
     }
 

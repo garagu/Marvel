@@ -1,4 +1,4 @@
-package com.garagu.marvel.domain;
+package com.garagu.marvel.domain.model;
 
 /**
  * Created by garagu.

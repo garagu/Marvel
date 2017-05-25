@@ -10,6 +10,10 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "MARVEL_API_URL", '"http://gateway.marvel.com/v1/public/"'
+        buildConfigField "String", "MARVEL_API_KEY", '""';
+        buildConfigField "String", "MARVEL_API_HASH", '""';
+        buildConfigField "String", "CHARACTER_ID", '"1009368"'
     }
     buildTypes {
         release {

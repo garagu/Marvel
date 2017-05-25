@@ -5,23 +5,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.domain.Comic;
+import com.garagu.marvel.domain.model.Comic;
+import com.garagu.marvel.presentation.common.ImageLoader;
 
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by garagu.
  */
-public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
+class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
 
     private List<Comic> items;
     private OnComicClickListener listener;
 
-    public ComicAdapter(@NonNull List<Comic> items, @NonNull OnComicClickListener listener) {
+    ComicAdapter(@NonNull List<Comic> items, @NonNull OnComicClickListener listener) {
         this.items = items;
         this.listener = listener;
     }
@@ -33,11 +37,8 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
 
     @Override
     public ComicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comic, parent);
-        ComicViewHolder viewHolder = new ComicViewHolder(view);
-        Comic comic = items.get(viewHolder.getAdapterPosition());
-        view.setOnClickListener(v -> listener.onComicClick(comic));
-        return viewHolder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_comic, parent, false);
+        return new ComicViewHolder(view);
     }
 
     @Override
@@ -48,13 +49,26 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
 
     class ComicViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.img_thumbnail)
+        ImageView imgThumbnail;
+        @BindView(R.id.txt_title)
+        TextView txtTitle;
+        @BindView(R.id.txt_series)
+        TextView txtSeries;
+
         private ComicViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(itemView);
+            ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(v -> {
+                Comic comic = items.get(getLayoutPosition());
+                listener.onComicClick(comic);
+            });
         }
 
         void bind(Comic comic) {
-
+            ImageLoader.load(itemView.getContext(), imgThumbnail, comic.getUrlThumbnail());
+            txtTitle.setText(comic.getTitle());
+            txtSeries.setText(comic.getSeriesTitle());
         }
 
     }
