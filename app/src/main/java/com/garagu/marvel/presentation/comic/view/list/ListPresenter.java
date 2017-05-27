@@ -2,14 +2,15 @@ package com.garagu.marvel.presentation.comic.view.list;
 
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.domain.model.Comic;
+import com.garagu.marvel.domain.model.PaginatedList;
 import com.garagu.marvel.domain.usecase.GetComicsByCharacter;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
 import com.garagu.marvel.presentation.common.BasePresenter;
 import com.garagu.marvel.presentation.common.BaseView;
 
-import java.util.List;
-
 import javax.inject.Inject;
+
+import io.reactivex.disposables.CompositeDisposable;
 
 /**
  * Created by garagu.
@@ -17,6 +18,7 @@ import javax.inject.Inject;
 public class ListPresenter extends BasePresenter<ListView> {
 
     private GetComicsByCharacter getComicsByCharacter;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
     ListPresenter(GetComicsByCharacter getComicsByCharacter) {
@@ -24,7 +26,22 @@ public class ListPresenter extends BasePresenter<ListView> {
     }
 
     void init() {
-        getComicsByCharacter.execute(BuildConfig.CHARACTER_ID);
+        getView().showProgress();
+        getComicsByCharacter
+                .execute(BuildConfig.CHARACTER_ID)
+                .subscribe(
+                        comicsPaginatedList -> getView().showComics(comicsPaginatedList),
+                        error -> {
+                            getView().showError(error.getMessage());
+                            getView().hideProgress();
+                        },
+                        () -> getView().hideProgress(),
+                        disposable -> compositeDisposable.add(disposable)
+                );
+    }
+
+    void destroy() {
+        compositeDisposable.dispose();
     }
 
     void onComicClicked(Comic comic) {
@@ -32,11 +49,15 @@ public class ListPresenter extends BasePresenter<ListView> {
     }
 
     interface ListView extends BaseView {
+        void hideProgress();
+
         void openDetail(Comic comic);
 
-        void showComics(List<Comic> comics);
+        void showComics(PaginatedList<Comic> comics);
 
         void showError(String message);
+
+        void showProgress();
     }
 
 }

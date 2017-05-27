@@ -17,7 +17,7 @@ public interface MarvelApi {
 
     String BASE_URL = BuildConfig.MARVEL_API_URL;
 
-    @GET("characters/{id}/comics")
+    @GET("characters/{id}/comics?orderBy=title")
     Observable<ComicListEntity> getComicsByCharacter(@Path("id") String id, @QueryMap Map<String, String> authParameters);
 
 }

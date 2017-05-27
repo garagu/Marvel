@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.application.MarvelApplication;
-import com.garagu.marvel.presentation.application.di.AppComponent;
+import com.garagu.marvel.presentation.application.di.NetComponent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,11 +29,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void initInjection() {
         ButterKnife.bind(this);
-        getAppComponent().inject(this);
+        getNetComponent().inject(this);
     }
 
-    protected AppComponent getAppComponent() {
-        return ((MarvelApplication) getApplication()).getAppComponent();
+    protected NetComponent getNetComponent() {
+        return ((MarvelApplication) getApplication()).getNetComponent();
     }
 
     private void initView() {

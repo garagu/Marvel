@@ -2,16 +2,17 @@ package com.garagu.marvel.presentation.application;
 
 import android.app.Application;
 
-import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.application.di.AppModule;
-import com.garagu.marvel.presentation.application.di.DaggerAppComponent;
+import com.garagu.marvel.presentation.application.di.DaggerNetComponent;
+import com.garagu.marvel.presentation.application.di.NetComponent;
+import com.garagu.marvel.presentation.application.di.NetModule;
 
 /**
  * Created by garagu.
  */
 public class MarvelApplication extends Application {
 
-    private AppComponent appComponent;
+    private NetComponent netComponent;
 
     @Override
     public void onCreate() {
@@ -20,13 +21,14 @@ public class MarvelApplication extends Application {
     }
 
     private void initDependencyInjector() {
-        appComponent =  DaggerAppComponent.builder()
+        netComponent = DaggerNetComponent.builder()
                 .appModule(new AppModule(this))
+                .netModule(new NetModule())
                 .build();
     }
 
-    public AppComponent getAppComponent() {
-        return appComponent;
+    public NetComponent getNetComponent() {
+        return netComponent;
     }
 
 }

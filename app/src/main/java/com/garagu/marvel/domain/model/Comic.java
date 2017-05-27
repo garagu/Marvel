@@ -14,9 +14,11 @@ public class Comic {
     private String seriesTitle;
     private List<ComicCreator> creators;
     private List<String> characters;
+    private String isbn;
+    private String format;
     private String urlThumbnail;
 
-    private Comic(String title, String description, int pages, List<ComicDate> dates, String seriesTitle, List<ComicCreator> creators, List<String> characters, String urlThumbnail) {
+    private Comic(String title, String description, int pages, List<ComicDate> dates, String seriesTitle, List<ComicCreator> creators, List<String> characters, String isbn, String format, String urlThumbnail) {
         this.title = title;
         this.description = description;
         this.pages = pages;
@@ -24,6 +26,8 @@ public class Comic {
         this.seriesTitle = seriesTitle;
         this.creators = creators;
         this.characters = characters;
+        this.isbn = isbn;
+        this.format = format;
         this.urlThumbnail = urlThumbnail;
     }
 
@@ -55,6 +59,14 @@ public class Comic {
         return characters;
     }
 
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
     public String getUrlThumbnail() {
         return urlThumbnail;
     }
@@ -68,6 +80,8 @@ public class Comic {
         private String seriesTitle;
         private List<ComicCreator> creators;
         private List<String> characters;
+        private String isbn;
+        private String format;
         private String urlThumbnail;
 
         public Builder withTitle(String title) {
@@ -105,13 +119,23 @@ public class Comic {
             return this;
         }
 
+        public Builder withIsbn(String isbn) {
+            this.isbn = isbn;
+            return this;
+        }
+
+        public Builder withFormat(String format) {
+            this.format = format;
+            return this;
+        }
+
         public Builder withUrlThumbnail(String urlThumbnail) {
             this.urlThumbnail = urlThumbnail;
             return this;
         }
 
         public Comic build() {
-            return new Comic(title, description, pages, dates, seriesTitle, creators, characters, urlThumbnail);
+            return new Comic(title, description, pages, dates, seriesTitle, creators, characters, isbn, format, urlThumbnail);
         }
 
     }

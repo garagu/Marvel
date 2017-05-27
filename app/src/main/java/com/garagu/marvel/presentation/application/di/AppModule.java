@@ -1,8 +1,6 @@
 package com.garagu.marvel.presentation.application.di;
 
-import android.content.Context;
-
-import com.garagu.marvel.presentation.application.MarvelApplication;
+import android.app.Application;
 
 import javax.inject.Singleton;
 
@@ -15,16 +13,16 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private final MarvelApplication application;
+    private final Application application;
 
-    public AppModule(MarvelApplication application) {
+    public AppModule(Application application) {
         this.application = application;
     }
 
     @Singleton
     @Provides
-    Context provideContext() {
-        return application.getApplicationContext();
+    Application providesApplication() {
+        return application;
     }
 
 }

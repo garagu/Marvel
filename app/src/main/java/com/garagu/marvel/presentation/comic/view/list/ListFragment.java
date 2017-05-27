@@ -8,13 +8,11 @@ import android.widget.Toast;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.domain.model.Comic;
+import com.garagu.marvel.domain.model.PaginatedList;
 import com.garagu.marvel.presentation.comic.di.ComicModule;
 import com.garagu.marvel.presentation.comic.di.DaggerComicComponent;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
 import com.garagu.marvel.presentation.common.BaseFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -27,11 +25,11 @@ public class ListFragment extends BaseFragment implements ListView {
 
     @Inject
     ListPresenter presenter;
+    @Inject
+    ComicAdapter adapter;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
-
-    private ComicAdapter adapter;
 
     public static ListFragment newInstance() {
         return new ListFragment();
@@ -50,9 +48,15 @@ public class ListFragment extends BaseFragment implements ListView {
         initPresenter();
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        presenter.destroy();
+    }
+
     private void initDependencyInjector() {
         DaggerComicComponent.builder()
-                .appComponent(getAppComponent())
+                .netComponent(getNetComponent())
                 .comicModule(new ComicModule())
                 .build()
                 .inject(this);
@@ -60,7 +64,7 @@ public class ListFragment extends BaseFragment implements ListView {
 
     private void initPresenter() {
         presenter.setView(this);
-        //presenter.init();
+        presenter.init();
     }
 
     private void initList() {
@@ -68,21 +72,13 @@ public class ListFragment extends BaseFragment implements ListView {
         recyclerView.setLayoutManager(layoutManager);
         ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
-        adapter = new ComicAdapter(getMock(), comic -> presenter.onComicClicked(comic));
+        adapter.setOnComicClickListener(comic -> presenter.onComicClicked(comic));
         recyclerView.setAdapter(adapter);
     }
 
-    private List<Comic> getMock() {
-        List<Comic> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Comic comic = new Comic.Builder()
-                    .withTitle("Title " + i)
-                    .withSeriesTitle("Series title (0000)")
-                    .withUrlThumbnail(i == 0 ? "http://i.annihil.us/u/prod/marvel/i/mg/6/50/58d97d2b532a0/portrait_medium.jpg" : "test")
-                    .build();
-            list.add(comic);
-        }
-        return list;
+    @Override
+    public void hideProgress() {
+
     }
 
     @Override
@@ -92,13 +88,19 @@ public class ListFragment extends BaseFragment implements ListView {
     }
 
     @Override
-    public void showComics(List<Comic> comics) {
+    public void showComics(PaginatedList<Comic> comics) {
         // TODO
+        adapter.add(comics.getItems());
     }
 
     @Override
     public void showError(String message) {
         // TODO
+    }
+
+    @Override
+    public void showProgress() {
+
     }
 
 }

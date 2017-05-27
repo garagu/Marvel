@@ -9,7 +9,10 @@ import com.garagu.marvel.data.datasource.ComicDatasource;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
+import retrofit2.Retrofit;
 
 /**
  * Created by garagu.

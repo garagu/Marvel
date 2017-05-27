@@ -1,6 +1,5 @@
 package com.garagu.marvel.presentation.comic.view.list;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,10 @@ import com.garagu.marvel.R;
 import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.presentation.common.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,14 +22,25 @@ import butterknife.ButterKnife;
 /**
  * Created by garagu.
  */
-class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
+public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
 
-    private List<Comic> items;
+    private ImageLoader imageLoader;
+    private List<Comic> items = new ArrayList<>();
     private OnComicClickListener listener;
 
-    ComicAdapter(@NonNull List<Comic> items, @NonNull OnComicClickListener listener) {
-        this.items = items;
+    @Inject
+    ComicAdapter(ImageLoader imageLoader) {
+        this.imageLoader = imageLoader;
+    }
+
+    void setOnComicClickListener(OnComicClickListener listener) {
         this.listener = listener;
+    }
+
+    void add(List<Comic> comics) {
+        int positionStart = getItemCount();
+        items.addAll(comics);
+        notifyItemRangeChanged(positionStart, getItemCount());
     }
 
     @Override
@@ -66,7 +79,7 @@ class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
         }
 
         void bind(Comic comic) {
-            ImageLoader.load(itemView.getContext(), imgThumbnail, comic.getUrlThumbnail());
+            imageLoader.load(imgThumbnail, comic.getUrlThumbnail());
             txtTitle.setText(comic.getTitle());
             txtSeries.setText(comic.getSeriesTitle());
         }
