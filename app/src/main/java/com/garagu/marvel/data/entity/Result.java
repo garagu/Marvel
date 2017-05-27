@@ -3,7 +3,7 @@ package com.garagu.marvel.data.entity;
 /**
  * Created by garagu.
  */
-public class MarvelEntity<T> {
+public class Result<T> {
 
     private int code;
     private String status;

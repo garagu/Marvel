@@ -95,7 +95,7 @@ public class ListFragment extends BaseFragment implements ListView {
 
     @Override
     public void showError(String message) {
-        // TODO
+        showMessage(message);
     }
 
     @Override

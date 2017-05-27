@@ -11,8 +11,8 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "String", "MARVEL_API_URL", '"http://gateway.marvel.com/v1/public/"'
-        buildConfigField "String", "MARVEL_API_KEY", '""';
-        buildConfigField "String", "MARVEL_API_HASH", '""';
+        buildConfigField "String", "MARVEL_API_KEY", '""'
+        buildConfigField "String", "MARVEL_API_HASH", '""'
         buildConfigField "String", "CHARACTER_ID", '"1009368"'
     }
     buildTypes {
@@ -36,6 +36,7 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
