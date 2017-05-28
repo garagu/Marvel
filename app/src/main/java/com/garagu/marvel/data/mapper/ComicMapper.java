@@ -103,7 +103,6 @@ public class ComicMapper {
         if (entity.getPath().contains("image_not_available")) {
             return null;
         }
-        // TODO change image title with screen density
         return entity.getPath() + "/portrait_medium." + entity.getExtension();
     }
 

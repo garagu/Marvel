@@ -1,6 +1,7 @@
 package com.garagu.marvel.presentation.application.di;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.data.net.ApiConnection;
@@ -24,7 +25,7 @@ public class NetModule {
         Picasso picasso = new Picasso.Builder(application)
                 .listener((p, uri, e) -> {
                     if (BuildConfig.DEBUG) {
-                        e.printStackTrace();
+                        Log.e("Picasso", e.getMessage());
                     }
                 })
                 .build();

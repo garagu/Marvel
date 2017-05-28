@@ -82,7 +82,7 @@ public class ListFragment extends BaseFragment implements ListView {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (!isLoading() && hasMore && checkScroll(layoutManager, dy)) {
+                if (isNotLoading() && hasMore && checkScroll(layoutManager, dy)) {
                     presenter.onListScrolled(offset);
                 }
             }
@@ -101,8 +101,8 @@ public class ListFragment extends BaseFragment implements ListView {
         return false;
     }
 
-    private boolean isLoading() {
-        return (progressBar.getVisibility() == View.VISIBLE);
+    private boolean isNotLoading() {
+        return (progressBar.getVisibility() == View.GONE);
     }
 
     @Override

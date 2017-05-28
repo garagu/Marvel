@@ -2,6 +2,7 @@ package com.garagu.marvel.data.net;
 
 import android.content.Context;
 
+import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.data.net.interceptor.CacheInterceptor;
 import com.garagu.marvel.data.net.interceptor.ErrorInterceptor;
 import com.garagu.marvel.data.net.interceptor.OfflineCacheInterceptor;
@@ -44,15 +45,17 @@ public class ApiConnection {
     }
 
     private OkHttpClient initClient() {
-        return new OkHttpClient.Builder()
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .cache(initCache())
-                //.addInterceptor(initLogInterceptor())
                 .addInterceptor(new OfflineCacheInterceptor(context))
                 .addNetworkInterceptor(new CacheInterceptor())
                 .addNetworkInterceptor(new ErrorInterceptor(context))
                 .readTimeout(TIMEOUT, TimeUnit.SECONDS)
-                .connectTimeout(TIMEOUT, TimeUnit.SECONDS)
-                .build();
+                .connectTimeout(TIMEOUT, TimeUnit.SECONDS);
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(initLogInterceptor());
+        }
+        return builder.build();
     }
 
     private Cache initCache() {
