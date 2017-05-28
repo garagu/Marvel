@@ -46,7 +46,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showMessage(String message) {
-        Snackbar.make(rootView, message, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
     }
 
 }

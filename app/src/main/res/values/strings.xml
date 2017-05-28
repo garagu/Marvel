@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Marvel</string>
     <string name="error_generic">Oops! Something was wrong.</string>
-    <string name="error_connection">Oops! There\'s no Internet connection. Check the network and try again.</string>
+    <string name="error_connection">Oops! There\'s no Internet connection and no more saved info. Check the network and try again.</string>
 </resources>
