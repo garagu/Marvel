@@ -24,9 +24,10 @@ public class ComicMapper {
 
     public PaginatedList<Comic> mapEntityToModel(ComicListEntity entity) {
         List<Comic> items = mapComicList(entity.getResults());
+        int offset = entity.getOffset() + entity.getCount();
         return new PaginatedList.Builder<Comic>()
-                .withHasMore(entity.getCount() < entity.getLimit())
-                .withOffset(entity.getOffset())
+                .withHasMore(offset < entity.getTotal())
+                .withOffset(offset)
                 .withItems(items)
                 .build();
     }

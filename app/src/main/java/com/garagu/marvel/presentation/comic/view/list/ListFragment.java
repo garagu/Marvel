@@ -4,6 +4,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.garagu.marvel.R;
@@ -28,8 +30,13 @@ public class ListFragment extends BaseFragment implements ListView {
     @Inject
     ComicAdapter adapter;
 
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+
+    private boolean hasMore;
+    private int offset;
 
     public static ListFragment newInstance() {
         return new ListFragment();
@@ -68,17 +75,39 @@ public class ListFragment extends BaseFragment implements ListView {
     }
 
     private void initList() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (!isLoading() && hasMore && checkScroll(layoutManager, dy)) {
+                    presenter.onListScrolled(offset);
+                }
+            }
+        });
         adapter.setOnComicClickListener(comic -> presenter.onComicClicked(comic));
         recyclerView.setAdapter(adapter);
     }
 
+    private boolean checkScroll(LinearLayoutManager layoutManager, int dy) {
+        if (dy > 0) {
+            int visibleItems = layoutManager.getChildCount();
+            int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+            int totalItems = layoutManager.getItemCount();
+            return (visibleItems + firstVisibleItem >= totalItems);
+        }
+        return false;
+    }
+
+    private boolean isLoading() {
+        return (progressBar.getVisibility() == View.VISIBLE);
+    }
+
     @Override
     public void hideProgress() {
-
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -89,7 +118,8 @@ public class ListFragment extends BaseFragment implements ListView {
 
     @Override
     public void showComics(PaginatedList<Comic> comics) {
-        // TODO
+        hasMore = comics.hasMore();
+        offset = comics.getOffset();
         adapter.add(comics.getItems());
     }
 
@@ -100,7 +130,7 @@ public class ListFragment extends BaseFragment implements ListView {
 
     @Override
     public void showProgress() {
-
+        progressBar.setVisibility(View.VISIBLE);
     }
 
 }

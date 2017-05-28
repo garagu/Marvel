@@ -2,6 +2,7 @@ package com.garagu.marvel.presentation.comic.view.list;
 
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.domain.model.Comic;
+import com.garagu.marvel.domain.model.InputParam;
 import com.garagu.marvel.domain.model.PaginatedList;
 import com.garagu.marvel.domain.usecase.GetComicsByCharacter;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
@@ -26,22 +27,34 @@ public class ListPresenter extends BasePresenter<ListView> {
     }
 
     void init() {
-        getView().showProgress();
-        getComicsByCharacter
-                .execute(BuildConfig.CHARACTER_ID)
-                .subscribe(
-                        comicsPaginatedList -> getView().showComics(comicsPaginatedList),
-                        error -> {
-                            getView().showError(error.getMessage());
-                            getView().hideProgress();
-                        },
-                        () -> getView().hideProgress(),
-                        disposable -> compositeDisposable.add(disposable)
-                );
+        getComics(0);
     }
 
     void destroy() {
         compositeDisposable.dispose();
+    }
+
+    private void getComics(int offset) {
+        getView().showProgress();
+        InputParam inputParam = new InputParam.Builder()
+                .withId(BuildConfig.CHARACTER_ID)
+                .withOffset(offset)
+                .build();
+        getComicsByCharacter
+                .execute(inputParam)
+                .subscribe(
+                        comicsPaginatedList -> getView().showComics(comicsPaginatedList), // on next
+                        error -> {
+                            getView().showError(error.getMessage());
+                            getView().hideProgress();
+                        }, // on error
+                        () -> getView().hideProgress(), // on complete
+                        disposable -> compositeDisposable.add(disposable) // on subscribe
+                );
+    }
+
+    void onListScrolled(int offset) {
+        getComics(offset);
     }
 
     void onComicClicked(Comic comic) {

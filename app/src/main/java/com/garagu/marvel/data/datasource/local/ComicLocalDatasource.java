@@ -31,7 +31,7 @@ public class ComicLocalDatasource implements ComicDatasource {
     }
 
     @Override
-    public Observable<Result<ComicListEntity>> getComicsByCharacter(String id) {
+    public Observable<Result<ComicListEntity>> getComicsByCharacter(String id, int offset) {
         Result<ComicListEntity> entity = new Result<>();
         BufferedReader br;
         try {

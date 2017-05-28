@@ -10,7 +10,6 @@ import io.reactivex.Observable;
  */
 public interface ComicRepository {
 
-    // TODO offset
-    Observable<PaginatedList<Comic>> getComicsByCharacter(String id);
+    Observable<PaginatedList<Comic>> getComicsByCharacter(String id, int offset);
 
 }

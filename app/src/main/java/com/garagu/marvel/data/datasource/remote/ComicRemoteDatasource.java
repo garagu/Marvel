@@ -34,8 +34,8 @@ public class ComicRemoteDatasource implements ComicDatasource {
     }
 
     @Override
-    public Observable<Result<ComicListEntity>> getComicsByCharacter(String id) {
-        return api.getComicsByCharacter(id, authParameters);
+    public Observable<Result<ComicListEntity>> getComicsByCharacter(String id, int offset) {
+        return api.getComicsByCharacter(id, offset, authParameters);
     }
 
 }

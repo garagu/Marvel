@@ -9,6 +9,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**
@@ -19,6 +20,9 @@ public interface MarvelApi {
     String BASE_URL = BuildConfig.MARVEL_API_URL;
 
     @GET("characters/{id}/comics?orderBy=title")
-    Observable<Result<ComicListEntity>> getComicsByCharacter(@Path("id") String id, @QueryMap Map<String, String> authParameters);
+    Observable<Result<ComicListEntity>> getComicsByCharacter(
+            @Path("id") String id,
+            @Query("offset") int offset,
+            @QueryMap Map<String, String> authParameters);
 
 }

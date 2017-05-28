@@ -23,8 +23,8 @@ public class ComicDataRepository implements ComicRepository {
         this.datasource = datasource;
     }
 
-    public Observable<PaginatedList<Comic>> getComicsByCharacter(String id) {
-        return datasource.getComicsByCharacter(id).map(this::mapEntityToModel);
+    public Observable<PaginatedList<Comic>> getComicsByCharacter(String id, int offset) {
+        return datasource.getComicsByCharacter(id, offset).map(this::mapEntityToModel);
     }
 
     private PaginatedList<Comic> mapEntityToModel(Result<ComicListEntity> entity) {
