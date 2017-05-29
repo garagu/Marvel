@@ -6,13 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.domain.model.PaginatedList;
 import com.garagu.marvel.presentation.comic.di.ComicModule;
 import com.garagu.marvel.presentation.comic.di.DaggerComicComponent;
+import com.garagu.marvel.presentation.comic.view.detail.DetailFragment;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
 import com.garagu.marvel.presentation.common.BaseFragment;
 
@@ -112,8 +112,12 @@ public class ListFragment extends BaseFragment implements ListView {
 
     @Override
     public void openDetail(Comic comic) {
-        // TODO
-        Toast.makeText(getActivity(), comic.getTitle(), Toast.LENGTH_SHORT).show();
+        getFragmentManager()
+                .beginTransaction()
+                .hide(this)
+                .add(R.id.frame_container, DetailFragment.newInstance(comic))
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override

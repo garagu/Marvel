@@ -17,4 +17,17 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Card" parent="CardView.Light">
+        <item name="cardCornerRadius">4dp</item>
+        <item name="contentPadding">@dimen/margin</item>
+    </style>
+
+    <style name="BigTitle" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SmallTitle" parent="@style/TextAppearance.AppCompat.Body2">
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

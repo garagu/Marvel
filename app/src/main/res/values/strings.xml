@@ -2,4 +2,11 @@
     <string name="app_name">Marvel</string>
     <string name="error_generic">Oops! Something was wrong.</string>
     <string name="error_connection">Oops! There\'s no Internet connection and no more saved info. Check the network and try again.</string>
+    <string name="detail_label_summary">Summary</string>
+    <string name="detail_label_series">Series:</string>
+    <string name="detail_label_pages">Pages:</string>
+    <string name="detail_label_isbn">ISBN:</string>
+    <string name="detail_label_format">Format:</string>
+    <string name="detail_label_credits">Credits</string>
+    <string name="detail_label_characters">Characters</string>
 </resources>

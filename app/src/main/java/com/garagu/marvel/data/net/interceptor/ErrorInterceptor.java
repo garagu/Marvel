@@ -2,19 +2,13 @@ package com.garagu.marvel.data.net.interceptor;
 
 import android.content.Context;
 
-import com.garagu.marvel.data.entity.Result;
 import com.garagu.marvel.data.net.exception.MarvelException;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
 
 /**
  * Created by garagu.
