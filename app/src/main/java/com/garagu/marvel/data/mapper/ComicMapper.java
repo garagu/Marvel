@@ -1,8 +1,10 @@
 package com.garagu.marvel.data.mapper;
 
+import android.os.Build;
+import android.text.Html;
+
 import com.garagu.marvel.data.entity.CharacterEntity;
 import com.garagu.marvel.data.entity.CharacterListEntity;
-import com.garagu.marvel.data.entity.ComicDateEntity;
 import com.garagu.marvel.data.entity.ComicEntity;
 import com.garagu.marvel.data.entity.ComicListEntity;
 import com.garagu.marvel.data.entity.CreatorEntity;
@@ -11,7 +13,6 @@ import com.garagu.marvel.data.entity.ImageEntity;
 import com.garagu.marvel.data.entity.SeriesEntity;
 import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.domain.model.ComicCreator;
-import com.garagu.marvel.domain.model.ComicDate;
 import com.garagu.marvel.domain.model.PaginatedList;
 
 import java.util.ArrayList;
@@ -42,33 +43,33 @@ public class ComicMapper {
     }
 
     private Comic mapComic(ComicEntity entity) {
-        List<ComicDate> dates = mapDates(entity.getDates());
+        String description = mapDescription(entity.getDescription());
         String series = mapSeries(entity.getSeries());
         List<ComicCreator> creators = mapCreators(entity.getCreators());
         List<String> characters = mapCharacters(entity.getCharacters());
         String thumbnail = mapThumbnail(entity.getThumbnail());
         return new Comic.Builder()
                 .withTitle(entity.getTitle())
-                .withDescription(entity.getDescription())
-                .withPages(entity.getPageCount())
-                .withDates(dates)
+                .withDescription(description)
+                .withPages(String.valueOf(entity.getPageCount()))
                 .withSeriesTitle(series)
                 .withCreators(creators)
                 .withCharacters(characters)
                 .withUrlThumbnail(thumbnail)
+                .withFormat(entity.getFormat())
+                .withIsbn(entity.getIsbn())
                 .build();
     }
 
-    private List<ComicDate> mapDates(ComicDateEntity[] entity) {
-        List<ComicDate> model = new ArrayList<>();
-        for (ComicDateEntity item : entity) {
-            ComicDate comicDate = new ComicDate.Builder()
-                    .withType(item.getType())
-                    .withReleaseDate(item.getDate())
-                    .build();
-            model.add(comicDate);
+    private String mapDescription(String description) {
+        if ((description != null) && !description.isEmpty()) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                return Html.fromHtml(description).toString();
+            } else {
+                return Html.fromHtml(description, Html.FROM_HTML_MODE_LEGACY).toString();
+            }
         }
-        return model;
+        return "";
     }
 
     private String mapSeries(SeriesEntity entity) {
@@ -79,14 +80,22 @@ public class ComicMapper {
         List<ComicCreator> items = new ArrayList<>();
         if (entity.getItems() != null) {
             for (CreatorEntity item : entity.getItems()) {
+                String formattedRole = mapRole(item.getRole());
                 ComicCreator comicCreator = new ComicCreator.Builder()
                         .withName(item.getName())
-                        .withRole(item.getRole())
+                        .withRole(formattedRole)
                         .build();
                 items.add(comicCreator);
             }
         }
         return items;
+    }
+
+    private String mapRole(String role) {
+        if ((role != null) && (role.length() > 1)) {
+            return Character.toUpperCase(role.charAt(0)) + role.substring(1);
+        }
+        return role;
     }
 
     private List<String> mapCharacters(CharacterListEntity entity) {
@@ -103,7 +112,7 @@ public class ComicMapper {
         if (entity.getPath().contains("image_not_available")) {
             return null;
         }
-        return entity.getPath() + "/portrait_medium." + entity.getExtension();
+        return entity.getPath() + "/portrait_xlarge." + entity.getExtension();
     }
 
 }

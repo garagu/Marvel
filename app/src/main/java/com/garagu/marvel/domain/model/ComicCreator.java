@@ -1,9 +1,12 @@
 package com.garagu.marvel.domain.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by garagu.
  */
-public class ComicCreator {
+public class ComicCreator implements Parcelable {
 
     private String name;
     private String role;
@@ -41,5 +44,35 @@ public class ComicCreator {
         }
 
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(role);
+    }
+
+    protected ComicCreator(Parcel in) {
+        name = in.readString();
+        role = in.readString();
+    }
+
+    public static final Parcelable.Creator<ComicCreator> CREATOR = new Parcelable.Creator<ComicCreator>() {
+
+        @Override
+        public ComicCreator createFromParcel(Parcel source) {
+            return new ComicCreator(source);
+        }
+
+        @Override
+        public ComicCreator[] newArray(int size) {
+            return new ComicCreator[size];
+        }
+
+    };
 
 }

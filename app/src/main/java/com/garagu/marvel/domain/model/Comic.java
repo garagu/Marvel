@@ -1,16 +1,19 @@
 package com.garagu.marvel.domain.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by garagu.
  */
-public class Comic {
+public class Comic implements Parcelable {
 
     private String title;
     private String description;
-    private int pages;
-    private List<ComicDate> dates;
+    private String pages;
     private String seriesTitle;
     private List<ComicCreator> creators;
     private List<String> characters;
@@ -18,11 +21,10 @@ public class Comic {
     private String format;
     private String urlThumbnail;
 
-    private Comic(String title, String description, int pages, List<ComicDate> dates, String seriesTitle, List<ComicCreator> creators, List<String> characters, String isbn, String format, String urlThumbnail) {
+    private Comic(String title, String description, String pages, String seriesTitle, List<ComicCreator> creators, List<String> characters, String isbn, String format, String urlThumbnail) {
         this.title = title;
         this.description = description;
         this.pages = pages;
-        this.dates = dates;
         this.seriesTitle = seriesTitle;
         this.creators = creators;
         this.characters = characters;
@@ -39,12 +41,8 @@ public class Comic {
         return description;
     }
 
-    public int getPages() {
+    public String getPages() {
         return pages;
-    }
-
-    public List<ComicDate> getDates() {
-        return dates;
     }
 
     public String getSeriesTitle() {
@@ -75,8 +73,7 @@ public class Comic {
 
         private String title;
         private String description;
-        private int pages;
-        private List<ComicDate> dates;
+        private String pages;
         private String seriesTitle;
         private List<ComicCreator> creators;
         private List<String> characters;
@@ -94,13 +91,8 @@ public class Comic {
             return this;
         }
 
-        public Builder withPages(int pages) {
+        public Builder withPages(String pages) {
             this.pages = pages;
-            return this;
-        }
-
-        public Builder withDates(List<ComicDate> dates) {
-            this.dates = dates;
             return this;
         }
 
@@ -135,9 +127,54 @@ public class Comic {
         }
 
         public Comic build() {
-            return new Comic(title, description, pages, dates, seriesTitle, creators, characters, isbn, format, urlThumbnail);
+            return new Comic(title, description, pages, seriesTitle, creators, characters, isbn, format, urlThumbnail);
         }
 
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(pages);
+        dest.writeString(seriesTitle);
+        dest.writeList(creators);
+        dest.writeStringList(characters);
+        dest.writeString(isbn);
+        dest.writeString(format);
+        dest.writeString(urlThumbnail);
+    }
+
+    protected Comic(Parcel in) {
+        title = in.readString();
+        description = in.readString();
+        pages = in.readString();
+        seriesTitle = in.readString();
+        creators = new ArrayList<>();
+        in.readList(creators, ComicCreator.class.getClassLoader());
+        characters = in.createStringArrayList();
+        isbn = in.readString();
+        format = in.readString();
+        urlThumbnail = in.readString();
+    }
+
+    public static final Parcelable.Creator<Comic> CREATOR = new Parcelable.Creator<Comic>() {
+
+        @Override
+        public Comic createFromParcel(Parcel source) {
+            return new Comic(source);
+        }
+
+        @Override
+        public Comic[] newArray(int size) {
+            return new Comic[size];
+        }
+
+    };
 
 }
