@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.domain.model.Comic;

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.domain.model.ComicCreator;
 
 import java.util.List;
 
