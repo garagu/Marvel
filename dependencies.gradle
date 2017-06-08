@@ -1,0 +1,42 @@
+ext {
+    supportVersion = '25.3.1'
+    retrofitVersion = '2.3.0'
+    rxJavaVersion = '2.1.0'
+    rxAndroidVersion = '2.0.1'
+    butterknifeVersion = '8.6.0'
+    daggerVersion = '2.11'
+    okhttpVersion = '3.8.0'
+    gsonVersion = '2.8.0'
+    picassoVersion = '2.5.2'
+
+    androidSupportPackage = 'com.android.support'
+    androidSupport = [
+            appCompat: "${androidSupportPackage}:appcompat-v7:${supportVersion}",
+            cardView : "${androidSupportPackage}:cardview-v7:${supportVersion}",
+            design   : "${androidSupportPackage}:design:${supportVersion}"
+    ]
+    retrofitPackage = 'com.squareup.retrofit2'
+    retrofit = [
+            retrofit     : "${retrofitPackage}:retrofit:${retrofitVersion}",
+            converterGson: "${retrofitPackage}:converter-gson:${retrofitVersion}",
+            adapterRx    : "${retrofitPackage}:adapter-rxjava2:${retrofitVersion}"
+    ]
+    rxPackage = 'io.reactivex.rxjava2'
+    rx = [
+            java   : "${rxPackage}:rxjava:${rxJavaVersion}",
+            android: "${rxPackage}:rxandroid:${rxAndroidVersion}"
+    ]
+    butterknifePackage = 'com.jakewharton'
+    butterknife = [
+            library: "${butterknifePackage}:butterknife:${butterknifeVersion}",
+            compiler: "${butterknifePackage}:butterknife-compiler:${butterknifeVersion}"
+    ]
+    daggerPackage = 'com.google.dagger'
+    dagger = [
+            library: "${daggerPackage}:dagger:${daggerVersion}",
+            compiler: "${daggerPackage}:dagger-compiler:${daggerVersion}"
+    ]
+    okhttp = "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
+    gson = "com.google.code.gson:gson:${gsonVersion}"
+    picasso = "com.squareup.picasso:picasso:${picassoVersion}"
+}

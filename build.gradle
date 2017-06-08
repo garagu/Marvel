@@ -1,3 +1,6 @@
+apply from: 'dependencies.gradle'
+apply from: 'keys.gradle'
+
 buildscript {
     repositories {
         jcenter()

@@ -11,9 +11,9 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "String", "MARVEL_API_URL", '"http://gateway.marvel.com/v1/public/"'
-        buildConfigField "String", "MARVEL_API_KEY", '""'
-        buildConfigField "String", "MARVEL_API_HASH", '""'
-        buildConfigField "String", "CHARACTER_ID", '""'
+        buildConfigField "String", "MARVEL_API_KEY", marvelApiKey
+        buildConfigField "String", "MARVEL_API_HASH", marvelApiHash
+        buildConfigField "String", "CHARACTER_ID", characterId
     }
     buildTypes {
         release {
@@ -28,23 +28,14 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-
-    compile 'com.jakewharton:butterknife:8.6.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-
-    compile 'com.google.dagger:dagger:2.11-rc2'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.11-rc2'
-
-    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile androidSupport.values()
+    compile retrofit.values()
+    compile rx.values()
+    compile butterknife.library
+    annotationProcessor butterknife.compiler
+    compile gson
+    compile okhttp
+    compile picasso
+    compile dagger.library
+    annotationProcessor dagger.compiler
 }
