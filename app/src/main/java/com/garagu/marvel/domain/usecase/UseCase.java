@@ -1,19 +1,25 @@
 package com.garagu.marvel.domain.usecase;
 
+import com.garagu.marvel.domain.thread.BackgroundThread;
+import com.garagu.marvel.domain.thread.UIThread;
+
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by garagu.
  */
-public abstract class UseCase<I, O> {
+abstract class UseCase<I, O> {
 
-    private Scheduler executorThread = Schedulers.newThread();
-    private Scheduler postExecutionThread = AndroidSchedulers.mainThread();
+    private Scheduler executorThread;
+    private Scheduler postExecutionThread;
 
-    abstract Observable<O> buildObservable(I param);
+    UseCase(BackgroundThread backgroundThread, UIThread uiThread) {
+        executorThread = backgroundThread.getScheduler();
+        postExecutionThread = uiThread.getScheduler();
+    }
+
+    protected abstract Observable<O> buildObservable(I param);
 
     public Observable<O> execute(I param) {
         return buildObservable(param)

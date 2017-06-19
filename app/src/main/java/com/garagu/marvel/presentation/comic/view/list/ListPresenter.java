@@ -2,7 +2,7 @@ package com.garagu.marvel.presentation.comic.view.list;
 
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.domain.model.Comic;
-import com.garagu.marvel.domain.model.InputParam;
+import com.garagu.marvel.domain.model.GetComicsInputParam;
 import com.garagu.marvel.domain.model.PaginatedList;
 import com.garagu.marvel.domain.usecase.GetComicsByCharacter;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
@@ -36,7 +36,7 @@ public class ListPresenter extends BasePresenter<ListView> {
 
     private void getComics(int offset) {
         getView().showProgress();
-        InputParam inputParam = new InputParam.Builder()
+        GetComicsInputParam inputParam = new GetComicsInputParam.Builder()
                 .withId(BuildConfig.CHARACTER_ID)
                 .withOffset(offset)
                 .build();

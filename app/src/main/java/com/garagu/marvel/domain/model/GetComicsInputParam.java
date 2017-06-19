@@ -3,12 +3,12 @@ package com.garagu.marvel.domain.model;
 /**
  * Created by garagu.
  */
-public class InputParam {
+public class GetComicsInputParam {
 
     private String id;
     private int offset;
 
-    private InputParam(String id, int offset) {
+    private GetComicsInputParam(String id, int offset) {
         this.id = id;
         this.offset = offset;
     }
@@ -36,8 +36,8 @@ public class InputParam {
             return this;
         }
 
-        public InputParam build() {
-            return new InputParam(id, offset);
+        public GetComicsInputParam build() {
+            return new GetComicsInputParam(id, offset);
         }
 
     }
