@@ -36,6 +36,7 @@ dependencies {
     compile gson
     compile okhttp
     compile picasso
+    compile renderers
     compile dagger.library
     annotationProcessor dagger.compiler
 }

@@ -26,11 +26,13 @@ public class ListPresenter extends BasePresenter<ListView> {
         this.getComicsByCharacter = getComicsByCharacter;
     }
 
-    void init() {
+    @Override
+    public void subscribe() {
         getComics(0);
     }
 
-    void destroy() {
+    @Override
+    public void unsubscribe() {
         compositeDisposable.dispose();
     }
 
@@ -66,7 +68,7 @@ public class ListPresenter extends BasePresenter<ListView> {
 
         void openDetail(Comic comic);
 
-        void showComics(PaginatedList<Comic> comics);
+        void showComics(PaginatedList<Comic> paginatedList);
 
         void showError(String message);
 

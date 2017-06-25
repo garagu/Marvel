@@ -15,4 +15,8 @@ public abstract class BasePresenter<T extends BaseView> {
         this.view = view;
     }
 
+    public abstract void subscribe();
+
+    public abstract void unsubscribe();
+
 }

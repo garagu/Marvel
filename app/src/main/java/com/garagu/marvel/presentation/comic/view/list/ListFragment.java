@@ -15,6 +15,15 @@ import com.garagu.marvel.presentation.comic.di.DaggerComicComponent;
 import com.garagu.marvel.presentation.comic.view.detail.DetailFragment;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
 import com.garagu.marvel.presentation.common.BaseFragment;
+import com.garagu.marvel.presentation.common.ImageLoader;
+import com.pedrogomez.renderers.AdapteeCollection;
+import com.pedrogomez.renderers.ListAdapteeCollection;
+import com.pedrogomez.renderers.RVRendererAdapter;
+import com.pedrogomez.renderers.Renderer;
+import com.pedrogomez.renderers.RendererBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,13 +37,14 @@ public class ListFragment extends BaseFragment implements ListView {
     @Inject
     ListPresenter presenter;
     @Inject
-    ComicAdapter adapter;
+    ImageLoader imageLoader;
 
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
+    private RVRendererAdapter<Comic> adapter;
     private boolean hasMore;
     private int offset;
 
@@ -58,7 +68,7 @@ public class ListFragment extends BaseFragment implements ListView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        presenter.destroy();
+        presenter.unsubscribe();
     }
 
     private void initDependencyInjector() {
@@ -71,13 +81,13 @@ public class ListFragment extends BaseFragment implements ListView {
 
     private void initPresenter() {
         presenter.setView(this);
-        presenter.init();
+        presenter.subscribe();
     }
 
     private void initList() {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
+        final ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -87,7 +97,10 @@ public class ListFragment extends BaseFragment implements ListView {
                 }
             }
         });
-        adapter.setOnComicClickListener(comic -> presenter.onComicClicked(comic));
+        Renderer<Comic> renderer = new ComicRenderer(comic -> presenter.onComicClicked(comic), imageLoader);
+        RendererBuilder<Comic> rendererBuilder = new RendererBuilder<>(renderer);
+        AdapteeCollection<Comic> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
+        adapter = new RVRendererAdapter<>(rendererBuilder, emptyList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -121,10 +134,16 @@ public class ListFragment extends BaseFragment implements ListView {
     }
 
     @Override
-    public void showComics(PaginatedList<Comic> comics) {
-        hasMore = comics.hasMore();
-        offset = comics.getOffset();
-        adapter.add(comics.getItems());
+    public void showComics(PaginatedList<Comic> paginatedList) {
+        hasMore = paginatedList.hasMore();
+        offset = paginatedList.getOffset();
+        updateList(paginatedList.getItems());
+    }
+
+    private void updateList(List<Comic> comics) {
+        int positionStart = adapter.getItemCount();
+        adapter.addAll(comics);
+        adapter.notifyItemRangeChanged(positionStart, adapter.getItemCount());
     }
 
     @Override

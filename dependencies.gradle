@@ -12,6 +12,7 @@ ext {
     okhttpVersion = '3.8.0'
     gsonVersion = '2.8.0'
     picassoVersion = '2.5.2'
+    renderersVersion = '3.3.0'
 
     androidSupportPackage = 'com.android.support'
     androidSupport = [
@@ -43,4 +44,5 @@ ext {
     okhttp = "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     gson = "com.google.code.gson:gson:${gsonVersion}"
     picasso = "com.squareup.picasso:picasso:${picassoVersion}"
+    renderers = "com.github.pedrovgs:renderers:${renderersVersion}"
 }
