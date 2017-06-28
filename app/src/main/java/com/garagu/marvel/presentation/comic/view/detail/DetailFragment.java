@@ -1,10 +1,10 @@
 package com.garagu.marvel.presentation.comic.view.detail;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.view.View;
@@ -14,9 +14,16 @@ import android.widget.TextView;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.domain.model.Comic;
-import com.garagu.marvel.presentation.comic.di.DaggerComicComponent;
+import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.common.BaseFragment;
 import com.garagu.marvel.presentation.common.ImageLoader;
+import com.pedrogomez.renderers.AdapteeCollection;
+import com.pedrogomez.renderers.ListAdapteeCollection;
+import com.pedrogomez.renderers.RVRendererAdapter;
+import com.pedrogomez.renderers.Renderer;
+import com.pedrogomez.renderers.RendererBuilder;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -86,10 +93,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void initDependencyInjector() {
-        DaggerComicComponent.builder()
-                .netComponent(getNetComponent())
-                .build()
-                .inject(this);
+        getComponent(ComicComponent.class).inject(this);
     }
 
     private void initComicInfo() {
@@ -109,21 +113,22 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void initCredits() {
-        CreatorAdapter adapter = new CreatorAdapter(selectedComic.getCreators());
-        initRecyclerView(rvCredits, adapter);
+        initRecyclerView(rvCredits, new CreatorRenderer(), selectedComic.getCreators());
     }
 
     private void initCharacters() {
-        CharacterAdapter adapter = new CharacterAdapter(selectedComic.getCharacters());
-        initRecyclerView(rvCharacters, adapter);
+        initRecyclerView(rvCharacters, new CharacterRenderer(), selectedComic.getCharacters());
     }
 
-    private void initRecyclerView(RecyclerView recyclerView, Adapter adapter) {
-        LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+    private <T> void initRecyclerView(@NonNull RecyclerView recyclerView, @NonNull Renderer<T> renderer, @NonNull List<T> list) {
+        final LayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
-        ItemDecoration itemDecoration = new GridItemDecoration(space);
+        final ItemDecoration itemDecoration = new GridItemDecoration(space);
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setNestedScrollingEnabled(false);
+        final RendererBuilder<T> rendererBuilder = new RendererBuilder<>(renderer);
+        final AdapteeCollection<T> adapteeCollection = new ListAdapteeCollection<>(list);
+        final RVRendererAdapter<T> adapter = new RVRendererAdapter<>(rendererBuilder, adapteeCollection);
         recyclerView.setAdapter(adapter);
     }
 

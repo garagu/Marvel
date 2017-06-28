@@ -2,7 +2,7 @@ package com.garagu.marvel.data.net;
 
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.data.entity.ComicListEntity;
-import com.garagu.marvel.data.entity.Result;
+import com.garagu.marvel.data.entity.ResultEntity;
 
 import java.util.Map;
 
@@ -20,7 +20,7 @@ public interface MarvelApi {
     String BASE_URL = BuildConfig.MARVEL_API_URL;
 
     @GET("characters/{id}/comics?orderBy=title")
-    Observable<Result<ComicListEntity>> getComicsByCharacter(
+    Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(
             @Path("id") String id,
             @Query("offset") int offset,
             @QueryMap Map<String, String> authParameters);

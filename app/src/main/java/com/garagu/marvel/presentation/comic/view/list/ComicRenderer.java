@@ -23,7 +23,7 @@ class ComicRenderer extends RVRenderer<Comic> {
     @BindView(R.id.txt_series)
     TextView txtSeries;
 
-    private ImageLoader imageLoader;
+    private final ImageLoader imageLoader;
 
     ComicRenderer(@NonNull OnRendererClickListener<Comic> clickListener, ImageLoader imageLoader) {
         super(clickListener);

@@ -1,5 +1,7 @@
 package com.garagu.marvel.presentation.comic.view.list;
 
+import android.support.annotation.NonNull;
+
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.domain.model.GetComicsInputParam;
@@ -45,13 +47,13 @@ public class ListPresenter extends BasePresenter<ListView> {
         getComicsByCharacter
                 .execute(inputParam)
                 .subscribe(
-                        comicsPaginatedList -> getView().showComics(comicsPaginatedList), // on next
+                        comicsPaginatedList -> getView().showComics(comicsPaginatedList),
                         error -> {
                             getView().showError(error.getMessage());
                             getView().hideProgress();
-                        }, // on error
-                        () -> getView().hideProgress(), // on complete
-                        disposable -> compositeDisposable.add(disposable) // on subscribe
+                        },
+                        () -> getView().hideProgress(),
+                        compositeDisposable::add
                 );
     }
 
@@ -59,18 +61,18 @@ public class ListPresenter extends BasePresenter<ListView> {
         getComics(offset);
     }
 
-    void onComicClicked(Comic comic) {
+    void onComicClicked(@NonNull Comic comic) {
         getView().openDetail(comic);
     }
 
     interface ListView extends BaseView {
         void hideProgress();
 
-        void openDetail(Comic comic);
+        void openDetail(@NonNull Comic comic);
 
-        void showComics(PaginatedList<Comic> paginatedList);
+        void showComics(@NonNull PaginatedList<Comic> paginatedList);
 
-        void showError(String message);
+        void showError(@NonNull String message);
 
         void showProgress();
     }

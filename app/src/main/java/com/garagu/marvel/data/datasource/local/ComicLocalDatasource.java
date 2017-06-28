@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.garagu.marvel.data.datasource.ComicDatasource;
 import com.garagu.marvel.data.entity.ComicListEntity;
-import com.garagu.marvel.data.entity.Result;
+import com.garagu.marvel.data.entity.ResultEntity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
@@ -31,8 +31,8 @@ public class ComicLocalDatasource implements ComicDatasource {
     }
 
     @Override
-    public Observable<Result<ComicListEntity>> getComicsByCharacter(String id, int offset) {
-        Result<ComicListEntity> entity = new Result<>();
+    public Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(String id, int offset) {
+        ResultEntity<ComicListEntity> entity = new ResultEntity<>();
         BufferedReader br;
         try {
             InputStream is = context.getAssets().open("comics.json");
@@ -45,7 +45,7 @@ public class ComicLocalDatasource implements ComicDatasource {
             br.close();
             String json = stringBuilder.toString();
             Gson gson = new GsonBuilder().create();
-            Type type = new TypeToken<Result<ComicListEntity>>() {
+            Type type = new TypeToken<ResultEntity<ComicListEntity>>() {
             }.getType();
             entity = gson.fromJson(json, type);
         } catch (IOException | JsonSyntaxException e) {

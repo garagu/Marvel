@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.garagu.marvel.presentation.application.di.NetComponent;
+import com.garagu.marvel.presentation.application.di.AppComponent;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -41,8 +41,14 @@ public abstract class BaseFragment extends Fragment {
         unbinder.unbind();
     }
 
-    protected NetComponent getNetComponent() {
-        return ((BaseActivity) getActivity()).getNetComponent();
+    @SuppressWarnings("unchecked")
+    protected <T> T getComponent(Class<T> component) {
+        Class<?> clazz = getActivity().getClass();
+        if (!HasInjection.class.isAssignableFrom(clazz)) {
+            throw new UnsupportedOperationException(clazz.getSimpleName() + " doesn't implement HasInjection");
+        }
+        HasInjection injectedActivity = (HasInjection<T>) getActivity();
+        return component.cast(injectedActivity.getComponent());
     }
 
     protected void showMessage(String message) {

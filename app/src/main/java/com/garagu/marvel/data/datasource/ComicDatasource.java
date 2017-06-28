@@ -1,7 +1,7 @@
 package com.garagu.marvel.data.datasource;
 
 import com.garagu.marvel.data.entity.ComicListEntity;
-import com.garagu.marvel.data.entity.Result;
+import com.garagu.marvel.data.entity.ResultEntity;
 
 import io.reactivex.Observable;
 
@@ -10,6 +10,6 @@ import io.reactivex.Observable;
  */
 public interface ComicDatasource {
 
-    Observable<Result<ComicListEntity>> getComicsByCharacter(String id, int offset);
+    Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(String id, int offset);
 
 }

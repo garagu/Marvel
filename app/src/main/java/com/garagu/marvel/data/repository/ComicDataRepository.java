@@ -2,10 +2,11 @@ package com.garagu.marvel.data.repository;
 
 import com.garagu.marvel.data.datasource.ComicDatasource;
 import com.garagu.marvel.data.entity.ComicListEntity;
-import com.garagu.marvel.data.entity.Result;
+import com.garagu.marvel.data.entity.ResultEntity;
 import com.garagu.marvel.data.mapper.ComicMapper;
 import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.domain.model.PaginatedList;
+import com.garagu.marvel.domain.repository.ComicRepository;
 
 import javax.inject.Inject;
 
@@ -27,7 +28,7 @@ public class ComicDataRepository implements ComicRepository {
         return datasource.getComicsByCharacter(id, offset).map(this::mapEntityToModel);
     }
 
-    private PaginatedList<Comic> mapEntityToModel(Result<ComicListEntity> entity) {
+    private PaginatedList<Comic> mapEntityToModel(ResultEntity<ComicListEntity> entity) {
         ComicMapper mapper = new ComicMapper();
         return mapper.mapEntityToModel(entity.getData());
     }

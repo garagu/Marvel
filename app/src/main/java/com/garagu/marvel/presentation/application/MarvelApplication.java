@@ -3,8 +3,8 @@ package com.garagu.marvel.presentation.application;
 import android.app.Application;
 
 import com.garagu.marvel.presentation.application.di.AppModule;
-import com.garagu.marvel.presentation.application.di.DaggerNetComponent;
-import com.garagu.marvel.presentation.application.di.NetComponent;
+import com.garagu.marvel.presentation.application.di.DaggerAppComponent;
+import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.application.di.NetModule;
 
 /**
@@ -12,7 +12,7 @@ import com.garagu.marvel.presentation.application.di.NetModule;
  */
 public class MarvelApplication extends Application {
 
-    private NetComponent netComponent;
+    private AppComponent appComponent;
 
     @Override
     public void onCreate() {
@@ -21,14 +21,14 @@ public class MarvelApplication extends Application {
     }
 
     private void initDependencyInjector() {
-        netComponent = DaggerNetComponent.builder()
+        appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .netModule(new NetModule())
                 .build();
     }
 
-    public NetComponent getNetComponent() {
-        return netComponent;
+    public AppComponent getAppComponent() {
+        return appComponent;
     }
 
 }

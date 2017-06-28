@@ -1,4 +1,4 @@
-package com.garagu.marvel.data.repository;
+package com.garagu.marvel.domain.repository;
 
 import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.domain.model.PaginatedList;

@@ -1,6 +1,6 @@
 package com.garagu.marvel.domain.usecase;
 
-import com.garagu.marvel.data.repository.ComicRepository;
+import com.garagu.marvel.domain.repository.ComicRepository;
 import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.domain.model.GetComicsInputParam;
 import com.garagu.marvel.domain.model.PaginatedList;

@@ -3,7 +3,7 @@ package com.garagu.marvel.data.datasource.remote;
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.data.datasource.ComicDatasource;
 import com.garagu.marvel.data.entity.ComicListEntity;
-import com.garagu.marvel.data.entity.Result;
+import com.garagu.marvel.data.entity.ResultEntity;
 import com.garagu.marvel.data.net.MarvelApi;
 
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class ComicRemoteDatasource implements ComicDatasource {
     }
 
     @Override
-    public Observable<Result<ComicListEntity>> getComicsByCharacter(String id, int offset) {
+    public Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(String id, int offset) {
         return api.getComicsByCharacter(id, offset, authParameters);
     }
 

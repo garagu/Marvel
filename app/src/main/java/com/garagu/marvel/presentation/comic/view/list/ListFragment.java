@@ -1,5 +1,6 @@
 package com.garagu.marvel.presentation.comic.view.list;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,8 +11,7 @@ import android.widget.ProgressBar;
 import com.garagu.marvel.R;
 import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.domain.model.PaginatedList;
-import com.garagu.marvel.presentation.comic.di.ComicModule;
-import com.garagu.marvel.presentation.comic.di.DaggerComicComponent;
+import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.view.detail.DetailFragment;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
 import com.garagu.marvel.presentation.common.BaseFragment;
@@ -72,11 +72,7 @@ public class ListFragment extends BaseFragment implements ListView {
     }
 
     private void initDependencyInjector() {
-        DaggerComicComponent.builder()
-                .netComponent(getNetComponent())
-                .comicModule(new ComicModule())
-                .build()
-                .inject(this);
+        getComponent(ComicComponent.class).inject(this);
     }
 
     private void initPresenter() {
@@ -97,18 +93,18 @@ public class ListFragment extends BaseFragment implements ListView {
                 }
             }
         });
-        Renderer<Comic> renderer = new ComicRenderer(comic -> presenter.onComicClicked(comic), imageLoader);
-        RendererBuilder<Comic> rendererBuilder = new RendererBuilder<>(renderer);
-        AdapteeCollection<Comic> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
+        final Renderer<Comic> renderer = new ComicRenderer(comic -> presenter.onComicClicked(comic), imageLoader);
+        final RendererBuilder<Comic> rendererBuilder = new RendererBuilder<>(renderer);
+        final AdapteeCollection<Comic> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
         adapter = new RVRendererAdapter<>(rendererBuilder, emptyList);
         recyclerView.setAdapter(adapter);
     }
 
-    private boolean checkScroll(LinearLayoutManager layoutManager, int dy) {
+    private boolean checkScroll(@NonNull LinearLayoutManager layoutManager, int dy) {
         if (dy > 0) {
-            int visibleItems = layoutManager.getChildCount();
-            int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
-            int totalItems = layoutManager.getItemCount();
+            final int visibleItems = layoutManager.getChildCount();
+            final int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+            final int totalItems = layoutManager.getItemCount();
             return (visibleItems + firstVisibleItem >= totalItems);
         }
         return false;
@@ -124,7 +120,7 @@ public class ListFragment extends BaseFragment implements ListView {
     }
 
     @Override
-    public void openDetail(Comic comic) {
+    public void openDetail(@NonNull Comic comic) {
         getFragmentManager()
                 .beginTransaction()
                 .hide(this)
@@ -134,20 +130,20 @@ public class ListFragment extends BaseFragment implements ListView {
     }
 
     @Override
-    public void showComics(PaginatedList<Comic> paginatedList) {
+    public void showComics(@NonNull PaginatedList<Comic> paginatedList) {
         hasMore = paginatedList.hasMore();
         offset = paginatedList.getOffset();
         updateList(paginatedList.getItems());
     }
 
-    private void updateList(List<Comic> comics) {
-        int positionStart = adapter.getItemCount();
+    private void updateList(@NonNull List<Comic> comics) {
+        final int positionStart = adapter.getItemCount();
         adapter.addAll(comics);
         adapter.notifyItemRangeChanged(positionStart, adapter.getItemCount());
     }
 
     @Override
-    public void showError(String message) {
+    public void showError(@NonNull String message) {
         showMessage(message);
     }
 
