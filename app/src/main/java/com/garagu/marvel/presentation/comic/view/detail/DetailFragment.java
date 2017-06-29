@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
+import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.common.BaseFragment;
 import com.garagu.marvel.presentation.common.ImageLoader;
 import com.pedrogomez.renderers.AdapteeCollection;
@@ -64,9 +64,9 @@ public class DetailFragment extends BaseFragment {
     @BindDimen(R.dimen.margin_small)
     int space;
 
-    private Comic selectedComic;
+    private ComicViewModel selectedComic;
 
-    public static DetailFragment newInstance(Comic selectedComic) {
+    public static DetailFragment newInstance(ComicViewModel selectedComic) {
         DetailFragment fragment = new DetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(KEY_COMIC, selectedComic);

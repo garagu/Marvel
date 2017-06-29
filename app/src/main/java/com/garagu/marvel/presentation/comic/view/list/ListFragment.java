@@ -5,13 +5,14 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.domain.model.Comic;
-import com.garagu.marvel.domain.model.PaginatedList;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
+import com.garagu.marvel.presentation.comic.model.ComicViewModel;
+import com.garagu.marvel.presentation.comic.model.PaginatedList;
 import com.garagu.marvel.presentation.comic.view.detail.DetailFragment;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
 import com.garagu.marvel.presentation.common.BaseFragment;
@@ -44,7 +45,7 @@ public class ListFragment extends BaseFragment implements ListView {
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    private RVRendererAdapter<Comic> adapter;
+    private RVRendererAdapter<ComicViewModel> adapter;
     private boolean hasMore;
     private int offset;
 
@@ -93,9 +94,9 @@ public class ListFragment extends BaseFragment implements ListView {
                 }
             }
         });
-        final Renderer<Comic> renderer = new ComicRenderer(comic -> presenter.onComicClicked(comic), imageLoader);
-        final RendererBuilder<Comic> rendererBuilder = new RendererBuilder<>(renderer);
-        final AdapteeCollection<Comic> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
+        final Renderer<ComicViewModel> renderer = new ComicRenderer(comic -> presenter.onComicClicked(comic), imageLoader);
+        final RendererBuilder<ComicViewModel> rendererBuilder = new RendererBuilder<>(renderer);
+        final AdapteeCollection<ComicViewModel> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
         adapter = new RVRendererAdapter<>(rendererBuilder, emptyList);
         recyclerView.setAdapter(adapter);
     }
@@ -120,7 +121,7 @@ public class ListFragment extends BaseFragment implements ListView {
     }
 
     @Override
-    public void openDetail(@NonNull Comic comic) {
+    public void openDetail(@NonNull ComicViewModel comic) {
         getFragmentManager()
                 .beginTransaction()
                 .hide(this)
@@ -130,13 +131,13 @@ public class ListFragment extends BaseFragment implements ListView {
     }
 
     @Override
-    public void showComics(@NonNull PaginatedList<Comic> paginatedList) {
+    public void showComics(@NonNull PaginatedList<ComicViewModel> paginatedList) {
         hasMore = paginatedList.hasMore();
         offset = paginatedList.getOffset();
         updateList(paginatedList.getItems());
     }
 
-    private void updateList(@NonNull List<Comic> comics) {
+    private void updateList(@NonNull List<ComicViewModel> comics) {
         final int positionStart = adapter.getItemCount();
         adapter.addAll(comics);
         adapter.notifyItemRangeChanged(positionStart, adapter.getItemCount());

@@ -25,7 +25,7 @@ public class ApiConnection {
     private static final int TIMEOUT = 20;
     private static final long MAX_CACHE_SIZE = 10 * 1024 * 1024; // 10 MB
 
-    private Context context;
+    private final Context context;
 
     public ApiConnection(Context context) {
         this.context = context;
@@ -45,7 +45,7 @@ public class ApiConnection {
     }
 
     private OkHttpClient initClient() {
-        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+        final OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .cache(initCache())
                 .addInterceptor(new OfflineCacheInterceptor(context))
                 .addNetworkInterceptor(new CacheInterceptor())
@@ -59,12 +59,12 @@ public class ApiConnection {
     }
 
     private Cache initCache() {
-        File cacheDir = new File(context.getCacheDir(), "cache");
+        final File cacheDir = new File(context.getCacheDir(), "cache");
         return new Cache(cacheDir, MAX_CACHE_SIZE);
     }
 
     private HttpLoggingInterceptor initLogInterceptor() {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         return interceptor;
     }

@@ -1,7 +1,9 @@
 package com.garagu.marvel.domain.usecase;
 
-import com.garagu.marvel.domain.thread.BackgroundThread;
-import com.garagu.marvel.domain.thread.UIThread;
+import com.garagu.marvel.data.BackgroundThread;
+import com.garagu.marvel.domain.thread.ExecutorThread;
+import com.garagu.marvel.domain.thread.PostExecutionThread;
+import com.garagu.marvel.presentation.application.UIThread;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
@@ -11,20 +13,20 @@ import io.reactivex.Scheduler;
  */
 abstract class UseCase<I, O> {
 
-    private Scheduler executorThread;
-    private Scheduler postExecutionThread;
+    private final ExecutorThread executorThread;
+    private final PostExecutionThread postExecutionThread;
 
-    UseCase(BackgroundThread backgroundThread, UIThread uiThread) {
-        executorThread = backgroundThread.getScheduler();
-        postExecutionThread = uiThread.getScheduler();
+    UseCase(ExecutorThread executorThread, PostExecutionThread postExecutionThread) {
+        this.executorThread = executorThread;
+        this.postExecutionThread = postExecutionThread;
     }
 
     protected abstract Observable<O> buildObservable(I param);
 
     public Observable<O> execute(I param) {
         return buildObservable(param)
-                .subscribeOn(executorThread)
-                .observeOn(postExecutionThread);
+                .subscribeOn(executorThread.getScheduler())
+                .observeOn(postExecutionThread.getScheduler());
     }
 
 }

@@ -3,16 +3,14 @@ package com.garagu.marvel.domain.model;
 /**
  * Created by garagu.
  */
-public class ComicCreator {
+public class ComicCharacter {
 
     private final String url;
     private final String name;
-    private final String role;
 
-    public ComicCreator(String url, String name, String role) {
+    public ComicCharacter(String url, String name) {
         this.url = url;
         this.name = name;
-        this.role = role;
     }
 
     public String getUrl() {
@@ -21,10 +19,6 @@ public class ComicCreator {
 
     public String getName() {
         return name;
-    }
-
-    public String getRole() {
-        return role;
     }
 
 }

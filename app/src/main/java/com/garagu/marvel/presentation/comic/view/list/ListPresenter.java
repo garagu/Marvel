@@ -3,10 +3,10 @@ package com.garagu.marvel.presentation.comic.view.list;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.BuildConfig;
-import com.garagu.marvel.domain.model.Comic;
-import com.garagu.marvel.domain.model.GetComicsInputParam;
-import com.garagu.marvel.domain.model.PaginatedList;
 import com.garagu.marvel.domain.usecase.GetComicsByCharacter;
+import com.garagu.marvel.presentation.comic.model.ComicModelMapper;
+import com.garagu.marvel.presentation.comic.model.ComicViewModel;
+import com.garagu.marvel.presentation.comic.model.PaginatedList;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
 import com.garagu.marvel.presentation.common.BasePresenter;
 import com.garagu.marvel.presentation.common.BaseView;
@@ -20,12 +20,14 @@ import io.reactivex.disposables.CompositeDisposable;
  */
 public class ListPresenter extends BasePresenter<ListView> {
 
-    private GetComicsByCharacter getComicsByCharacter;
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final GetComicsByCharacter getComicsByCharacter;
+    private final ComicModelMapper mapper;
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
-    ListPresenter(GetComicsByCharacter getComicsByCharacter) {
+    ListPresenter(GetComicsByCharacter getComicsByCharacter, ComicModelMapper mapper) {
         this.getComicsByCharacter = getComicsByCharacter;
+        this.mapper = mapper;
     }
 
     @Override
@@ -40,12 +42,10 @@ public class ListPresenter extends BasePresenter<ListView> {
 
     private void getComics(int offset) {
         getView().showProgress();
-        GetComicsInputParam inputParam = new GetComicsInputParam.Builder()
-                .withId(BuildConfig.CHARACTER_ID)
-                .withOffset(offset)
-                .build();
+        final GetComicsByCharacter.InputParam inputParam = new GetComicsByCharacter.InputParam(BuildConfig.CHARACTER_ID, offset);
         getComicsByCharacter
                 .execute(inputParam)
+                .map(mapper::mapModelToViewModel)
                 .subscribe(
                         comicsPaginatedList -> getView().showComics(comicsPaginatedList),
                         error -> {
@@ -61,16 +61,16 @@ public class ListPresenter extends BasePresenter<ListView> {
         getComics(offset);
     }
 
-    void onComicClicked(@NonNull Comic comic) {
+    void onComicClicked(@NonNull ComicViewModel comic) {
         getView().openDetail(comic);
     }
 
     interface ListView extends BaseView {
         void hideProgress();
 
-        void openDetail(@NonNull Comic comic);
+        void openDetail(@NonNull ComicViewModel comic);
 
-        void showComics(@NonNull PaginatedList<Comic> paginatedList);
+        void showComics(@NonNull PaginatedList<ComicViewModel> paginatedList);
 
         void showError(@NonNull String message);
 

@@ -1,6 +1,7 @@
 package com.garagu.marvel.data.net.interceptor;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.garagu.marvel.data.net.exception.MarvelException;
 
@@ -15,16 +16,16 @@ import okhttp3.Response;
  */
 public class ErrorInterceptor implements Interceptor {
 
-    private Context context;
+    private final Context context;
 
-    public ErrorInterceptor(Context context) {
+    public ErrorInterceptor(@NonNull Context context) {
         this.context = context;
     }
 
     @Override
     public Response intercept(Chain chain) throws IOException {
-        Request request = chain.request();
-        Response response = chain.proceed(request);
+        final Request request = chain.request();
+        final Response response = chain.proceed(request);
         if (response.code() == 409) {
             throw new MarvelException(context);
         }

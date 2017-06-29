@@ -1,4 +1,7 @@
-package com.garagu.marvel.domain.thread;
+package com.garagu.marvel.data;
+
+import com.garagu.marvel.domain.thread.ExecutorThread;
+import com.garagu.marvel.domain.thread.Thread;
 
 import javax.inject.Inject;
 
@@ -8,11 +11,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by garagu.
  */
-public class BackgroundThread implements Thread {
-
-    @Inject
-    public BackgroundThread() {
-    }
+public class BackgroundThread implements ExecutorThread {
 
     @Override
     public Scheduler getScheduler() {

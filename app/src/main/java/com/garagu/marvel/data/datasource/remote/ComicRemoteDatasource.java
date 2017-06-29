@@ -18,10 +18,9 @@ import io.reactivex.Observable;
  */
 public class ComicRemoteDatasource implements ComicDatasource {
 
-    private MarvelApi api;
-    private Map<String, String> authParameters = new HashMap<>();
+    private final MarvelApi api;
+    private final Map<String, String> authParameters = new HashMap<>();
 
-    @Inject
     public ComicRemoteDatasource(MarvelApi api) {
         this.api = api;
         initAuthParameters();

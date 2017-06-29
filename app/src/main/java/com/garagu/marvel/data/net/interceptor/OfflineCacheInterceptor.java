@@ -1,6 +1,7 @@
 package com.garagu.marvel.data.net.interceptor;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.garagu.marvel.data.net.NetworkUtils;
 import com.garagu.marvel.data.net.exception.ConnectionException;
@@ -17,12 +18,11 @@ import okhttp3.Response;
 /**
  * Created by garagu.
  */
-
 public class OfflineCacheInterceptor implements Interceptor {
 
-    private Context context;
+    private final Context context;
 
-    public OfflineCacheInterceptor(Context context) {
+    public OfflineCacheInterceptor(@NonNull Context context) {
         this.context = context;
     }
 
@@ -30,7 +30,7 @@ public class OfflineCacheInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         if (!NetworkUtils.isOnline(context)) {
-            CacheControl cacheControl = new CacheControl.Builder()
+            final CacheControl cacheControl = new CacheControl.Builder()
                     .maxStale(1, TimeUnit.DAYS)
                     .build();
             request = request.newBuilder()

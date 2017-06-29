@@ -3,7 +3,7 @@ package com.garagu.marvel.presentation.comic.view.detail;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.domain.model.ComicCreator;
+import com.garagu.marvel.presentation.comic.model.CreatorViewModel;
 import com.garagu.marvel.presentation.common.RVRenderer;
 
 import butterknife.BindView;
@@ -11,7 +11,7 @@ import butterknife.BindView;
 /**
  * Created by garagu.
  */
-class CreatorRenderer extends RVRenderer<ComicCreator> {
+class CreatorRenderer extends RVRenderer<CreatorViewModel> {
 
     @BindView(R.id.txt_role)
     TextView txtRole;
@@ -25,7 +25,7 @@ class CreatorRenderer extends RVRenderer<ComicCreator> {
 
     @Override
     public void render() {
-        final ComicCreator creator = getContent();
+        final CreatorViewModel creator = getContent();
         txtRole.setText(creator.getRole());
         txtName.setText(creator.getName());
     }

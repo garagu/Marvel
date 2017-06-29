@@ -24,7 +24,7 @@ import io.reactivex.Observable;
  */
 public class ComicLocalDatasource implements ComicDatasource {
 
-    private Context context;
+    private final Context context;
 
     public ComicLocalDatasource(Context context) {
         this.context = context;

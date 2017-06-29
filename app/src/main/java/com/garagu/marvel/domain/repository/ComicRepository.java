@@ -1,7 +1,6 @@
 package com.garagu.marvel.domain.repository;
 
-import com.garagu.marvel.domain.model.Comic;
-import com.garagu.marvel.domain.model.PaginatedList;
+import com.garagu.marvel.domain.model.ComicList;
 
 import io.reactivex.Observable;
 
@@ -10,6 +9,6 @@ import io.reactivex.Observable;
  */
 public interface ComicRepository {
 
-    Observable<PaginatedList<Comic>> getComicsByCharacter(String id, int offset);
+    Observable<ComicList> getComicsByCharacter(String id, int offset);
 
 }

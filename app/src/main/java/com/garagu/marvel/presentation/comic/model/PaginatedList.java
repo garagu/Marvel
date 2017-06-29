@@ -1,4 +1,4 @@
-package com.garagu.marvel.domain.model;
+package com.garagu.marvel.presentation.comic.model;
 
 import java.util.Collections;
 import java.util.List;

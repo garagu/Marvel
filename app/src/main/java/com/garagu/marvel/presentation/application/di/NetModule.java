@@ -6,15 +6,14 @@ import android.util.Log;
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.data.net.ApiConnection;
 import com.garagu.marvel.data.net.MarvelApi;
-import com.garagu.marvel.domain.thread.BackgroundThread;
-import com.garagu.marvel.domain.thread.UIThread;
+import com.garagu.marvel.data.BackgroundThread;
+import com.garagu.marvel.presentation.application.UIThread;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by garagu.
@@ -42,18 +41,6 @@ public class NetModule {
     @Provides
     MarvelApi provideApi(Application application) {
         return new ApiConnection(application).getServices(MarvelApi.class, MarvelApi.BASE_URL);
-    }
-
-    @Singleton
-    @Provides
-    BackgroundThread provideBackgroundThread() {
-        return new BackgroundThread();
-    }
-
-    @Singleton
-    @Provides
-    UIThread provideUIThread() {
-        return new UIThread();
     }
 
 }

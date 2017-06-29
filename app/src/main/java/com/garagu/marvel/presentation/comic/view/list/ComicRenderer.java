@@ -5,7 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.domain.model.Comic;
+import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.common.ImageLoader;
 import com.garagu.marvel.presentation.common.RVRenderer;
 
@@ -14,7 +14,7 @@ import butterknife.BindView;
 /**
  * Created by garagu.
  */
-class ComicRenderer extends RVRenderer<Comic> {
+class ComicRenderer extends RVRenderer<ComicViewModel> {
 
     @BindView(R.id.img_thumbnail)
     ImageView imgThumbnail;
@@ -25,7 +25,7 @@ class ComicRenderer extends RVRenderer<Comic> {
 
     private final ImageLoader imageLoader;
 
-    ComicRenderer(@NonNull OnRendererClickListener<Comic> clickListener, ImageLoader imageLoader) {
+    ComicRenderer(@NonNull OnRendererClickListener<ComicViewModel> clickListener, ImageLoader imageLoader) {
         super(clickListener);
         this.imageLoader = imageLoader;
     }
@@ -37,7 +37,7 @@ class ComicRenderer extends RVRenderer<Comic> {
 
     @Override
     public void render() {
-        final Comic comic = getContent();
+        final ComicViewModel comic = getContent();
         imageLoader.load(imgThumbnail, comic.getUrlThumbnail());
         txtTitle.setText(comic.getTitle());
         txtSeries.setText(comic.getSeriesTitle());

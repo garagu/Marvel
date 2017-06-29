@@ -1,11 +1,12 @@
 package com.garagu.marvel.domain.usecase;
 
+import com.garagu.marvel.domain.model.ComicList;
 import com.garagu.marvel.domain.repository.ComicRepository;
-import com.garagu.marvel.domain.model.Comic;
-import com.garagu.marvel.domain.model.GetComicsInputParam;
-import com.garagu.marvel.domain.model.PaginatedList;
-import com.garagu.marvel.domain.thread.BackgroundThread;
-import com.garagu.marvel.domain.thread.UIThread;
+import com.garagu.marvel.data.BackgroundThread;
+import com.garagu.marvel.domain.thread.ExecutorThread;
+import com.garagu.marvel.domain.thread.PostExecutionThread;
+import com.garagu.marvel.presentation.application.UIThread;
+import com.garagu.marvel.domain.usecase.GetComicsByCharacter.InputParam;
 
 import javax.inject.Inject;
 
@@ -14,19 +15,39 @@ import io.reactivex.Observable;
 /**
  * Created by garagu.
  */
-public class GetComicsByCharacter extends UseCase<GetComicsInputParam, PaginatedList<Comic>> {
+public class GetComicsByCharacter extends UseCase<InputParam, ComicList> {
 
-    private ComicRepository repository;
+    private final ComicRepository repository;
 
     @Inject
-    GetComicsByCharacter(BackgroundThread backgroundThread, UIThread uiThread, ComicRepository repository) {
-        super(backgroundThread, uiThread);
+    GetComicsByCharacter(ExecutorThread executorThread, PostExecutionThread postExecutionThread, ComicRepository repository) {
+        super(executorThread, postExecutionThread);
         this.repository = repository;
     }
 
     @Override
-    protected Observable<PaginatedList<Comic>> buildObservable(GetComicsInputParam param) {
-        return repository.getComicsByCharacter(param.getId(), param.getOffset());
+    protected Observable<ComicList> buildObservable(InputParam param) {
+        return repository.getComicsByCharacter(param.getCharacterId(), param.getOffset());
+    }
+
+    public static class InputParam {
+
+        private final String characterId;
+        private final int offset;
+
+        public InputParam(String characterId, int offset) {
+            this.characterId = characterId;
+            this.offset = offset;
+        }
+
+        private String getCharacterId() {
+            return characterId;
+        }
+
+        private int getOffset() {
+            return offset;
+        }
+
     }
 
 }
