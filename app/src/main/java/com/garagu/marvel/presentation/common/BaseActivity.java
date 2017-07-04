@@ -1,6 +1,5 @@
 package com.garagu.marvel.presentation.common;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -17,8 +16,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    protected abstract Fragment getInitialFragment();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,19 +26,14 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     private void initInjection() {
         ButterKnife.bind(this);
-        getAppComponent().inject(this);
-    }
-
-    protected AppComponent getAppComponent() {
-        return ((MarvelApplication) getApplication()).getAppComponent();
     }
 
     private void initView() {
         setSupportActionBar(toolbar);
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.frame_container, getInitialFragment())
-                .commit();
+    }
+
+    protected AppComponent getAppComponent() {
+        return ((MarvelApplication) getApplication()).getAppComponent();
     }
 
 }

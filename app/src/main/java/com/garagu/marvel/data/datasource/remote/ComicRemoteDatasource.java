@@ -2,14 +2,12 @@ package com.garagu.marvel.data.datasource.remote;
 
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.data.datasource.ComicDatasource;
-import com.garagu.marvel.data.entity.ComicListEntity;
 import com.garagu.marvel.data.entity.ResultEntity;
+import com.garagu.marvel.data.entity.comic.ComicListEntity;
 import com.garagu.marvel.data.net.MarvelApi;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.inject.Inject;
 
 import io.reactivex.Observable;
 

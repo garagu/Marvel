@@ -2,9 +2,9 @@ package com.garagu.marvel.presentation.application;
 
 import android.app.Application;
 
+import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.application.di.AppModule;
 import com.garagu.marvel.presentation.application.di.DaggerAppComponent;
-import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.application.di.NetModule;
 
 /**

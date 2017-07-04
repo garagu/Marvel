@@ -1,14 +1,13 @@
 package com.garagu.marvel.data.mapper;
 
-import com.garagu.marvel.data.entity.CharacterEntity;
-import com.garagu.marvel.data.entity.CharacterListEntity;
-import com.garagu.marvel.data.entity.ComicEntity;
-import com.garagu.marvel.data.entity.ComicListEntity;
-import com.garagu.marvel.data.entity.CreatorEntity;
-import com.garagu.marvel.data.entity.CreatorListEntity;
+import com.garagu.marvel.data.entity.DefaultCollectionEntity;
 import com.garagu.marvel.data.entity.ImageEntity;
+import com.garagu.marvel.data.entity.NameEntity;
 import com.garagu.marvel.data.entity.ResultEntity;
-import com.garagu.marvel.data.entity.SeriesEntity;
+import com.garagu.marvel.data.entity.comic.ComicEntity;
+import com.garagu.marvel.data.entity.comic.ComicListEntity;
+import com.garagu.marvel.data.entity.comic.CreatorCollectionEntity;
+import com.garagu.marvel.data.entity.comic.CreatorEntity;
 import com.garagu.marvel.domain.model.Comic;
 import com.garagu.marvel.domain.model.ComicCharacter;
 import com.garagu.marvel.domain.model.ComicCreator;
@@ -56,14 +55,14 @@ public class ComicEntityMapper {
         );
     }
 
-    private ComicSeries mapSeries(SeriesEntity entity) {
+    private ComicSeries mapSeries(NameEntity entity) {
         return new ComicSeries(
                 entity.getResourceURI(),
                 entity.getName()
         );
     }
 
-    private List<ComicCreator> mapCreators(CreatorListEntity entity) {
+    private List<ComicCreator> mapCreators(CreatorCollectionEntity entity) {
         final List<ComicCreator> items = new ArrayList<>();
         if (entity.getItems() != null) {
             for (CreatorEntity item : entity.getItems()) {
@@ -79,10 +78,10 @@ public class ComicEntityMapper {
     }
 
 
-    private List<ComicCharacter> mapCharacters(CharacterListEntity entity) {
+    private List<ComicCharacter> mapCharacters(DefaultCollectionEntity entity) {
         final List<ComicCharacter> items = new ArrayList<>();
         if (entity.getItems() != null) {
-            for (CharacterEntity item : entity.getItems()) {
+            for (NameEntity item : entity.getItems()) {
                 final ComicCharacter character = new ComicCharacter(
                         item.getResourceURI(),
                         item.getName()

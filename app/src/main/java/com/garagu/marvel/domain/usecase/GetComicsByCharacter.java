@@ -2,10 +2,8 @@ package com.garagu.marvel.domain.usecase;
 
 import com.garagu.marvel.domain.model.ComicList;
 import com.garagu.marvel.domain.repository.ComicRepository;
-import com.garagu.marvel.data.BackgroundThread;
 import com.garagu.marvel.domain.thread.ExecutorThread;
 import com.garagu.marvel.domain.thread.PostExecutionThread;
-import com.garagu.marvel.presentation.application.UIThread;
 import com.garagu.marvel.domain.usecase.GetComicsByCharacter.InputParam;
 
 import javax.inject.Inject;

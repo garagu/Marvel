@@ -3,7 +3,7 @@ package com.garagu.marvel.data.entity;
 /**
  * Created by garagu.
  */
-public class CharacterEntity {
+public class NameEntity {
 
     private String resourceURI;
     private String name;

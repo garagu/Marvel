@@ -1,4 +1,8 @@
-package com.garagu.marvel.data.entity;
+package com.garagu.marvel.data.entity.comic;
+
+import com.garagu.marvel.data.entity.DefaultCollectionEntity;
+import com.garagu.marvel.data.entity.ImageEntity;
+import com.garagu.marvel.data.entity.NameEntity;
 
 /**
  * Created by garagu.
@@ -11,11 +15,11 @@ public class ComicEntity {
     private String isbn;
     private String format;
     private int pageCount;
-    private SeriesEntity series;
+    private NameEntity series;
     private ComicDateEntity[] dates;
     private ImageEntity thumbnail;
-    private CreatorListEntity creators;
-    private CharacterListEntity characters;
+    private CreatorCollectionEntity creators;
+    private DefaultCollectionEntity characters;
 
     public int getId() {
         return id;
@@ -41,7 +45,7 @@ public class ComicEntity {
         return pageCount;
     }
 
-    public SeriesEntity getSeries() {
+    public NameEntity getSeries() {
         return series;
     }
 
@@ -53,11 +57,11 @@ public class ComicEntity {
         return thumbnail;
     }
 
-    public CreatorListEntity getCreators() {
+    public CreatorCollectionEntity getCreators() {
         return creators;
     }
 
-    public CharacterListEntity getCharacters() {
+    public DefaultCollectionEntity getCharacters() {
         return characters;
     }
 

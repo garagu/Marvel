@@ -6,8 +6,6 @@ import android.util.Log;
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.data.net.ApiConnection;
 import com.garagu.marvel.data.net.MarvelApi;
-import com.garagu.marvel.data.BackgroundThread;
-import com.garagu.marvel.presentation.application.UIThread;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;

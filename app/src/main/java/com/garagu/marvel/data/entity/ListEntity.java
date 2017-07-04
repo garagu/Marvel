@@ -3,13 +3,13 @@ package com.garagu.marvel.data.entity;
 /**
  * Created by garagu.
  */
-public class ComicListEntity {
+public class ListEntity<T> {
 
     private int offset;
     private int limit;
     private int total;
     private int count;
-    private ComicEntity[] results;
+    private T[] results;
 
     public int getOffset() {
         return offset;
@@ -27,7 +27,7 @@ public class ComicListEntity {
         return count;
     }
 
-    public ComicEntity[] getResults() {
+    public T[] getResults() {
         return results;
     }
 
