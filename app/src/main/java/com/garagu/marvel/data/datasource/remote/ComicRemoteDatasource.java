@@ -2,7 +2,7 @@ package com.garagu.marvel.data.datasource.remote;
 
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.data.datasource.ComicDatasource;
-import com.garagu.marvel.data.entity.ResultEntity;
+import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.data.entity.comic.ComicListEntity;
 import com.garagu.marvel.data.net.MarvelApi;
 

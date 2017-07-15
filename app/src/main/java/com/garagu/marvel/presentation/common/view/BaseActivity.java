@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.common;
+package com.garagu.marvel.presentation.common.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

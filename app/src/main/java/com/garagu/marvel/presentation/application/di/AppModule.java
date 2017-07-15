@@ -3,7 +3,7 @@ package com.garagu.marvel.presentation.application.di;
 import android.app.Application;
 
 import com.garagu.marvel.data.BackgroundThread;
-import com.garagu.marvel.data.FileManager;
+import com.garagu.marvel.data.local.FileManager;
 import com.garagu.marvel.domain.thread.ExecutorThread;
 import com.garagu.marvel.domain.thread.PostExecutionThread;
 import com.garagu.marvel.presentation.application.UIThread;

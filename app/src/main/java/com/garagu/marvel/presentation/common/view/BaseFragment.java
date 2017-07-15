@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.common;
+package com.garagu.marvel.presentation.common.view;
 
 import android.app.Fragment;
 import android.os.Bundle;

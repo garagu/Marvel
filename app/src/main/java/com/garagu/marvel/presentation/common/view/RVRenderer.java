@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.common;
+package com.garagu.marvel.presentation.common.view;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;

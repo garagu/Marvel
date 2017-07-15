@@ -1,20 +1,18 @@
-package com.garagu.marvel.domain.model;
+package com.garagu.marvel.domain.model.common;
 
 import java.util.List;
 
 /**
  * Created by garagu.
  */
-public class ComicList {
-
-    // TODO extends PaginatedList
+public class PaginatedList<T> {
 
     private final int count;
     private final int offset;
     private final int total;
-    private final List<Comic> list;
+    private final List<T> list;
 
-    public ComicList(int count, int offset, int total, List<Comic> list) {
+    public PaginatedList(int count, int offset, int total, List<T> list) {
         this.count = count;
         this.offset = offset;
         this.total = total;
@@ -33,7 +31,7 @@ public class ComicList {
         return total;
     }
 
-    public List<Comic> getList() {
+    public List<T> getList() {
         return list;
     }
 

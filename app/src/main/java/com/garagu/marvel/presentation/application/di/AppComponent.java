@@ -2,7 +2,7 @@ package com.garagu.marvel.presentation.application.di;
 
 import android.app.Application;
 
-import com.garagu.marvel.data.FileManager;
+import com.garagu.marvel.data.local.FileManager;
 import com.garagu.marvel.data.net.MarvelApi;
 import com.garagu.marvel.domain.thread.ExecutorThread;
 import com.garagu.marvel.domain.thread.PostExecutionThread;

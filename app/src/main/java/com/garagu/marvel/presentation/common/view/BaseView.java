@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.common;
+package com.garagu.marvel.presentation.common.view;
 
 /**
  * Created by garagu.

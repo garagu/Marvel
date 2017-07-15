@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.application;
+package com.garagu.marvel.presentation.common.view;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -9,16 +9,16 @@ import com.garagu.marvel.R;
 /**
  * Created by garagu.
  */
-public class NavigatorUtils {
+public class BaseNavigator {
 
-    public static void openFragment(@NonNull Activity activity, @NonNull Fragment fragment) {
+    public void openFragment(@NonNull Activity activity, @NonNull Fragment fragment) {
         activity.getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.frame_container, fragment)
                 .commit();
     }
 
-    public static void addFragment(@NonNull Activity activity, @NonNull Fragment currentFragment, @NonNull Fragment newfragment) {
+    public void addFragment(@NonNull Activity activity, @NonNull Fragment currentFragment, @NonNull Fragment newfragment) {
         activity.getFragmentManager()
                 .beginTransaction()
                 .hide(currentFragment)

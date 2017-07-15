@@ -1,9 +1,9 @@
 package com.garagu.marvel.data.mapper;
 
-import com.garagu.marvel.data.entity.DefaultCollectionEntity;
-import com.garagu.marvel.data.entity.ImageEntity;
-import com.garagu.marvel.data.entity.NameEntity;
-import com.garagu.marvel.data.entity.ResultEntity;
+import com.garagu.marvel.data.entity.common.DefaultCollectionEntity;
+import com.garagu.marvel.data.entity.common.ImageEntity;
+import com.garagu.marvel.data.entity.common.NameEntity;
+import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.data.entity.comic.ComicEntity;
 import com.garagu.marvel.data.entity.comic.ComicListEntity;
 import com.garagu.marvel.data.entity.comic.CreatorCollectionEntity;

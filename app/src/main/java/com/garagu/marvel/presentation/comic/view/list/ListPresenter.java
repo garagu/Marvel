@@ -6,10 +6,10 @@ import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.domain.usecase.GetComicsByCharacter;
 import com.garagu.marvel.presentation.comic.model.ComicModelMapper;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
-import com.garagu.marvel.presentation.comic.model.PaginatedList;
+import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
-import com.garagu.marvel.presentation.common.BasePresenter;
-import com.garagu.marvel.presentation.common.BaseView;
+import com.garagu.marvel.presentation.common.view.BasePresenter;
+import com.garagu.marvel.presentation.common.view.BaseView;
 
 import javax.inject.Inject;
 
@@ -70,7 +70,7 @@ public class ListPresenter extends BasePresenter<ListView> {
 
         void openDetail(@NonNull ComicViewModel comic);
 
-        void showComics(@NonNull PaginatedList<ComicViewModel> paginatedList);
+        void showComics(@NonNull PaginatedListViewModel<ComicViewModel> paginatedList);
 
         void showError(@NonNull String message);
 

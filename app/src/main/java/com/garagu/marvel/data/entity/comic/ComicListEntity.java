@@ -1,6 +1,6 @@
 package com.garagu.marvel.data.entity.comic;
 
-import com.garagu.marvel.data.entity.ListEntity;
+import com.garagu.marvel.data.entity.common.ListEntity;
 
 /**
  * Created by garagu.

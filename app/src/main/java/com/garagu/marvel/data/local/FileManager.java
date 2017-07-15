@@ -1,4 +1,4 @@
-package com.garagu.marvel.data;
+package com.garagu.marvel.data.local;
 
 import android.content.Context;
 

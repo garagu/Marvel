@@ -11,10 +11,10 @@ import android.widget.ProgressBar;
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
-import com.garagu.marvel.presentation.comic.model.PaginatedList;
+import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.comic.view.Navigator;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
-import com.garagu.marvel.presentation.common.BaseFragment;
+import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.ImageLoader;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
@@ -127,7 +127,7 @@ public class ListFragment extends BaseFragment implements ListView {
     }
 
     @Override
-    public void showComics(@NonNull PaginatedList<ComicViewModel> paginatedList) {
+    public void showComics(@NonNull PaginatedListViewModel<ComicViewModel> paginatedList) {
         hasMore = paginatedList.hasMore();
         offset = paginatedList.getOffset();
         updateList(paginatedList.getItems());

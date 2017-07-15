@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.comic.model;
+package com.garagu.marvel.presentation.common.model;
 
 import java.util.Collections;
 import java.util.List;
@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * Created by garagu.
  */
-public class PaginatedList<T> {
+public class PaginatedListViewModel<T> {
 
     private List<T> items = Collections.emptyList();
     private boolean hasMore;
     private int offset;
 
-    private PaginatedList(List<T> items, boolean hasMore, int offset) {
+    private PaginatedListViewModel(List<T> items, boolean hasMore, int offset) {
         this.items = items;
         this.hasMore = hasMore;
         this.offset = offset;
@@ -55,8 +55,8 @@ public class PaginatedList<T> {
             return this;
         }
 
-        public PaginatedList<TT> build() {
-            return new PaginatedList<>(items, hasMore, offset);
+        public PaginatedListViewModel<TT> build() {
+            return new PaginatedListViewModel<>(items, hasMore, offset);
         }
 
     }

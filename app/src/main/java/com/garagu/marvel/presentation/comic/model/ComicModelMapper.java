@@ -8,6 +8,7 @@ import com.garagu.marvel.domain.model.ComicCharacter;
 import com.garagu.marvel.domain.model.ComicCreator;
 import com.garagu.marvel.domain.model.ComicList;
 import com.garagu.marvel.domain.model.ComicSeries;
+import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,10 +18,10 @@ import java.util.List;
  */
 public class ComicModelMapper {
 
-    public PaginatedList<ComicViewModel> mapModelToViewModel(ComicList model) {
+    public PaginatedListViewModel<ComicViewModel> mapModelToViewModel(ComicList model) {
         final List<ComicViewModel> items = mapList(model.getList());
         final int offset = model.getOffset() + model.getCount();
-        return new PaginatedList.Builder<ComicViewModel>()
+        return new PaginatedListViewModel.Builder<ComicViewModel>()
                 .withHasMore(offset < model.getTotal())
                 .withOffset(offset)
                 .withItems(items)

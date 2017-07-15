@@ -1,6 +1,6 @@
 package com.garagu.marvel.presentation.comic.di;
 
-import com.garagu.marvel.data.FileManager;
+import com.garagu.marvel.data.local.FileManager;
 import com.garagu.marvel.data.datasource.ComicDatasource;
 import com.garagu.marvel.data.datasource.local.ComicLocalDatasource;
 import com.garagu.marvel.data.mapper.ComicEntityMapper;

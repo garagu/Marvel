@@ -6,8 +6,8 @@ import android.support.annotation.NonNull;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.di.ComicModule;
 import com.garagu.marvel.presentation.comic.di.DaggerComicComponent;
-import com.garagu.marvel.presentation.common.BaseActivity;
-import com.garagu.marvel.presentation.common.HasInjection;
+import com.garagu.marvel.presentation.common.view.BaseActivity;
+import com.garagu.marvel.presentation.common.view.HasInjection;
 
 import javax.inject.Inject;
 
