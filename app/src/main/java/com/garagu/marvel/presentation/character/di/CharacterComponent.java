@@ -3,7 +3,7 @@ package com.garagu.marvel.presentation.character.di;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
 import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.character.view.CharacterActivity;
-import com.garagu.marvel.presentation.character.view.CharacterListFragment;
+import com.garagu.marvel.presentation.character.view.list.CharacterListFragment;
 
 import dagger.Component;
 

@@ -105,7 +105,7 @@ public class CharacterEntityMapper {
         // TODO change with screen density
         return entity.getPath().contains("image_not_available")
                 ? ""
-                : entity.getPath() + "/portrait_xlarge." + entity.getExtension();
+                : entity.getPath() + "/landscape_amazing." + entity.getExtension();
     }
 
 }

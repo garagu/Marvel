@@ -11,4 +11,5 @@
     <color name="colorAccentDark">#2bcb00</color>
     <color name="colorAccentLight">#abff6c</color>
     <color name="colorOnAccent">@android:color/black</color>
+    <color name="colorBackground">#D5D5D5</color>
 </resources>

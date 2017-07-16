@@ -17,7 +17,7 @@ class CharacterRenderer extends RVRenderer<String> {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.item_character;
+        return R.layout.item_comic_character;
     }
 
     @Override

@@ -39,7 +39,7 @@ public class CharacterModelMapper {
                     //.withSeries()
                     //.withStories()
                     //.withUrls()
-                    //.withUrlThumbnail()
+                    .withUrlThumbnail(modelItem.getUrlThumbnail())
                     .build();
             viewModelList.add(viewModelItem);
         }

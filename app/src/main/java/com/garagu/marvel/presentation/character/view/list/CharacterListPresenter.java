@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.character.view;
+package com.garagu.marvel.presentation.character.view.list;
 
 import com.garagu.marvel.domain.model.common.Offset;
 import com.garagu.marvel.domain.usecase.GetCharacters;
@@ -7,7 +7,7 @@ import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.character.model.CharacterModelMapper;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
-import com.garagu.marvel.presentation.character.view.CharacterListPresenter.CharacterListView;
+import com.garagu.marvel.presentation.character.view.list.CharacterListPresenter.CharacterListView;
 
 import javax.inject.Inject;
 
@@ -46,7 +46,7 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
 
     @Override
     public void unsubscribe() {
-
+        compositeDisposable.dispose();
     }
 
     interface CharacterListView extends BaseView {

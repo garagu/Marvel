@@ -3,6 +3,7 @@ package com.garagu.marvel.presentation.character.view;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 
+import com.garagu.marvel.presentation.character.view.list.CharacterListFragment;
 import com.garagu.marvel.presentation.common.view.BaseNavigator;
 
 /**

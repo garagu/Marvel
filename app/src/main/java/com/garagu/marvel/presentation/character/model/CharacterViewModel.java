@@ -1,5 +1,7 @@
 package com.garagu.marvel.presentation.character.model;
 
+import android.text.TextUtils;
+
 import com.garagu.marvel.presentation.common.model.CollectionViewModel;
 import com.garagu.marvel.presentation.common.model.UrlViewModel;
 
@@ -42,6 +44,10 @@ public class CharacterViewModel {
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean isThumbnailAvailable() {
+        return !TextUtils.isEmpty(urlThumbnail);
     }
 
     public String getUrlThumbnail() {
