@@ -24,7 +24,7 @@ public class CharacterActivity extends BaseActivity implements HasInjection<Char
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDependencyInjection();
-        navigator.openListOfCharacters(this);
+        navigator.openList(this);
     }
 
     private void initDependencyInjection() {

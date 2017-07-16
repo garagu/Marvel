@@ -1,11 +1,26 @@
 package com.garagu.marvel.presentation.common.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by garagu.
  */
-public class CollectionViewModel {
+public class CollectionViewModel implements Parcelable {
+
+    public static final Creator<CollectionViewModel> CREATOR = new Creator<CollectionViewModel>() {
+        @Override
+        public CollectionViewModel createFromParcel(Parcel source) {
+            return new CollectionViewModel(source);
+        }
+
+        @Override
+        public CollectionViewModel[] newArray(int size) {
+            return new CollectionViewModel[size];
+        }
+    };
 
     private final int totalNumber;
     private final List<String> firstItems;
@@ -27,6 +42,25 @@ public class CollectionViewModel {
 
     public String getUrl() {
         return url;
+    }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(totalNumber);
+        dest.writeStringList(firstItems);
+        dest.writeString(url);
+    }
+
+    private CollectionViewModel(Parcel in) {
+        totalNumber = in.readInt();
+        firstItems = in.createStringArrayList();
+        url = in.readString();
     }
 
     public static class Builder {
@@ -55,6 +89,5 @@ public class CollectionViewModel {
         }
 
     }
-
 
 }

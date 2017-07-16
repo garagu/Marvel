@@ -2,6 +2,7 @@ package com.garagu.marvel.presentation.character.view.list;
 
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,11 +13,12 @@ import com.squareup.picasso.Picasso;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by garagu.
  */
-class CharacterRenderer extends RVRenderer<CharacterViewModel> {
+public class CharacterRenderer extends RVRenderer<CharacterViewModel> {
 
     @BindView(R.id.img_thumbnail_character)
     ImageView imgThumbnail;
@@ -26,10 +28,11 @@ class CharacterRenderer extends RVRenderer<CharacterViewModel> {
     Drawable placeholder;
 
     private final Picasso picasso;
+    private final OnCardClickListener onCardClickListener;
 
-    CharacterRenderer(@NonNull OnRendererClickListener<CharacterViewModel> clickListener, Picasso picasso) {
-        super(clickListener);
+    CharacterRenderer(@NonNull Picasso picasso, @NonNull OnCardClickListener onCardClickListener) {
         this.picasso = picasso;
+        this.onCardClickListener = onCardClickListener;
     }
 
     @Override
@@ -46,6 +49,19 @@ class CharacterRenderer extends RVRenderer<CharacterViewModel> {
         } else {
             imgThumbnail.setImageDrawable(placeholder);
         }
+        final String transitionName = getContext().getString(R.string.transition_character_detail) + character.getId();
+        imgThumbnail.setTransitionName(transitionName);
+    }
+
+    @OnClick(R.id.img_thumbnail_character)
+    void onThumbnailClick(View view) {
+        onCardClickListener.onThumbnailClick(view, getContent());
+    }
+
+    interface OnCardClickListener {
+        void onFavoriteClick(CharacterViewModel character);
+
+        void onThumbnailClick(View view, CharacterViewModel character);
     }
 
 }

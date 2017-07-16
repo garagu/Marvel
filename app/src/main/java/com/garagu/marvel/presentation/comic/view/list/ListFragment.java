@@ -123,7 +123,7 @@ public class ListFragment extends BaseFragment implements ListView {
 
     @Override
     public void openDetail(@NonNull ComicViewModel comic) {
-        navigator.openComicDetail(getActivity(), this, comic);
+        navigator.openComicDetail(this, comic);
     }
 
     @Override

@@ -4,12 +4,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.support.v7.widget.RecyclerView.LayoutManager;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.character.di.CharacterComponent;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
+import com.garagu.marvel.presentation.character.view.Navigator;
 import com.garagu.marvel.presentation.character.view.list.CharacterListPresenter.CharacterListView;
+import com.garagu.marvel.presentation.character.view.list.CharacterRenderer.OnCardClickListener;
 import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.CardDecoration;
@@ -32,9 +35,11 @@ import butterknife.BindView;
 public class CharacterListFragment extends BaseFragment implements CharacterListView {
 
     @Inject
+    Picasso picasso;
+    @Inject
     CharacterListPresenter presenter;
     @Inject
-    Picasso picasso;
+    Navigator navigator;
 
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
@@ -42,6 +47,17 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     RecyclerView recyclerView;
 
     private RVRendererAdapter<CharacterViewModel> adapter;
+    private final OnCardClickListener onCardClickListener = new OnCardClickListener() {
+        @Override
+        public void onFavoriteClick(CharacterViewModel character) {
+            // TODO
+        }
+
+        @Override
+        public void onThumbnailClick(View view, CharacterViewModel character) {
+            presenter.onThumbnailClicked(view, character);
+        }
+    };
 
     public static CharacterListFragment newInstance() {
         return new CharacterListFragment();
@@ -71,9 +87,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration itemDecoration = new CardDecoration(getActivity());
         recyclerView.addItemDecoration(itemDecoration);
-        final Renderer<CharacterViewModel> renderer = new CharacterRenderer(character -> {
-            // TODO
-        }, picasso);
+        final Renderer<CharacterViewModel> renderer = new CharacterRenderer(picasso, onCardClickListener);
         final RendererBuilder<CharacterViewModel> rendererBuilder = new RendererBuilder<>(renderer);
         final AdapteeCollection<CharacterViewModel> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
         adapter = new RVRendererAdapter<>(rendererBuilder, emptyList);
@@ -92,6 +106,11 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     @Override
     public void hideProgress() {
 
+    }
+
+    @Override
+    public void openDetail(View clickedView, CharacterViewModel character) {
+        navigator.openDetail(this, clickedView, character);
     }
 
     @Override

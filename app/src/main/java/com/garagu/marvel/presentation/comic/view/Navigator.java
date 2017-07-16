@@ -18,8 +18,8 @@ public class Navigator extends BaseNavigator {
         openFragment(activity, ListFragment.newInstance());
     }
 
-    public void openComicDetail(@NonNull Activity activity, @NonNull Fragment fragment, @NonNull ComicViewModel comic) {
-        addFragment(activity, fragment, DetailFragment.newInstance(comic));
+    public void openComicDetail(@NonNull Fragment fragment, @NonNull ComicViewModel comic) {
+        addFragment(fragment, DetailFragment.newInstance(comic));
     }
 
 }

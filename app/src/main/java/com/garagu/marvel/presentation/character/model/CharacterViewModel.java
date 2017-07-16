@@ -1,16 +1,31 @@
 package com.garagu.marvel.presentation.character.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.garagu.marvel.presentation.common.model.CollectionViewModel;
 import com.garagu.marvel.presentation.common.model.UrlViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by garagu.
  */
-public class CharacterViewModel {
+public class CharacterViewModel implements Parcelable {
+
+    public static final Creator<CharacterViewModel> CREATOR = new Creator<CharacterViewModel>() {
+        @Override
+        public CharacterViewModel createFromParcel(Parcel source) {
+            return new CharacterViewModel(source);
+        }
+
+        @Override
+        public CharacterViewModel[] newArray(int size) {
+            return new CharacterViewModel[size];
+        }
+    };
 
     private final int id;
     private final String name;
@@ -72,6 +87,38 @@ public class CharacterViewModel {
 
     public List<UrlViewModel> getUrls() {
         return urls;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(description);
+        dest.writeString(urlThumbnail);
+        dest.writeParcelable(comics, flags);
+        dest.writeParcelable(series, flags);
+        dest.writeParcelable(stories, flags);
+        dest.writeParcelable(events, flags);
+        dest.writeList(urls);
+    }
+
+    private CharacterViewModel(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        urlThumbnail = in.readString();
+        final ClassLoader collectionClassLoader = CollectionViewModel.class.getClassLoader();
+        comics = in.readParcelable(collectionClassLoader);
+        series = in.readParcelable(collectionClassLoader);
+        stories = in.readParcelable(collectionClassLoader);
+        events = in.readParcelable(collectionClassLoader);
+        urls = new ArrayList<>();
+        in.readList(this.urls, UrlViewModel.class.getClassLoader());
     }
 
     public static class Builder {

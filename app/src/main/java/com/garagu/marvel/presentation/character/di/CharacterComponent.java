@@ -3,6 +3,7 @@ package com.garagu.marvel.presentation.character.di;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
 import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.character.view.CharacterActivity;
+import com.garagu.marvel.presentation.character.view.detail.CharacterDetailFragment;
 import com.garagu.marvel.presentation.character.view.list.CharacterListFragment;
 
 import dagger.Component;
@@ -16,4 +17,6 @@ public interface CharacterComponent {
     void inject(CharacterActivity activity);
 
     void inject(CharacterListFragment fragment);
+
+    void inject(CharacterDetailFragment fragment);
 }

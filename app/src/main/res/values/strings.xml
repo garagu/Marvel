@@ -9,4 +9,6 @@
     <string name="detail_label_format">Format:</string>
     <string name="detail_label_credits">Credits</string>
     <string name="detail_label_characters">Characters</string>
+    <!-- Characters -->
+    <string name="transition_character_detail">character_detail</string>
 </resources>

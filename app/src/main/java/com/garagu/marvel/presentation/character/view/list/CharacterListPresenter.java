@@ -1,13 +1,15 @@
 package com.garagu.marvel.presentation.character.view.list;
 
+import android.view.View;
+
 import com.garagu.marvel.domain.model.common.Offset;
 import com.garagu.marvel.domain.usecase.GetCharacters;
-import com.garagu.marvel.presentation.character.model.CharacterViewModel;
-import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.character.model.CharacterModelMapper;
+import com.garagu.marvel.presentation.character.model.CharacterViewModel;
+import com.garagu.marvel.presentation.character.view.list.CharacterListPresenter.CharacterListView;
+import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
-import com.garagu.marvel.presentation.character.view.list.CharacterListPresenter.CharacterListView;
 
 import javax.inject.Inject;
 
@@ -49,8 +51,14 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
         compositeDisposable.dispose();
     }
 
+    void onThumbnailClicked(View clickedView, CharacterViewModel character) {
+        getView().openDetail(clickedView, character);
+    }
+
     interface CharacterListView extends BaseView {
         void hideProgress();
+
+        void openDetail(View clickedView, CharacterViewModel character);
 
         void showCharacters(PaginatedListViewModel<CharacterViewModel> paginatedListOfCharacters);
 
