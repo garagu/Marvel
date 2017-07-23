@@ -18,7 +18,7 @@ import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.CardDecoration;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
-import com.pedrogomez.renderers.RVRendererAdapter;
+import com.garagu.marvel.presentation.common.view.RVAnimRendererAdapter;
 import com.pedrogomez.renderers.Renderer;
 import com.pedrogomez.renderers.RendererBuilder;
 import com.squareup.picasso.Picasso;
@@ -46,7 +46,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    private RVRendererAdapter<CharacterViewModel> adapter;
+    private RVAnimRendererAdapter<CharacterViewModel> adapter;
     private final OnCardClickListener onCardClickListener = new OnCardClickListener() {
         @Override
         public void onFavoriteClick(CharacterViewModel character) {
@@ -90,7 +90,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
         final Renderer<CharacterViewModel> renderer = new CharacterRenderer(picasso, onCardClickListener);
         final RendererBuilder<CharacterViewModel> rendererBuilder = new RendererBuilder<>(renderer);
         final AdapteeCollection<CharacterViewModel> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
-        adapter = new RVRendererAdapter<>(rendererBuilder, emptyList);
+        adapter = new RVAnimRendererAdapter<>(rendererBuilder, emptyList);
         recyclerView.setAdapter(adapter);
     }
 

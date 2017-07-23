@@ -39,4 +39,5 @@ dependencies {
     compile renderers
     compile dagger.library
     annotationProcessor dagger.compiler
+    compile lottie
 }

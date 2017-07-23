@@ -46,11 +46,11 @@
             android:orientation="horizontal"
             android:padding="@dimen/margin_small">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"
-                android:src="@drawable/ic_favorite" />
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/img_favorite"
+                android:layout_width="@dimen/card_view_icon_size"
+                android:layout_height="@dimen/card_view_icon_size"
+                app:lottie_fileName="ic_favorite.json" />
 
         </LinearLayout>
 
