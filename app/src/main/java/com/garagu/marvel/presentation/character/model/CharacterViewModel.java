@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.garagu.marvel.presentation.common.model.CollectionViewModel;
-import com.garagu.marvel.presentation.common.model.UrlViewModel;
+import com.garagu.marvel.presentation.common.model.LinkViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +35,9 @@ public class CharacterViewModel implements Parcelable {
     private final CollectionViewModel series;
     private final CollectionViewModel stories;
     private final CollectionViewModel events;
-    private final List<UrlViewModel> urls;
+    private final List<LinkViewModel> links;
 
-    private CharacterViewModel(int id, String name, String description, String urlThumbnail, CollectionViewModel comics, CollectionViewModel series, CollectionViewModel stories, CollectionViewModel events, List<UrlViewModel> urls) {
+    private CharacterViewModel(int id, String name, String description, String urlThumbnail, CollectionViewModel comics, CollectionViewModel series, CollectionViewModel stories, CollectionViewModel events, List<LinkViewModel> links) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -46,7 +46,7 @@ public class CharacterViewModel implements Parcelable {
         this.series = series;
         this.stories = stories;
         this.events = events;
-        this.urls = urls;
+        this.links = links;
     }
 
     public int getId() {
@@ -85,8 +85,8 @@ public class CharacterViewModel implements Parcelable {
         return events;
     }
 
-    public List<UrlViewModel> getUrls() {
-        return urls;
+    public List<LinkViewModel> getLinks() {
+        return links;
     }
 
     @Override
@@ -104,7 +104,7 @@ public class CharacterViewModel implements Parcelable {
         dest.writeParcelable(series, flags);
         dest.writeParcelable(stories, flags);
         dest.writeParcelable(events, flags);
-        dest.writeList(urls);
+        dest.writeList(links);
     }
 
     private CharacterViewModel(Parcel in) {
@@ -117,8 +117,8 @@ public class CharacterViewModel implements Parcelable {
         series = in.readParcelable(collectionClassLoader);
         stories = in.readParcelable(collectionClassLoader);
         events = in.readParcelable(collectionClassLoader);
-        urls = new ArrayList<>();
-        in.readList(this.urls, UrlViewModel.class.getClassLoader());
+        links = new ArrayList<>();
+        in.readList(this.links, LinkViewModel.class.getClassLoader());
     }
 
     public static class Builder {
@@ -131,7 +131,7 @@ public class CharacterViewModel implements Parcelable {
         private CollectionViewModel series;
         private CollectionViewModel stories;
         private CollectionViewModel events;
-        private List<UrlViewModel> urls;
+        private List<LinkViewModel> links;
 
         public Builder withId(int id) {
             this.id = id;
@@ -173,13 +173,13 @@ public class CharacterViewModel implements Parcelable {
             return this;
         }
 
-        public Builder withUrls(List<UrlViewModel> urls) {
-            this.urls = urls;
+        public Builder withLinks(List<LinkViewModel> links) {
+            this.links = links;
             return this;
         }
 
         public CharacterViewModel build() {
-            return new CharacterViewModel(id, name, description, urlThumbnail, comics, series, stories, events, urls);
+            return new CharacterViewModel(id, name, description, urlThumbnail, comics, series, stories, events, links);
         }
     }
 

@@ -12,44 +12,36 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <FrameLayout
+        <ImageView
+            android:id="@+id/img_thumbnail_character"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/img_thumbnail_character"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:contentDescription="@null"
-                android:maxHeight="@dimen/thumbnail_height"
-                android:scaleType="centerCrop"
-                tools:src="@drawable/placeholder_character" />
-
-            <TextView
-                android:id="@+id/txt_character_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:padding="@dimen/margin_small"
-                android:textColor="@android:color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="Name" />
-
-        </FrameLayout>
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:maxHeight="@dimen/thumbnail_height"
+            android:scaleType="centerCrop"
+            tools:src="@drawable/placeholder_character" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="end"
             android:orientation="horizontal"
             android:padding="@dimen/margin_small">
+
+            <TextView
+                android:id="@+id/txt_character_name"
+                style="@style/TitleBig"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="@dimen/margin_small"
+                tools:text="Name" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/img_favorite"
                 android:layout_width="@dimen/card_view_icon_size"
                 android:layout_height="@dimen/card_view_icon_size"
+                android:layout_weight="0"
                 app:lottie_fileName="ic_favorite.json" />
 
         </LinearLayout>

@@ -22,17 +22,17 @@ public class CollectionViewModel implements Parcelable {
         }
     };
 
-    private final int totalNumber;
+    private final String totalNumber;
     private final List<String> firstItems;
     private final String url;
 
-    private CollectionViewModel(int totalNumber, List<String> firstItems, String url) {
+    private CollectionViewModel(String totalNumber, List<String> firstItems, String url) {
         this.totalNumber = totalNumber;
         this.firstItems = firstItems;
         this.url = url;
     }
 
-    public int getTotalNumber() {
+    public String getTotalNumber() {
         return totalNumber;
     }
 
@@ -52,24 +52,24 @@ public class CollectionViewModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(totalNumber);
+        dest.writeString(totalNumber);
         dest.writeStringList(firstItems);
         dest.writeString(url);
     }
 
     private CollectionViewModel(Parcel in) {
-        totalNumber = in.readInt();
+        totalNumber = in.readString();
         firstItems = in.createStringArrayList();
         url = in.readString();
     }
 
     public static class Builder {
 
-        private int totalNumber;
+        private String totalNumber;
         private List<String> firstItems;
         private String url;
 
-        public Builder withTotalNumber(int totalNumber) {
+        public Builder withTotalNumber(String totalNumber) {
             this.totalNumber = totalNumber;
             return this;
         }

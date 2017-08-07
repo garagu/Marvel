@@ -1,7 +1,7 @@
 package com.garagu.marvel.domain.model.character;
 
 import com.garagu.marvel.domain.model.common.Collection;
-import com.garagu.marvel.domain.model.common.Url;
+import com.garagu.marvel.domain.model.common.Link;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ public class Character {
     private final Collection series;
     private final Collection stories;
     private final Collection events;
-    private final List<Url> urls;
+    private final List<Link> links;
 
-    private Character(int id, String name, String description, String urlThumbnail, Collection comics, Collection series, Collection stories, Collection events, List<Url> urls) {
+    private Character(int id, String name, String description, String urlThumbnail, Collection comics, Collection series, Collection stories, Collection events, List<Link> links) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -29,7 +29,7 @@ public class Character {
         this.series = series;
         this.stories = stories;
         this.events = events;
-        this.urls = urls;
+        this.links = links;
     }
 
     public int getId() {
@@ -64,8 +64,8 @@ public class Character {
         return events;
     }
 
-    public List<Url> getUrls() {
-        return urls;
+    public List<Link> getLinks() {
+        return links;
     }
 
     public static class Builder {
@@ -78,7 +78,7 @@ public class Character {
         private Collection series;
         private Collection stories;
         private Collection events;
-        private List<Url> urls;
+        private List<Link> links;
 
         public Builder withId(int id) {
             this.id = id;
@@ -120,13 +120,13 @@ public class Character {
             return this;
         }
 
-        public Builder withUrls(List<Url> urls) {
-            this.urls = urls;
+        public Builder withLinks(List<Link> links) {
+            this.links = links;
             return this;
         }
 
         public Character build() {
-            return new Character(id, name, description, urlThumbnail, comics, series, stories, events, urls);
+            return new Character(id, name, description, urlThumbnail, comics, series, stories, events, links);
         }
     }
 

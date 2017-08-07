@@ -16,9 +16,9 @@ import com.garagu.marvel.presentation.character.view.list.CharacterRenderer.OnCa
 import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.CardDecoration;
+import com.garagu.marvel.presentation.common.view.RVAnimRendererAdapter;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
-import com.garagu.marvel.presentation.common.view.RVAnimRendererAdapter;
 import com.pedrogomez.renderers.Renderer;
 import com.pedrogomez.renderers.RendererBuilder;
 import com.squareup.picasso.Picasso;

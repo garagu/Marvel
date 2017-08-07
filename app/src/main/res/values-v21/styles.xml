@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <style name="BigTitle" parent="@style/TextAppearance.AppCompat.Title" />
-
-    <style name="SmallTitle" parent="@style/TextAppearance.AppCompat.Body2" />
-
-</resources>

@@ -1,14 +1,14 @@
-package com.garagu.marvel.presentation.common.model;
+package com.garagu.marvel.domain.model.common;
 
 /**
  * Created by garagu.
  */
-public class UrlViewModel {
+public class Link {
 
     private final String name;
     private final String url;
 
-    private UrlViewModel(String name, String url) {
+    private Link(String name, String url) {
         this.name = name;
         this.url = url;
     }
@@ -36,8 +36,8 @@ public class UrlViewModel {
             return this;
         }
 
-        public UrlViewModel build() {
-            return new UrlViewModel(name, url);
+        public Link build() {
+            return new Link(name, url);
         }
 
     }

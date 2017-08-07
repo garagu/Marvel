@@ -8,10 +8,10 @@ import java.util.List;
 public class Collection {
 
     private final int totalNumber;
-    private final List<Url> firstItems;
+    private final List<Link> firstItems;
     private final String url;
 
-    private Collection(int totalNumber, List<Url> firstItems, String url) {
+    private Collection(int totalNumber, List<Link> firstItems, String url) {
         this.totalNumber = totalNumber;
         this.firstItems = firstItems;
         this.url = url;
@@ -21,7 +21,7 @@ public class Collection {
         return totalNumber;
     }
 
-    public List<Url> getFirstItems() {
+    public List<Link> getFirstItems() {
         return firstItems;
     }
 
@@ -32,7 +32,7 @@ public class Collection {
     public static class Builder {
 
         private int totalNumber;
-        private List<Url> firstItems;
+        private List<Link> firstItems;
         private String url;
 
         public Builder withTotalNumber(int totalNumber) {
@@ -40,7 +40,7 @@ public class Collection {
             return this;
         }
 
-        public Builder withFirstItems(List<Url> firstItems) {
+        public Builder withFirstItems(List<Link> firstItems) {
             this.firstItems = firstItems;
             return this;
         }

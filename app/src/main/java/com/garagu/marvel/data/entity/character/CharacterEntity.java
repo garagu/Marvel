@@ -2,6 +2,7 @@ package com.garagu.marvel.data.entity.character;
 
 import com.garagu.marvel.data.entity.common.DefaultCollectionEntity;
 import com.garagu.marvel.data.entity.common.ImageEntity;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by garagu.
@@ -16,7 +17,8 @@ public class CharacterEntity {
     private DefaultCollectionEntity series;
     private DefaultCollectionEntity stories;
     private DefaultCollectionEntity events;
-    private UrlEntity[] urls;
+    @SerializedName("urls")
+    private LinkEntity[] links;
 
     public String getName() {
         return name;
@@ -50,8 +52,8 @@ public class CharacterEntity {
         return events;
     }
 
-    public UrlEntity[] getUrls() {
-        return urls;
+    public LinkEntity[] getLinks() {
+        return links;
     }
 
 }

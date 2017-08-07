@@ -8,11 +8,11 @@ import com.garagu.marvel.data.entity.common.NameEntity;
 import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.data.entity.character.CharacterEntity;
 import com.garagu.marvel.data.entity.character.CharacterListEntity;
-import com.garagu.marvel.data.entity.character.UrlEntity;
+import com.garagu.marvel.data.entity.character.LinkEntity;
 import com.garagu.marvel.domain.model.character.Character;
 import com.garagu.marvel.domain.model.character.PaginatedCharacterList;
 import com.garagu.marvel.domain.model.common.Collection;
-import com.garagu.marvel.domain.model.common.Url;
+import com.garagu.marvel.domain.model.common.Link;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +49,7 @@ public class CharacterEntityMapper {
         final Collection events = mapCollection(entity.getEvents());
         final Collection series = mapCollection(entity.getSeries());
         final Collection stories = mapCollection(entity.getStories());
-        final List<Url> urls = mapUrls(entity.getUrls());
+        final List<Link> links = mapLinks(entity.getLinks());
         final String urlThumbnail = mapUrlThumbnail(entity.getThumbnail());
         return new Character.Builder()
                 .withComicsList(comics)
@@ -59,14 +59,14 @@ public class CharacterEntityMapper {
                 .withName(entity.getName() != null ? entity.getName() : "")
                 .withSeriesList(series)
                 .withStoriesList(stories)
-                .withUrls(urls)
+                .withLinks(links)
                 .withUrlThumbnail(urlThumbnail)
                 .build();
     }
 
     @NonNull
     private Collection mapCollection(DefaultCollectionEntity entity) {
-        final List<Url> firstItems = mapFirstItemsOfCollection(entity.getItems());
+        final List<Link> firstItems = mapFirstItemsOfCollection(entity.getItems());
         return new Collection.Builder()
                 .withFirstItems(firstItems)
                 .withTotalNumber(entity.getAvailable())
@@ -75,10 +75,10 @@ public class CharacterEntityMapper {
     }
 
     @NonNull
-    private List<Url> mapFirstItemsOfCollection(NameEntity[] entityArray) {
-        final List<Url> modelList = new ArrayList<>();
+    private List<Link> mapFirstItemsOfCollection(NameEntity[] entityArray) {
+        final List<Link> modelList = new ArrayList<>();
         for (NameEntity entityItem : entityArray) {
-            final Url modelItem = new Url.Builder()
+            final Link modelItem = new Link.Builder()
                     .withName(entityItem.getName() != null ? entityItem.getName() : "")
                     .withUrl(entityItem.getResourceURI() != null ? entityItem.getResourceURI() : "")
                     .build();
@@ -88,10 +88,10 @@ public class CharacterEntityMapper {
     }
 
     @NonNull
-    private List<Url> mapUrls(UrlEntity[] entityArray) {
-        final List<Url> modelList = new ArrayList<>();
-        for (UrlEntity entityItem : entityArray) {
-            final Url modelItem = new Url.Builder()
+    private List<Link> mapLinks(LinkEntity[] entityArray) {
+        final List<Link> modelList = new ArrayList<>();
+        for (LinkEntity entityItem : entityArray) {
+            final Link modelItem = new Link.Builder()
                     .withName(entityItem.getType() != null ? entityItem.getType() : "")
                     .withUrl(entityItem.getUrl() != null ? entityItem.getUrl() : "")
                     .build();
@@ -105,7 +105,7 @@ public class CharacterEntityMapper {
         // TODO change with screen density
         return entity.getPath().contains("image_not_available")
                 ? ""
-                : entity.getPath() + "/landscape_amazing." + entity.getExtension();
+                : entity.getPath() + "/landscape_incredible." + entity.getExtension();
     }
 
 }
