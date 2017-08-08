@@ -1,9 +1,9 @@
 package com.garagu.marvel.presentation.character.view.list;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
-import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -24,6 +24,7 @@ import com.pedrogomez.renderers.RendererBuilder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -47,6 +48,8 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     RecyclerView recyclerView;
 
     private RVAnimRendererAdapter<CharacterViewModel> adapter;
+    private boolean hasMore;
+    private int offset;
     private final OnCardClickListener onCardClickListener = new OnCardClickListener() {
         @Override
         public void onFavoriteClick(CharacterViewModel character) {
@@ -83,10 +86,18 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     }
 
     private void initView() {
-        final LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration itemDecoration = new CardDecoration(getActivity());
         recyclerView.addItemDecoration(itemDecoration);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if (isNotLoading() && hasMore && checkScroll(layoutManager, dy)) {
+                    presenter.onListScrolled(offset);
+                }
+            }
+        });
         final Renderer<CharacterViewModel> renderer = new CharacterRenderer(picasso, onCardClickListener);
         final RendererBuilder<CharacterViewModel> rendererBuilder = new RendererBuilder<>(renderer);
         final AdapteeCollection<CharacterViewModel> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
@@ -103,9 +114,29 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
         presenter.subscribe();
     }
 
+    private boolean checkScroll(@NonNull LinearLayoutManager layoutManager, int dy) {
+        if (dy > 0) {
+            final int visibleItems = layoutManager.getChildCount();
+            final int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
+            final int totalItems = layoutManager.getItemCount();
+            return (visibleItems + firstVisibleItem >= totalItems);
+        }
+        return false;
+    }
+
+    private boolean isNotLoading() {
+        return (progressBar.getVisibility() == View.GONE);
+    }
+
+    private void updateList(@NonNull List<CharacterViewModel> comics) {
+        final int positionStart = adapter.getItemCount();
+        adapter.addAll(comics);
+        adapter.notifyItemRangeChanged(positionStart, adapter.getItemCount());
+    }
+
     @Override
     public void hideProgress() {
-
+        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -115,17 +146,20 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
 
     @Override
     public void showCharacters(PaginatedListViewModel<CharacterViewModel> paginatedListOfCharacters) {
-        adapter.addAll(paginatedListOfCharacters.getItems());
-        adapter.notifyDataSetChanged();
+        hasMore = paginatedListOfCharacters.hasMore();
+        offset = paginatedListOfCharacters.getOffset();
+        updateList(paginatedListOfCharacters.getItems());
     }
 
-    @Override
-    public void showError(String message) {
 
+    @Override
+    public void showError(@NonNull String message) {
+        showMessage(message);
     }
 
     @Override
     public void showProgress() {
-
+        progressBar.setVisibility(View.VISIBLE);
     }
+
 }

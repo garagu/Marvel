@@ -33,7 +33,17 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
 
     @Override
     public void subscribe() {
-        getCharacters.execute(Offset.DEFAULT)
+        getCharacters(Offset.DEFAULT);
+    }
+
+    @Override
+    public void unsubscribe() {
+        compositeDisposable.dispose();
+    }
+
+    private void getCharacters(Offset offset) {
+        getView().showProgress();
+        getCharacters.execute(offset)
                 .map(mapper::mapModelToViewModel)
                 .subscribe(
                         paginatedListOfCharacters -> getView().showCharacters(paginatedListOfCharacters),
@@ -46,9 +56,11 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
                 );
     }
 
-    @Override
-    public void unsubscribe() {
-        compositeDisposable.dispose();
+    void onListScrolled(int offset) {
+        final Offset model = new Offset.Builder()
+                .withOffset(offset)
+                .build();
+        getCharacters(model);
     }
 
     void onThumbnailClicked(View clickedView, CharacterViewModel character) {

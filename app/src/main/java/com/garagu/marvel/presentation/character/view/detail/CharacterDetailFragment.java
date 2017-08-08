@@ -85,6 +85,12 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
         initPresenter();
     }
 
+    @Override
+    public void onDestroyView() {
+        presenter.unsubscribe();
+        super.onDestroyView();
+    }
+
     private void initDependencyInjection() {
         getComponent(CharacterComponent.class).inject(this);
     }
