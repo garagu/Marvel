@@ -81,9 +81,9 @@ public class CharacterRenderer extends RVRenderer<CharacterViewModel> {
     }
 
     interface OnCardClickListener {
-        void onFavoriteClick(CharacterViewModel character);
+        void onFavoriteClick(@NonNull CharacterViewModel character);
 
-        void onThumbnailClick(View view, CharacterViewModel character);
+        void onThumbnailClick(@NonNull View view, @NonNull CharacterViewModel character);
     }
 
 }

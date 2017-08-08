@@ -1,5 +1,7 @@
 package com.garagu.marvel.presentation.character.view.list;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.garagu.marvel.domain.model.common.Offset;
@@ -41,7 +43,7 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
         compositeDisposable.dispose();
     }
 
-    private void getCharacters(Offset offset) {
+    private void getCharacters(@NonNull Offset offset) {
         getView().showProgress();
         getCharacters.execute(offset)
                 .map(mapper::mapModelToViewModel)
@@ -63,18 +65,18 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
         getCharacters(model);
     }
 
-    void onThumbnailClicked(View clickedView, CharacterViewModel character) {
+    void onThumbnailClicked(@Nullable View clickedView, @NonNull CharacterViewModel character) {
         getView().openDetail(clickedView, character);
     }
 
     interface CharacterListView extends BaseView {
         void hideProgress();
 
-        void openDetail(View clickedView, CharacterViewModel character);
+        void openDetail(@Nullable View clickedView, @NonNull CharacterViewModel character);
 
-        void showCharacters(PaginatedListViewModel<CharacterViewModel> paginatedListOfCharacters);
+        void showCharacters(@NonNull PaginatedListViewModel<CharacterViewModel> paginatedListOfCharacters);
 
-        void showError(String message);
+        void showError(@NonNull String message);
 
         void showProgress();
     }

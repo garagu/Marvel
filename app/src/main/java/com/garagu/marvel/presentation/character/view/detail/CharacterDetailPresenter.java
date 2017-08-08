@@ -1,6 +1,7 @@
 package com.garagu.marvel.presentation.character.view.detail;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -37,7 +38,7 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
         // do nothing
     }
 
-    void onInitView(CharacterViewModel character) {
+    void onInitView(@NonNull CharacterViewModel character) {
         getView().showName(character.getName());
         initThumbnail(character.getUrlThumbnail());
         initDescription(character.getDescription());
@@ -45,7 +46,7 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
         initComics(character.getComics());
     }
 
-    private void initComics(CollectionViewModel comics) {
+    private void initComics(@NonNull CollectionViewModel comics) {
         if (comics.getFirstItems().isEmpty()) {
             getView().hideComics();
         } else {
@@ -53,7 +54,7 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
         }
     }
 
-    private void initDescription(String description) {
+    private void initDescription(@NonNull String description) {
         if (TextUtils.isEmpty(description)) {
             getView().showUnavailableDescription();
         } else {
@@ -61,7 +62,7 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
         }
     }
 
-    private void initLinks(List<LinkViewModel> links) {
+    private void initLinks(@NonNull List<LinkViewModel> links) {
         if (links.isEmpty()) {
             getView().hideLinks();
         } else {
@@ -69,15 +70,15 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
         }
     }
 
-    private void initThumbnail(String urlThumbnail) {
+    private void initThumbnail(@NonNull String urlThumbnail) {
         if (TextUtils.isEmpty(urlThumbnail)) {
-            getView().showDefaultThumbnail();
+            getView().hideImage();
         } else {
             getView().loadImage(urlThumbnail);
         }
     }
 
-    private void formatComics(List<String> firstComics) {
+    private void formatComics(@NonNull List<String> firstComics) {
         final StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < firstComics.size(); i++) {
             stringBuilder.append("\u2022 ");
@@ -90,7 +91,7 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
     }
 
     @SuppressWarnings("deprecation")
-    private void formatLinks(List<LinkViewModel> links) {
+    private void formatLinks(@NonNull List<LinkViewModel> links) {
         final StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < links.size(); i++) {
             stringBuilder.append("\u2022 <a href=\"");
@@ -116,17 +117,17 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
 
         void hideLinks();
 
-        void loadImage(String url);
+        void loadImage(@NonNull String url);
 
-        void showComics(String comics);
+        void showComics(@NonNull String comics);
 
-        void showDefaultThumbnail();
+        void hideImage();
 
-        void showDescription(String description);
+        void showDescription(@NonNull String description);
 
-        void showLinks(Spanned links);
+        void showLinks(@NonNull Spanned links);
 
-        void showName(String name);
+        void showName(@NonNull String name);
 
         void showUnavailableDescription();
     }

@@ -102,7 +102,6 @@ public class CharacterEntityMapper {
 
     @NonNull
     private String mapUrlThumbnail(ImageEntity entity) {
-        // TODO change with screen density
         return entity.getPath().contains("image_not_available")
                 ? ""
                 : entity.getPath() + "/landscape_incredible." + entity.getExtension();

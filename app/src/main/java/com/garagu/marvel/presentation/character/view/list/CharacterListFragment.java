@@ -1,6 +1,7 @@
 package com.garagu.marvel.presentation.character.view.list;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
@@ -52,13 +53,13 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     private int offset;
     private final OnCardClickListener onCardClickListener = new OnCardClickListener() {
         @Override
-        public void onFavoriteClick(CharacterViewModel character) {
+        public void onFavoriteClick(@NonNull CharacterViewModel character) {
             // TODO
         }
 
         @Override
-        public void onThumbnailClick(View view, CharacterViewModel character) {
-            presenter.onThumbnailClicked(view, character);
+        public void onThumbnailClick(@NonNull View view, @NonNull CharacterViewModel character) {
+            presenter.onThumbnailClicked(character.isThumbnailAvailable() ? view : null, character);
         }
     };
 
@@ -140,12 +141,12 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     }
 
     @Override
-    public void openDetail(View clickedView, CharacterViewModel character) {
+    public void openDetail(@Nullable View clickedView, @NonNull CharacterViewModel character) {
         navigator.openDetail(this, clickedView, character);
     }
 
     @Override
-    public void showCharacters(PaginatedListViewModel<CharacterViewModel> paginatedListOfCharacters) {
+    public void showCharacters(@NonNull PaginatedListViewModel<CharacterViewModel> paginatedListOfCharacters) {
         hasMore = paginatedListOfCharacters.hasMore();
         offset = paginatedListOfCharacters.getOffset();
         updateList(paginatedListOfCharacters.getItems());

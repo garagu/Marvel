@@ -1,7 +1,7 @@
 package com.garagu.marvel.presentation.character.view.detail;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.TextViewCompat;
 import android.text.Spanned;
@@ -22,7 +22,6 @@ import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
-import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -54,12 +53,10 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     TextView txtFirstComics;
     @BindView(R.id.btn_character_comics)
     Button btnComics;
-    @BindDrawable(R.drawable.placeholder_character)
-    Drawable placeholder;
 
     private CharacterViewModel character;
 
-    public static CharacterDetailFragment newInstance(CharacterViewModel character) {
+    public static CharacterDetailFragment newInstance(@NonNull CharacterViewModel character) {
         CharacterDetailFragment fragment = new CharacterDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(KEY_SELECTED_CHARACTER, character);
@@ -118,34 +115,34 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     }
 
     @Override
-    public void loadImage(String url) {
+    public void loadImage(@NonNull String url) {
         picasso.load(character.getUrlThumbnail()).into(imgThumbnail);
     }
 
     @Override
-    public void showComics(String comics) {
+    public void showComics(@NonNull String comics) {
         txtComicsCount.setText(character.getComics().getTotalNumber());
         txtFirstComics.setText(comics);
     }
 
     @Override
-    public void showDefaultThumbnail() {
-        imgThumbnail.setImageDrawable(placeholder);
+    public void hideImage() {
+        imgThumbnail.setVisibility(View.GONE);
     }
 
     @Override
-    public void showDescription(String description) {
+    public void showDescription(@NonNull String description) {
         txtDescription.setText(description);
     }
 
     @Override
-    public void showLinks(Spanned links) {
+    public void showLinks(@NonNull Spanned links) {
         txtLinks.setMovementMethod(LinkMovementMethod.getInstance());
         txtLinks.setText(links);
     }
 
     @Override
-    public void showName(String name) {
+    public void showName(@NonNull String name) {
         txtName.setText(character.getName());
     }
 

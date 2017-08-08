@@ -2,6 +2,7 @@ package com.garagu.marvel.presentation.common.view;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.transition.ChangeBounds;
@@ -38,25 +39,27 @@ public class BaseNavigator {
     }
 
     protected void addFragmentWithAnimation(@NonNull FragmentTransition transition) {
-        transition.getNewFragment().setEnterTransition(new Fade());
-        transition.getNewFragment().setSharedElementEnterTransition(getTransitionSet());
-        transition.getNewFragment().setSharedElementReturnTransition(getTransitionSet());
-        transition.getCurrentFragment().getFragmentManager()
-                .beginTransaction()
-                .addSharedElement(transition.getSharedView(), transition.getName())
-                .hide(transition.getCurrentFragment())
+        setTransitionsOfNewFragment(transition.getNewFragment());
+        final FragmentTransaction ft = transition.getCurrentFragment().getFragmentManager().beginTransaction();
+        if ((transition.getSharedView() != null) && (transition.getName() != null)) {
+            ft.addSharedElement(transition.getSharedView(), transition.getName());
+        }
+        ft.hide(transition.getCurrentFragment())
                 .add(CONTAINER_VIEW_ID, transition.getNewFragment())
                 .addToBackStack(null)
                 .commit();
     }
 
-    private TransitionSet getTransitionSet() {
-        TransitionSet transition = new TransitionSet();
-        transition.setOrdering(TransitionSet.ORDERING_TOGETHER);
-        transition.addTransition(new ChangeBounds())
+    private void setTransitionsOfNewFragment(@NonNull Fragment newFragment) {
+        newFragment.setEnterTransition(new Fade());
+        final TransitionSet sharedElementTransition = new TransitionSet();
+        sharedElementTransition.setOrdering(TransitionSet.ORDERING_TOGETHER);
+        sharedElementTransition
+                .addTransition(new ChangeBounds())
                 .addTransition(new ChangeTransform())
                 .addTransition(new ChangeImageTransform());
-        return transition;
+        newFragment.setSharedElementEnterTransition(sharedElementTransition);
+        newFragment.setSharedElementReturnTransition(sharedElementTransition);
     }
 
 }

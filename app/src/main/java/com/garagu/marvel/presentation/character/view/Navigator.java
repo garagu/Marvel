@@ -3,6 +3,7 @@ package com.garagu.marvel.presentation.character.view;
 import android.app.Activity;
 import android.app.Fragment;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.garagu.marvel.R;
@@ -21,7 +22,7 @@ public class Navigator extends BaseNavigator {
         openFragment(activity, CharacterListFragment.newInstance());
     }
 
-    public void openDetail(@NonNull Fragment currentFragment, @NonNull View clickedView, @NonNull CharacterViewModel character) {
+    public void openDetail(@NonNull Fragment currentFragment, @Nullable View clickedView, @NonNull CharacterViewModel character) {
         final FragmentTransition fragmentTransition = new FragmentTransition(
                 currentFragment,
                 CharacterDetailFragment.newInstance(character),
