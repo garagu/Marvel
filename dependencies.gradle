@@ -1,9 +1,9 @@
 ext {
-    sdk = 26
-    minSdk = 19
-    buildTools = "26.0.0"
+    sdk = 25
+    minSdk = 21
+    buildTools = "25.0.3"
 
-    supportVersion = '26.0.0-beta2'
+    supportVersion = '25.4.0'
     retrofitVersion = '2.3.0'
     rxJavaVersion = '2.1.0'
     rxAndroidVersion = '2.0.1'
@@ -13,12 +13,14 @@ ext {
     gsonVersion = '2.8.0'
     picassoVersion = '2.5.2'
     renderersVersion = '3.3.0'
+    lottieVersion = '2.1.0'
 
     androidSupportPackage = 'com.android.support'
     androidSupport = [
             appCompat: "${androidSupportPackage}:appcompat-v7:${supportVersion}",
             cardView : "${androidSupportPackage}:cardview-v7:${supportVersion}",
-            design   : "${androidSupportPackage}:design:${supportVersion}"
+            design   : "${androidSupportPackage}:design:${supportVersion}",
+            palette  : "${androidSupportPackage}:palette-v7:${supportVersion}"
     ]
     retrofitPackage = 'com.squareup.retrofit2'
     retrofit = [
@@ -45,4 +47,5 @@ ext {
     gson = "com.google.code.gson:gson:${gsonVersion}"
     picasso = "com.squareup.picasso:picasso:${picassoVersion}"
     renderers = "com.github.pedrovgs:renderers:${renderersVersion}"
+    lottie = "com.airbnb.android:lottie:${lottieVersion}"
 }

@@ -3,7 +3,7 @@ package com.garagu.marvel.presentation.comic.view.detail;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.presentation.common.RVRenderer;
+import com.garagu.marvel.presentation.common.view.RVRenderer;
 
 import butterknife.BindView;
 
@@ -17,7 +17,7 @@ class CharacterRenderer extends RVRenderer<String> {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.item_character;
+        return R.layout.item_comic_character;
     }
 
     @Override

@@ -4,7 +4,7 @@ import android.widget.TextView;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.model.CreatorViewModel;
-import com.garagu.marvel.presentation.common.RVRenderer;
+import com.garagu.marvel.presentation.common.view.RVRenderer;
 
 import butterknife.BindView;
 

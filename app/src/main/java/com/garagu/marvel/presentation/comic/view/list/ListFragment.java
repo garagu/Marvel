@@ -5,17 +5,16 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
-import com.garagu.marvel.presentation.comic.model.PaginatedList;
-import com.garagu.marvel.presentation.comic.view.detail.DetailFragment;
+import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
+import com.garagu.marvel.presentation.comic.view.Navigator;
 import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
-import com.garagu.marvel.presentation.common.BaseFragment;
+import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.ImageLoader;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
@@ -37,6 +36,8 @@ public class ListFragment extends BaseFragment implements ListView {
 
     @Inject
     ListPresenter presenter;
+    @Inject
+    Navigator navigator;
     @Inject
     ImageLoader imageLoader;
 
@@ -122,16 +123,11 @@ public class ListFragment extends BaseFragment implements ListView {
 
     @Override
     public void openDetail(@NonNull ComicViewModel comic) {
-        getFragmentManager()
-                .beginTransaction()
-                .hide(this)
-                .add(R.id.frame_container, DetailFragment.newInstance(comic))
-                .addToBackStack(null)
-                .commit();
+        navigator.openComicDetail(this, comic);
     }
 
     @Override
-    public void showComics(@NonNull PaginatedList<ComicViewModel> paginatedList) {
+    public void showComics(@NonNull PaginatedListViewModel<ComicViewModel> paginatedList) {
         hasMore = paginatedList.hasMore();
         offset = paginatedList.getOffset();
         updateList(paginatedList.getItems());

@@ -7,6 +7,8 @@ import java.util.List;
  */
 public class ComicList {
 
+    // TODO extends PaginatedList
+
     private final int count;
     private final int offset;
     private final int total;

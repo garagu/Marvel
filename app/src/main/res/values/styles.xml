@@ -22,12 +22,12 @@
         <item name="contentPadding">@dimen/margin</item>
     </style>
 
-    <style name="BigTitle" parent="@style/TextAppearance.AppCompat.Title">
-        <item name="android:textStyle">bold</item>
-    </style>
+    <style name="TitleBig" parent="@style/TextAppearance.AppCompat.Title" />
 
-    <style name="SmallTitle" parent="@style/TextAppearance.AppCompat.Body2">
-        <item name="android:textStyle">bold</item>
-    </style>
+    <style name="TitleSmall" parent="@style/TextAppearance.AppCompat.Body2" />
 
+    <style name="FieldEmpty">
+        <item name="android:textColor">@color/colorBackground</item>
+        <item name="android:textStyle">italic</item>
+    </style>
 </resources>

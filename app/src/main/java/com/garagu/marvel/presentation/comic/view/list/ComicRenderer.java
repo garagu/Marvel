@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.common.ImageLoader;
-import com.garagu.marvel.presentation.common.RVRenderer;
+import com.garagu.marvel.presentation.common.view.RVRenderer;
 
 import butterknife.BindView;
 

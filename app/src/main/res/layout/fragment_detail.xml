@@ -50,7 +50,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        style="@style/BigTitle"
+                        style="@style/TitleBig"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin"
@@ -73,7 +73,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/SmallTitle"
+                        style="@style/TitleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_small"
@@ -95,7 +95,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/SmallTitle"
+                        style="@style/TitleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_small"
@@ -117,7 +117,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/SmallTitle"
+                        style="@style/TitleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_small"
@@ -139,7 +139,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        style="@style/SmallTitle"
+                        style="@style/TitleSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/margin_small"
@@ -155,7 +155,7 @@
                 </LinearLayout>
 
                 <TextView
-                    style="@style/BigTitle"
+                    style="@style/TitleBig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin"
@@ -168,7 +168,7 @@
                     android:layout_marginTop="@dimen/margin_small" />
 
                 <TextView
-                    style="@style/BigTitle"
+                    style="@style/TitleBig"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin"

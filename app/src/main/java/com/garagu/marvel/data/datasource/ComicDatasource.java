@@ -1,7 +1,7 @@
 package com.garagu.marvel.data.datasource;
 
-import com.garagu.marvel.data.entity.ComicListEntity;
-import com.garagu.marvel.data.entity.ResultEntity;
+import com.garagu.marvel.data.entity.common.ResultEntity;
+import com.garagu.marvel.data.entity.comic.ComicListEntity;
 
 import io.reactivex.Observable;
 

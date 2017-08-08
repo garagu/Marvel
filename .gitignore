@@ -8,3 +8,4 @@
 /captures
 .externalNativeBuild
 keys.gradle
+/app/src/main/assets
