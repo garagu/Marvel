@@ -14,6 +14,10 @@ public class CardDecoration extends RecyclerView.ItemDecoration {
 
     private final int space;
 
+    public CardDecoration(int space) {
+        this.space = space;
+    }
+
     public CardDecoration(Context context) {
         space = context.getResources().getDimensionPixelSize(R.dimen.margin_xsmall);
     }

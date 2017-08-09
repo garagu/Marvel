@@ -1,5 +1,7 @@
 package com.garagu.marvel.presentation.character.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -20,10 +22,15 @@ public class CharacterActivity extends BaseActivity implements HasInjection<Char
 
     private CharacterComponent characterComponent;
 
+    public static Intent getCallingIntent(@NonNull Activity activity) {
+        return new Intent(activity, CharacterActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDependencyInjection();
+        showBackButton();
         navigator.openList(this);
     }
 

@@ -15,12 +15,8 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".presentation.comic.view.ComicActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity
-            android:name=".presentation.character.view.CharacterActivity"
+            android:name=".presentation.home.view.HomeActivity"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -29,6 +25,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".presentation.comic.view.ComicActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".presentation.character.view.CharacterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 
