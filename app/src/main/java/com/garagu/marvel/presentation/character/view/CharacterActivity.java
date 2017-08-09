@@ -30,6 +30,7 @@ public class CharacterActivity extends BaseActivity implements HasInjection<Char
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDependencyInjection();
+        showBackButton();
         navigator.openList(this);
     }
 

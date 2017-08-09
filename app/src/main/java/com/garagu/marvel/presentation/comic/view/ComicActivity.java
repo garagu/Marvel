@@ -30,11 +30,12 @@ public class ComicActivity extends BaseActivity implements HasInjection<ComicCom
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initDependencyInjector();
+        initDependencyInjection();
+        showBackButton();
         navigator.openComicList(this);
     }
 
-    private void initDependencyInjector() {
+    private void initDependencyInjection() {
         comicComponent = DaggerComicComponent.builder()
                 .appComponent(getAppComponent())
                 .comicModule(new ComicModule())

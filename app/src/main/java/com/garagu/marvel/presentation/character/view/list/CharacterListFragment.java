@@ -76,7 +76,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     protected void onCreateView() {
         super.onCreateView();
         initDependencyInjection();
-        initView();
+        initComponents();
         initPresenter();
     }
 
@@ -86,7 +86,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
         super.onDestroyView();
     }
 
-    private void initView() {
+    private void initComponents() {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration itemDecoration = new CardDecoration(getActivity());

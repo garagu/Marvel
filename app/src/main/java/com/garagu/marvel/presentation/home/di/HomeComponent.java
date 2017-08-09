@@ -14,5 +14,6 @@ import dagger.Component;
 @Component(dependencies = AppComponent.class, modules = HomeModule.class)
 public interface HomeComponent {
     void inject(HomeActivity activity);
+
     void inject(HomeFragment fragment);
 }

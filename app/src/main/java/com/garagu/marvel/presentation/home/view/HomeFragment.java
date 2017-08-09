@@ -2,12 +2,12 @@ package com.garagu.marvel.presentation.home.view;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -23,8 +23,8 @@ import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
 import com.pedrogomez.renderers.Renderer;
 import com.pedrogomez.renderers.RendererBuilder;
+import com.garagu.marvel.presentation.home.view.HomePresenter.HomeView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,8 +35,10 @@ import butterknife.BindView;
 /**
  * Created by garagu.
  */
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements HomeView {
 
+    @Inject
+    HomePresenter presenter;
     @Inject
     Navigator navigator;
 
@@ -59,6 +61,13 @@ public class HomeFragment extends BaseFragment {
         super.onCreateView();
         initDependencyInjection();
         initComponents();
+        initPresenter();
+    }
+
+    @Override
+    public void onDestroyView() {
+        presenter.unsubscribe();
+        super.onDestroyView();
     }
 
     private void initDependencyInjection() {
@@ -70,23 +79,13 @@ public class HomeFragment extends BaseFragment {
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         final LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
-        final List<HomeOptionViewModel> items = new ArrayList<>();
-        items.add(new HomeOptionViewModel(HomeOptionType.CHARACTERS, R.mipmap.iron_man, R.string.home_characters, Gravity.BOTTOM));
-        items.add(new HomeOptionViewModel(HomeOptionType.COMICS, R.mipmap.ant_man, R.string.home_comics, Gravity.BOTTOM|Gravity.END));
-        items.add(new HomeOptionViewModel(HomeOptionType.FAVORITES, R.mipmap.vision, R.string.home_favorites, Gravity.BOTTOM));
-        items.add(new HomeOptionViewModel(HomeOptionType.REVIEWS, R.mipmap.captain_america, R.string.home_reviews, Gravity.BOTTOM|Gravity.END));
-
         final ItemDecoration itemDecoration = new CardDecoration(margin);
         recyclerView.addItemDecoration(itemDecoration);
-        final Renderer<HomeOptionViewModel> renderer = new HomeOptionRenderer(
-                getOnHomeOptionClickListener(),
-                getCellHeight(items.size(), margin)
-        );
-        final RendererBuilder<HomeOptionViewModel> rendererBuilder = new RendererBuilder<>(renderer);
-        final AdapteeCollection<HomeOptionViewModel> collection = new ListAdapteeCollection<>(items);
-        final RVRendererAdapter adapter = new RVRendererAdapter<>(rendererBuilder, collection);
-        recyclerView.setAdapter(adapter);
+    }
+
+    private void initPresenter() {
+        presenter.setView(this);
+        presenter.subscribe();
     }
 
     private int getCellHeight(int listSize, int margin) {
@@ -111,16 +110,45 @@ public class HomeFragment extends BaseFragment {
         return homeOption -> {
             switch (homeOption.getType()) {
                 case HomeOptionType.CHARACTERS:
-                    navigator.openCharacters(getActivity());
+                    presenter.onCharactersOptionClick();
                     break;
                 case HomeOptionType.COMICS:
-                    navigator.openComics(getActivity());
+                    presenter.onComicsOptionClick();
                     break;
                 case HomeOptionType.FAVORITES:
+                    presenter.onFavoritesOptionClick();
+                    break;
                 case HomeOptionType.REVIEWS:
-                    Toast.makeText(getActivity(), R.string.message_next_version, Toast.LENGTH_SHORT).show();
+                    presenter.onReviewsOptionClick();
             }
         };
+    }
+
+    @Override
+    public void openCharacters() {
+        navigator.openCharacters(getActivity());
+    }
+
+    @Override
+    public void openComics() {
+        navigator.openComics(getActivity());
+    }
+
+    @Override
+    public void showHomeOptions(@NonNull List<HomeOptionViewModel> homeOptions) {
+        final Renderer<HomeOptionViewModel> renderer = new HomeOptionRenderer(
+                getOnHomeOptionClickListener(),
+                getCellHeight(homeOptions.size(), margin)
+        );
+        final RendererBuilder<HomeOptionViewModel> rendererBuilder = new RendererBuilder<>(renderer);
+        final AdapteeCollection<HomeOptionViewModel> collection = new ListAdapteeCollection<>(homeOptions);
+        final RVRendererAdapter adapter = new RVRendererAdapter<>(rendererBuilder, collection);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void showNextVersionMessage() {
+        Toast.makeText(getActivity(), R.string.message_next_version, Toast.LENGTH_SHORT).show();
     }
 
 }
