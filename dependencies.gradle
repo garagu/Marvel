@@ -13,7 +13,7 @@ ext {
     gsonVersion = '2.8.0'
     picassoVersion = '2.5.2'
     renderersVersion = '3.3.0'
-    lottieVersion = '2.1.0'
+    lottieVersion = '2.1.2'
 
     androidSupportPackage = 'com.android.support'
     androidSupport = [

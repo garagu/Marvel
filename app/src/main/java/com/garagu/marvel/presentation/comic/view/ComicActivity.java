@@ -1,5 +1,7 @@
 package com.garagu.marvel.presentation.comic.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
@@ -20,6 +22,10 @@ public class ComicActivity extends BaseActivity implements HasInjection<ComicCom
     Navigator navigator;
 
     private ComicComponent comicComponent;
+
+    public static Intent getCallingIntent(@NonNull Activity activity) {
+        return new Intent(activity, ComicActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
