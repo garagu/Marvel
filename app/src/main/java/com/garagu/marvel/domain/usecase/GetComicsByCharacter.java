@@ -1,6 +1,6 @@
 package com.garagu.marvel.domain.usecase;
 
-import com.garagu.marvel.domain.model.ComicList;
+import com.garagu.marvel.domain.model.comic.ComicList;
 import com.garagu.marvel.domain.repository.ComicRepository;
 import com.garagu.marvel.domain.thread.ExecutorThread;
 import com.garagu.marvel.domain.thread.PostExecutionThread;

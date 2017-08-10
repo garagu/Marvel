@@ -6,8 +6,8 @@ import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.domain.usecase.GetComicsByCharacter;
 import com.garagu.marvel.presentation.comic.model.ComicModelMapper;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
+import com.garagu.marvel.presentation.comic.view.list.ComicListPresenter.ListView;
 import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
-import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
 
@@ -18,14 +18,14 @@ import io.reactivex.disposables.CompositeDisposable;
 /**
  * Created by garagu.
  */
-public class ListPresenter extends BasePresenter<ListView> {
+public class ComicListPresenter extends BasePresenter<ListView> {
 
     private final GetComicsByCharacter getComicsByCharacter;
     private final ComicModelMapper mapper;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
-    ListPresenter(GetComicsByCharacter getComicsByCharacter, ComicModelMapper mapper) {
+    ComicListPresenter(GetComicsByCharacter getComicsByCharacter, ComicModelMapper mapper) {
         this.getComicsByCharacter = getComicsByCharacter;
         this.mapper = mapper;
     }
@@ -42,6 +42,7 @@ public class ListPresenter extends BasePresenter<ListView> {
 
     private void getComics(int offset) {
         getView().showProgress();
+        // TODO remove filter by character
         final GetComicsByCharacter.InputParam inputParam = new GetComicsByCharacter.InputParam(BuildConfig.CHARACTER_ID, offset);
         getComicsByCharacter
                 .execute(inputParam)

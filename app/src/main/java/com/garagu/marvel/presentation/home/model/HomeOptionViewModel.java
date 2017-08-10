@@ -1,9 +1,7 @@
 package com.garagu.marvel.presentation.home.model;
 
-import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.view.Gravity;
 
 /**
  * Created by garagu.

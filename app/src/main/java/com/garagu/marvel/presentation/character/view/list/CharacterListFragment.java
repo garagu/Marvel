@@ -37,7 +37,7 @@ import butterknife.BindView;
 public class CharacterListFragment extends BaseFragment implements CharacterListView {
 
     @Inject
-    Picasso picasso;
+    Picasso picasso; // TODO abstraction, not concretion
     @Inject
     CharacterListPresenter presenter;
     @Inject
@@ -151,7 +151,6 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
         offset = paginatedListOfCharacters.getOffset();
         updateList(paginatedListOfCharacters.getItems());
     }
-
 
     @Override
     public void showError(@NonNull String message) {

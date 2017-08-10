@@ -11,6 +11,21 @@ import java.util.List;
  */
 public class ComicViewModel implements Parcelable {
 
+    public static final Creator<ComicViewModel> CREATOR = new Creator<ComicViewModel>() {
+
+        @Override
+        public ComicViewModel createFromParcel(Parcel source) {
+            return new ComicViewModel(source);
+        }
+
+        @Override
+        public ComicViewModel[] newArray(int size) {
+            return new ComicViewModel[size];
+        }
+
+    };
+
+    private final String id;
     private final String title;
     private final String description;
     private final String pages;
@@ -21,7 +36,8 @@ public class ComicViewModel implements Parcelable {
     private final String format;
     private final String urlThumbnail;
 
-    private ComicViewModel(String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn, String format, String urlThumbnail) {
+    private ComicViewModel(String id, String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn, String format, String urlThumbnail) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.pages = pages;
@@ -31,6 +47,10 @@ public class ComicViewModel implements Parcelable {
         this.isbn = isbn;
         this.format = format;
         this.urlThumbnail = urlThumbnail;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -71,6 +91,7 @@ public class ComicViewModel implements Parcelable {
 
     public static class Builder {
 
+        private String id;
         private String title;
         private String description;
         private String pages;
@@ -80,6 +101,11 @@ public class ComicViewModel implements Parcelable {
         private String isbn;
         private String format;
         private String urlThumbnail;
+
+        public Builder withId(String id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder withTitle(String title) {
             this.title = title;
@@ -127,7 +153,7 @@ public class ComicViewModel implements Parcelable {
         }
 
         public ComicViewModel build() {
-            return new ComicViewModel(title, description, pages, seriesTitle, creators, characters, isbn, format, urlThumbnail);
+            return new ComicViewModel(id, title, description, pages, seriesTitle, creators, characters, isbn, format, urlThumbnail);
         }
 
     }
@@ -139,6 +165,7 @@ public class ComicViewModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
         dest.writeString(title);
         dest.writeString(description);
         dest.writeString(pages);
@@ -151,6 +178,7 @@ public class ComicViewModel implements Parcelable {
     }
 
     protected ComicViewModel(Parcel in) {
+        id = in.readString();
         title = in.readString();
         description = in.readString();
         pages = in.readString();
@@ -162,19 +190,5 @@ public class ComicViewModel implements Parcelable {
         format = in.readString();
         urlThumbnail = in.readString();
     }
-
-    public static final Creator<ComicViewModel> CREATOR = new Creator<ComicViewModel>() {
-
-        @Override
-        public ComicViewModel createFromParcel(Parcel source) {
-            return new ComicViewModel(source);
-        }
-
-        @Override
-        public ComicViewModel[] newArray(int size) {
-            return new ComicViewModel[size];
-        }
-
-    };
 
 }

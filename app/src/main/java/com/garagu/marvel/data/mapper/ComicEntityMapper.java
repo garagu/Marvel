@@ -1,18 +1,18 @@
 package com.garagu.marvel.data.mapper;
 
-import com.garagu.marvel.data.entity.common.DefaultCollectionEntity;
-import com.garagu.marvel.data.entity.common.ImageEntity;
-import com.garagu.marvel.data.entity.common.NameEntity;
-import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.data.entity.comic.ComicEntity;
 import com.garagu.marvel.data.entity.comic.ComicListEntity;
 import com.garagu.marvel.data.entity.comic.CreatorCollectionEntity;
 import com.garagu.marvel.data.entity.comic.CreatorEntity;
-import com.garagu.marvel.domain.model.Comic;
-import com.garagu.marvel.domain.model.ComicCharacter;
-import com.garagu.marvel.domain.model.ComicCreator;
-import com.garagu.marvel.domain.model.ComicList;
-import com.garagu.marvel.domain.model.ComicSeries;
+import com.garagu.marvel.data.entity.common.DefaultCollectionEntity;
+import com.garagu.marvel.data.entity.common.ImageEntity;
+import com.garagu.marvel.data.entity.common.NameEntity;
+import com.garagu.marvel.data.entity.common.ResultEntity;
+import com.garagu.marvel.domain.model.comic.Comic;
+import com.garagu.marvel.domain.model.comic.ComicCharacter;
+import com.garagu.marvel.domain.model.comic.ComicCreator;
+import com.garagu.marvel.domain.model.comic.ComicList;
+import com.garagu.marvel.domain.model.comic.ComicSeries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,7 @@ public class ComicEntityMapper {
 
     private Comic mapComic(ComicEntity entity) {
         return new Comic(
+                entity.getId(),
                 entity.getTitle(),
                 (entity.getDescription() != null) ? entity.getDescription() : "",
                 entity.getPageCount(),

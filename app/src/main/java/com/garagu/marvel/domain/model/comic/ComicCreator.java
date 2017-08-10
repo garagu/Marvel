@@ -1,16 +1,18 @@
-package com.garagu.marvel.domain.model;
+package com.garagu.marvel.domain.model.comic;
 
 /**
  * Created by garagu.
  */
-public class ComicSeries {
+public class ComicCreator {
 
     private final String url;
     private final String name;
+    private final String role;
 
-    public ComicSeries(String url, String name) {
+    public ComicCreator(String url, String name, String role) {
         this.url = url;
         this.name = name;
+        this.role = role;
     }
 
     public String getUrl() {
@@ -19,6 +21,10 @@ public class ComicSeries {
 
     public String getName() {
         return name;
+    }
+
+    public String getRole() {
+        return role;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.garagu.marvel.domain.model;
+package com.garagu.marvel.domain.model.comic;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import java.util.List;
  */
 public class Comic {
 
+    private final int id;
     private final String title;
     private final String description;
     private final int pages;
@@ -17,8 +18,9 @@ public class Comic {
     private final String format;
     private final String urlThumbnail;
 
-    public Comic(String title, String description, int pages, ComicSeries series, List<ComicCreator> creators, List<ComicCharacter> characters, String isbn, String format,
+    public Comic(int id, String title, String description, int pages, ComicSeries series, List<ComicCreator> creators, List<ComicCharacter> characters, String isbn, String format,
             String urlThumbnail) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.pages = pages;
@@ -28,6 +30,10 @@ public class Comic {
         this.isbn = isbn;
         this.format = format;
         this.urlThumbnail = urlThumbnail;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {

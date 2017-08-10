@@ -2,13 +2,13 @@ package com.garagu.marvel.data.mapper;
 
 import android.support.annotation.NonNull;
 
+import com.garagu.marvel.data.entity.character.CharacterEntity;
+import com.garagu.marvel.data.entity.character.CharacterListEntity;
+import com.garagu.marvel.data.entity.character.LinkEntity;
 import com.garagu.marvel.data.entity.common.DefaultCollectionEntity;
 import com.garagu.marvel.data.entity.common.ImageEntity;
 import com.garagu.marvel.data.entity.common.NameEntity;
 import com.garagu.marvel.data.entity.common.ResultEntity;
-import com.garagu.marvel.data.entity.character.CharacterEntity;
-import com.garagu.marvel.data.entity.character.CharacterListEntity;
-import com.garagu.marvel.data.entity.character.LinkEntity;
 import com.garagu.marvel.domain.model.character.Character;
 import com.garagu.marvel.domain.model.character.PaginatedCharacterList;
 import com.garagu.marvel.domain.model.common.Collection;

@@ -3,11 +3,11 @@ package com.garagu.marvel.presentation.comic.model;
 import android.os.Build;
 import android.text.Html;
 
-import com.garagu.marvel.domain.model.Comic;
-import com.garagu.marvel.domain.model.ComicCharacter;
-import com.garagu.marvel.domain.model.ComicCreator;
-import com.garagu.marvel.domain.model.ComicList;
-import com.garagu.marvel.domain.model.ComicSeries;
+import com.garagu.marvel.domain.model.comic.Comic;
+import com.garagu.marvel.domain.model.comic.ComicCharacter;
+import com.garagu.marvel.domain.model.comic.ComicCreator;
+import com.garagu.marvel.domain.model.comic.ComicList;
+import com.garagu.marvel.domain.model.comic.ComicSeries;
 import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 
 import java.util.ArrayList;
@@ -41,6 +41,7 @@ public class ComicModelMapper {
                     .withCreators(creators)
                     .withDescription(description)
                     .withFormat(comic.getFormat())
+                    .withId(String.valueOf(comic.getId()))
                     .withIsbn(comic.getIsbn())
                     .withPages(pages)
                     .withSeriesTitle(seriesTitle)

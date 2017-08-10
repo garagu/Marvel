@@ -1,9 +1,9 @@
 package com.garagu.marvel.data.net;
 
 import com.garagu.marvel.BuildConfig;
-import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.data.entity.character.CharacterListEntity;
 import com.garagu.marvel.data.entity.comic.ComicListEntity;
+import com.garagu.marvel.data.entity.common.ResultEntity;
 
 import java.util.Map;
 

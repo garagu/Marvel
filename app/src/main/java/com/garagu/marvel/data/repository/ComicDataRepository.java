@@ -2,7 +2,7 @@ package com.garagu.marvel.data.repository;
 
 import com.garagu.marvel.data.datasource.ComicDatasource;
 import com.garagu.marvel.data.mapper.ComicEntityMapper;
-import com.garagu.marvel.domain.model.ComicList;
+import com.garagu.marvel.domain.model.comic.ComicList;
 import com.garagu.marvel.domain.repository.ComicRepository;
 
 import javax.inject.Inject;

@@ -18,12 +18,12 @@ import com.garagu.marvel.presentation.common.view.RVRenderer.OnRendererClickList
 import com.garagu.marvel.presentation.home.di.HomeComponent;
 import com.garagu.marvel.presentation.home.model.HomeOptionType;
 import com.garagu.marvel.presentation.home.model.HomeOptionViewModel;
+import com.garagu.marvel.presentation.home.view.HomePresenter.HomeView;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
 import com.pedrogomez.renderers.Renderer;
 import com.pedrogomez.renderers.RendererBuilder;
-import com.garagu.marvel.presentation.home.view.HomePresenter.HomeView;
 
 import java.util.List;
 

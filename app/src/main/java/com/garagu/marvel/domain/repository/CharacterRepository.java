@@ -9,7 +9,5 @@ import io.reactivex.Observable;
  * Created by garagu.
  */
 public interface CharacterRepository {
-
     Observable<PaginatedCharacterList> getCharacters(Offset offset);
-
 }

@@ -2,10 +2,10 @@ package com.garagu.marvel.data.datasource.local;
 
 import android.util.Log;
 
-import com.garagu.marvel.data.local.FileManager;
 import com.garagu.marvel.data.datasource.CharacterDatasource;
-import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.data.entity.character.CharacterListEntity;
+import com.garagu.marvel.data.entity.common.ResultEntity;
+import com.garagu.marvel.data.local.FileManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;

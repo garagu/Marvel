@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.comic.view.detail;
+package com.garagu.marvel.presentation.comic.view.detail.info;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

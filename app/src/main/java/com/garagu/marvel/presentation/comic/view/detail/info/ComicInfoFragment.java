@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.comic.view.detail;
+package com.garagu.marvel.presentation.comic.view.detail.info;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,8 +15,8 @@ import android.widget.TextView;
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
-import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.ImageLoader;
+import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
@@ -33,9 +33,9 @@ import butterknife.BindView;
 /**
  * Created by garagu.
  */
-public class DetailFragment extends BaseFragment {
+public class ComicInfoFragment extends BaseFragment {
 
-    private static final String KEY_COMIC = "comic";
+    private static final String KEY_SELECTED_COMIC = "selectedComic";
 
     @Inject
     ImageLoader imageLoader;
@@ -66,23 +66,23 @@ public class DetailFragment extends BaseFragment {
 
     private ComicViewModel selectedComic;
 
-    public static DetailFragment newInstance(ComicViewModel selectedComic) {
-        DetailFragment fragment = new DetailFragment();
+    public static ComicInfoFragment newInstance(ComicViewModel selectedComic) {
+        ComicInfoFragment fragment = new ComicInfoFragment();
         Bundle args = new Bundle();
-        args.putParcelable(KEY_COMIC, selectedComic);
+        args.putParcelable(KEY_SELECTED_COMIC, selectedComic);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_detail;
+        return R.layout.fragment_comic_info;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selectedComic = getArguments().getParcelable(KEY_COMIC);
+        selectedComic = getArguments().getParcelable(KEY_SELECTED_COMIC);
     }
 
     @Override
