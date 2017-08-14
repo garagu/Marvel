@@ -9,4 +9,5 @@
     <color name="colorBackground">#D5D5D5</color>
     <color name="colorBottomNavEnabled">#FFFFFF</color>
     <color name="colorBottomNavDisabled">#99FFFFFF</color>
+    <color name="colorDivider">#DCDCDC</color>
 </resources>
