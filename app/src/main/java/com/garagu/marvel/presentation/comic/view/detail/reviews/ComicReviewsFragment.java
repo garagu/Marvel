@@ -9,11 +9,11 @@ import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
+import com.garagu.marvel.presentation.comic.view.Navigator;
 import com.garagu.marvel.presentation.comic.view.detail.reviews.ComicReviewsPresenter.ComicReviewsView;
 import com.garagu.marvel.presentation.common.model.ReviewViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
@@ -42,6 +42,8 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
 
     @Inject
     ComicReviewsPresenter presenter;
+    @Inject
+    Navigator navigator;
 
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
@@ -54,8 +56,8 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
     private RVRendererAdapter<ReviewViewModel> adapter;
 
     public static ComicReviewsFragment newInstance(ComicViewModel selectedComic) {
-        ComicReviewsFragment fragment = new ComicReviewsFragment();
-        Bundle args = new Bundle();
+        final ComicReviewsFragment fragment = new ComicReviewsFragment();
+        final Bundle args = new Bundle();
         args.putParcelable(KEY_SELECTED_COMIC, selectedComic);
         fragment.setArguments(args);
         return fragment;
@@ -106,12 +108,17 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
 
     @OnClick(R.id.fab_add)
     void onAddReviewClick() {
-        Toast.makeText(getActivity(), R.string.message_next_version, Toast.LENGTH_SHORT).show();
+        presenter.onAddReviewClick();
     }
 
     @Override
     public void hideProgress() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void openNewReview() {
+        navigator.openNewReview(this, selectedComic);
     }
 
     @Override

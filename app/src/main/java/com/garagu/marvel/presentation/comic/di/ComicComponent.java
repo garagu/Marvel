@@ -5,6 +5,7 @@ import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.comic.view.detail.ComicDetailActivity;
 import com.garagu.marvel.presentation.comic.view.detail.info.ComicInfoFragment;
 import com.garagu.marvel.presentation.comic.view.detail.reviews.ComicReviewsFragment;
+import com.garagu.marvel.presentation.comic.view.detail.reviews.NewReviewFragment;
 import com.garagu.marvel.presentation.comic.view.list.ComicListActivity;
 import com.garagu.marvel.presentation.comic.view.list.ComicListFragment;
 
@@ -26,5 +27,7 @@ public interface ComicComponent {
     void inject(ComicInfoFragment fragment);
 
     void inject(ComicReviewsFragment fragment);
+
+    void inject(NewReviewFragment fragment);
 
 }

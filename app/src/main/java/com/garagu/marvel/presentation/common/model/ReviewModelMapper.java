@@ -13,17 +13,17 @@ import java.util.List;
 public class ReviewModelMapper {
 
     @NonNull
-    public List<ReviewViewModel> mapModelToViewModel(List<Review> modelList) {
+    public List<ReviewViewModel> mapListModelToViewModel(@NonNull List<Review> modelList) {
         final List<ReviewViewModel> viewModelList = new ArrayList<>();
         for (Review model : modelList) {
-            final ReviewViewModel viewModel = mapReview(model);
+            final ReviewViewModel viewModel = mapSimpleModelToViewModel(model);
             viewModelList.add(viewModel);
         }
         return viewModelList;
     }
 
     @NonNull
-    private ReviewViewModel mapReview(Review model) {
+    private ReviewViewModel mapSimpleModelToViewModel(@NonNull Review model) {
         return new ReviewViewModel.Builder()
                 .withAuthor(model.getAuthor())
                 .withDate(model.getDate())
@@ -31,6 +31,17 @@ public class ReviewModelMapper {
                 .withText(model.getText())
                 .withTitle(model.getTitle())
                 .build();
+    }
+
+    @NonNull
+    public Review mapSimpleViewModelToModel(@NonNull ReviewViewModel viewModel) {
+        return new Review(
+                viewModel.getRate(),
+                viewModel.getText(),
+                viewModel.getAuthor(),
+                viewModel.getTitle(),
+                viewModel.getDate()
+        );
     }
 
 }

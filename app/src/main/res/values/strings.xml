@@ -3,6 +3,7 @@
     <string name="error_generic">Oops! Something was wrong.</string>
     <string name="error_connection">Oops! There\'s no Internet connection and no more saved info. Check the network and try again.</string>
     <string name="message_next_version">It will be available soon!</string>
+
     <!-- Home -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -12,6 +13,7 @@
     <string name="home_comics">Comics</string>
     <string name="home_favorites">My favorites</string>
     <string name="home_reviews">My reviews</string>
+
     <!-- Comics -->
     <string name="comics_nav_info">Info</string>
     <string name="comics_nav_reviews">Reviews</string>
@@ -23,11 +25,14 @@
     <string name="detail_label_format">Format:</string>
     <string name="detail_label_credits">Credits</string>
     <string name="detail_label_characters">Characters</string>
+    <string name="comicnewreview_hint_review">Review</string>
+    <string name="comicnewreview_button">Publish</string>
+    <string name="comicnewreview_message_confirmation">Review published!</string>
+
     <!-- Characters -->
     <string name="transition_character_detail">character_detail</string>
     <string name="characterdetail_label_description_empty">No description yet</string>
     <string name="characterdetail_title_links">Links</string>
     <string name="characterdetail_title_comics">Comics</string>
     <string name="characterdetail_button_comics">More</string>
-    <string name="title_activity_main">MainActivity</string>
 </resources>

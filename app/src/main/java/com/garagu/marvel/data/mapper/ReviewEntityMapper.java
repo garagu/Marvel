@@ -14,23 +14,34 @@ import java.util.List;
 public class ReviewEntityMapper {
 
     @NonNull
-    public List<Review> mapEntityToModel(List<ReviewEntity> entityList) {
+    public List<Review> listEntityToModel(@NonNull List<ReviewEntity> entityList) {
         final List<Review> modelList = new ArrayList<>();
         for (ReviewEntity entity : entityList) {
-            final Review model = mapReview(entity);
+            final Review model = simpleEntityToModel(entity);
             modelList.add(model);
         }
         return modelList;
     }
 
     @NonNull
-    private Review mapReview(ReviewEntity entity) {
+    private Review simpleEntityToModel(@NonNull ReviewEntity entity) {
         return new Review(
                 entity.getRate(),
                 entity.getText(),
                 entity.getAuthor(),
                 entity.getTitle(),
                 entity.getDate()
+        );
+    }
+
+    @NonNull
+    public ReviewEntity simpleModelToEntity(@NonNull Review model) {
+        return new ReviewEntity(
+                model.getRate(),
+                model.getText(),
+                model.getAuthor(),
+                model.getTitle(),
+                model.getDate()
         );
     }
 

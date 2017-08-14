@@ -3,6 +3,7 @@ package com.garagu.marvel.presentation.common.view;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,10 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void showMessage(String message) {
+        Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    protected void showMessage(@StringRes int message) {
         Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
     }
 

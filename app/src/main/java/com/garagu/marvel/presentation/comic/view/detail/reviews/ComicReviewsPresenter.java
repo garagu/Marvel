@@ -33,7 +33,7 @@ public class ComicReviewsPresenter extends BasePresenter<ComicReviewsView> {
     void subscribe(String comicId) {
         getView().showProgress();
         getReviewsByComic.execute(comicId)
-                .map(mapper::mapModelToViewModel)
+                .map(mapper::mapListModelToViewModel)
                 .subscribe(
                         reviews -> getView().showReviews(reviews),
                         error -> {
@@ -54,8 +54,14 @@ public class ComicReviewsPresenter extends BasePresenter<ComicReviewsView> {
         compositeDisposable.dispose();
     }
 
+    void onAddReviewClick() {
+        getView().openNewReview();
+    }
+
     interface ComicReviewsView extends BaseView {
         void hideProgress();
+
+        void openNewReview();
 
         void showError(@NonNull String message);
 

@@ -11,4 +11,6 @@ import io.reactivex.Observable;
  */
 public interface ReviewRepository {
     Observable<List<Review>> getReviewByComic(String comicId);
+
+    Observable<Boolean> addReviewToComic(String comicId, Review review);
 }
