@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
@@ -17,6 +18,7 @@ import com.garagu.marvel.presentation.comic.view.detail.reviews.ComicReviewsPres
 import com.garagu.marvel.presentation.common.model.ReviewViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.DividingLineDecoration;
+import com.garagu.marvel.presentation.common.view.FabDecoration;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
@@ -29,6 +31,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by garagu.
@@ -85,8 +88,10 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
         txtTitle.setText(selectedComic.getTitle());
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        final ItemDecoration itemDecoration = new DividingLineDecoration(getActivity());
-        recyclerView.addItemDecoration(itemDecoration);
+        final ItemDecoration dividerDecoration = new DividingLineDecoration(getActivity());
+        recyclerView.addItemDecoration(dividerDecoration);
+        final ItemDecoration bottomDecoration = new FabDecoration(getActivity());
+        recyclerView.addItemDecoration(bottomDecoration);
         final Renderer<ReviewViewModel> renderer = new ReviewRenderer();
         final RendererBuilder<ReviewViewModel> rendererBuilder = new RendererBuilder<>(renderer);
         final AdapteeCollection<ReviewViewModel> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
@@ -97,6 +102,11 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
     private void initPresenter() {
         presenter.setView(this);
         presenter.subscribe(selectedComic.getId());
+    }
+
+    @OnClick(R.id.fab_add)
+    void onAddReviewClick() {
+        Toast.makeText(getActivity(), R.string.message_next_version, Toast.LENGTH_SHORT).show();
     }
 
     @Override
