@@ -3,6 +3,7 @@ package com.garagu.marvel.presentation.comic.view.detail.info;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
@@ -40,6 +41,8 @@ public class ComicInfoFragment extends BaseFragment {
     @Inject
     ImageLoader imageLoader;
 
+    @BindView(R.id.nested_scroll_view)
+    NestedScrollView nestedScrollView;
     @BindView(R.id.img_thumbnail)
     ImageView imgThumbnail;
     @BindView(R.id.txt_title)
@@ -110,6 +113,7 @@ public class ComicInfoFragment extends BaseFragment {
         txtIsbn.setText(selectedComic.getIsbn());
         initCredits();
         initCharacters();
+        nestedScrollView.smoothScrollTo(0, 0);
     }
 
     private void initCredits() {

@@ -23,8 +23,15 @@ public class ComicDataRepository implements ComicRepository {
         this.mapper = mapper;
     }
 
+    @Override
+    public Observable<ComicList> getComics(int offset) {
+        return datasource.getComics(offset)
+                .map(mapper::mapEntityToModel);
+    }
+
     public Observable<ComicList> getComicsByCharacter(String id, int offset) {
-        return datasource.getComicsByCharacter(id, offset).map(mapper::mapEntityToModel);
+        return datasource.getComicsByCharacter(id, offset)
+                .map(mapper::mapEntityToModel);
     }
 
 }

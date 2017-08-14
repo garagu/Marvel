@@ -59,9 +59,7 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
     }
 
     void onListScrolled(int offset) {
-        final Offset model = new Offset.Builder()
-                .withOffset(offset)
-                .build();
+        final Offset model = new Offset(offset);
         getCharacters(model);
     }
 

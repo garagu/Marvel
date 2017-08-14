@@ -3,6 +3,8 @@ package com.garagu.marvel.presentation.comic.view.list;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.BuildConfig;
+import com.garagu.marvel.domain.model.common.Offset;
+import com.garagu.marvel.domain.usecase.GetComics;
 import com.garagu.marvel.domain.usecase.GetComicsByCharacter;
 import com.garagu.marvel.presentation.comic.model.ComicModelMapper;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
@@ -20,13 +22,13 @@ import io.reactivex.disposables.CompositeDisposable;
  */
 public class ComicListPresenter extends BasePresenter<ListView> {
 
-    private final GetComicsByCharacter getComicsByCharacter;
+    private final GetComics getComics;
     private final ComicModelMapper mapper;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
-    ComicListPresenter(GetComicsByCharacter getComicsByCharacter, ComicModelMapper mapper) {
-        this.getComicsByCharacter = getComicsByCharacter;
+    ComicListPresenter(GetComics getComics, ComicModelMapper mapper) {
+        this.getComics = getComics;
         this.mapper = mapper;
     }
 
@@ -42,10 +44,8 @@ public class ComicListPresenter extends BasePresenter<ListView> {
 
     private void getComics(int offset) {
         getView().showProgress();
-        // TODO remove filter by character
-        final GetComicsByCharacter.InputParam inputParam = new GetComicsByCharacter.InputParam(BuildConfig.CHARACTER_ID, offset);
-        getComicsByCharacter
-                .execute(inputParam)
+        final Offset model = new Offset(offset);
+        getComics.execute(model)
                 .map(mapper::mapModelToViewModel)
                 .subscribe(
                         comicsPaginatedList -> getView().showComics(comicsPaginatedList),

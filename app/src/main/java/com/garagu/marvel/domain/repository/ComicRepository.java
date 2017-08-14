@@ -8,5 +8,7 @@ import io.reactivex.Observable;
  * Created by garagu.
  */
 public interface ComicRepository {
+    Observable<ComicList> getComics(int offset);
+
     Observable<ComicList> getComicsByCharacter(String id, int offset);
 }

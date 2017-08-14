@@ -9,7 +9,7 @@ import io.reactivex.Observable;
  * Created by garagu.
  */
 public interface ComicDatasource {
+    Observable<ResultEntity<ComicListEntity>> getComics(int offset);
 
     Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(String id, int offset);
-
 }

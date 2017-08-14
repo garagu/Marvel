@@ -29,6 +29,11 @@ public class ComicLocalDatasource implements ComicDatasource {
     }
 
     @Override
+    public Observable<ResultEntity<ComicListEntity>> getComics(int offset) {
+        return getComicsByCharacter("", offset);
+    }
+
+    @Override
     public Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(String id, int offset) {
         ResultEntity<ComicListEntity> entity = new ResultEntity<>();
         try {

@@ -26,6 +26,12 @@ public interface MarvelApi {
             @Query("offset") int offset,
             @QueryMap Map<String, String> authParameters);
 
+
+    @GET("comics?orderBy=title")
+    Observable<ResultEntity<ComicListEntity>> getComics(
+            @Query("offset") int offset,
+            @QueryMap Map<String, String> authParameters);
+
     @GET("characters")
     Observable<ResultEntity<CharacterListEntity>> getCharacters(
             @Query("offset") int offset,
