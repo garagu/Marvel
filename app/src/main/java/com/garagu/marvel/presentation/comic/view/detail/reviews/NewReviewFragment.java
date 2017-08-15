@@ -13,12 +13,7 @@ import android.widget.TextView;
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
-import com.garagu.marvel.presentation.common.model.ReviewViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.inject.Inject;
 

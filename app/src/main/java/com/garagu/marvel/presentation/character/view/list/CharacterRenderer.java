@@ -8,8 +8,8 @@ import android.widget.TextView;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
+import com.garagu.marvel.presentation.common.view.ImageLoader;
 import com.garagu.marvel.presentation.common.view.RVRenderer;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindDrawable;
 import butterknife.BindView;
@@ -30,11 +30,11 @@ class CharacterRenderer extends RVRenderer<CharacterViewModel> {
     @BindDrawable(R.drawable.placeholder_character)
     Drawable placeholder;
 
-    private final Picasso picasso;
+    private final ImageLoader imageLoader;
     private final OnCardClickListener onCardClickListener;
 
-    CharacterRenderer(@NonNull Picasso picasso, @NonNull OnCardClickListener onCardClickListener) {
-        this.picasso = picasso;
+    CharacterRenderer(@NonNull ImageLoader imageLoader, @NonNull OnCardClickListener onCardClickListener) {
+        this.imageLoader = imageLoader;
         this.onCardClickListener = onCardClickListener;
     }
 
@@ -48,7 +48,7 @@ class CharacterRenderer extends RVRenderer<CharacterViewModel> {
         final CharacterViewModel character = getContent();
         txtName.setText(character.getName());
         if (character.isThumbnailAvailable()) {
-            picasso.load(character.getUrlThumbnail()).placeholder(placeholder).into(imgThumbnail);
+            imageLoader.load(imgThumbnail, character.getUrlThumbnail(), placeholder);
         } else {
             imgThumbnail.setImageDrawable(placeholder);
         }

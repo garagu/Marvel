@@ -6,6 +6,8 @@ import android.util.Log;
 import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.data.net.ApiConnection;
 import com.garagu.marvel.data.net.MarvelApi;
+import com.garagu.marvel.presentation.common.view.ImageLoader;
+import com.garagu.marvel.presentation.common.view.PicassoImpl;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
@@ -19,10 +21,10 @@ import dagger.Provides;
 @Module
 public class NetModule {
 
-    @Singleton
     @Provides
-    Picasso providePicasso(Application application) {
-        Picasso picasso = new Picasso.Builder(application)
+    @Singleton
+    ImageLoader provideImageLoader(Application application) {
+        final Picasso picasso = new Picasso.Builder(application)
                 .listener((p, uri, e) -> {
                     if (BuildConfig.DEBUG) {
                         Log.e("Picasso", e.getMessage());
@@ -32,11 +34,11 @@ public class NetModule {
         if (BuildConfig.DEBUG) {
             picasso.setIndicatorsEnabled(true);
         }
-        return picasso;
+        return new PicassoImpl(picasso);
     }
 
-    @Singleton
     @Provides
+    @Singleton
     MarvelApi provideApi(Application application) {
         return new ApiConnection(application).getServices(MarvelApi.class, MarvelApi.BASE_URL);
     }

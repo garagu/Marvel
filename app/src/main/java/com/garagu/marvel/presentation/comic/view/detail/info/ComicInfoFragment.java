@@ -1,5 +1,6 @@
 package com.garagu.marvel.presentation.comic.view.detail.info;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,8 +17,8 @@ import android.widget.TextView;
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
-import com.garagu.marvel.presentation.common.ImageLoader;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
+import com.garagu.marvel.presentation.common.view.ImageLoader;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
@@ -29,6 +30,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindDimen;
+import butterknife.BindDrawable;
 import butterknife.BindView;
 
 /**
@@ -63,6 +65,8 @@ public class ComicInfoFragment extends BaseFragment {
     RecyclerView rvCredits;
     @BindView(R.id.rv_characters)
     RecyclerView rvCharacters;
+    @BindDrawable(R.mipmap.placeholder)
+    Drawable placeholder;
 
     @BindDimen(R.dimen.margin_small)
     int space;
@@ -100,7 +104,7 @@ public class ComicInfoFragment extends BaseFragment {
     }
 
     private void initComicInfo() {
-        imageLoader.load(imgThumbnail, selectedComic.getUrlThumbnail());
+        imageLoader.load(imgThumbnail, selectedComic.getUrlThumbnail(), placeholder);
         txtTitle.setText(selectedComic.getTitle());
         if (!selectedComic.getDescription().isEmpty()) {
             txtSummary.setText(selectedComic.getDescription());

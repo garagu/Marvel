@@ -2,10 +2,8 @@ package com.garagu.marvel.presentation.comic.view.list;
 
 import android.support.annotation.NonNull;
 
-import com.garagu.marvel.BuildConfig;
 import com.garagu.marvel.domain.model.common.Offset;
 import com.garagu.marvel.domain.usecase.GetComics;
-import com.garagu.marvel.domain.usecase.GetComicsByCharacter;
 import com.garagu.marvel.presentation.comic.model.ComicModelMapper;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.comic.view.list.ComicListPresenter.ListView;

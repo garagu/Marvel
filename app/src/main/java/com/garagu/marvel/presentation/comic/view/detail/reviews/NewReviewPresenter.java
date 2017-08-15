@@ -10,7 +10,6 @@ import com.garagu.marvel.presentation.common.model.ReviewViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;

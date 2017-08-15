@@ -1,14 +1,16 @@
 package com.garagu.marvel.presentation.comic.view.list;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
-import com.garagu.marvel.presentation.common.ImageLoader;
+import com.garagu.marvel.presentation.common.view.ImageLoader;
 import com.garagu.marvel.presentation.common.view.RVRenderer;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 
 /**
@@ -22,6 +24,8 @@ class ComicRenderer extends RVRenderer<ComicViewModel> {
     TextView txtTitle;
     @BindView(R.id.txt_series)
     TextView txtSeries;
+    @BindDrawable(R.mipmap.placeholder)
+    Drawable placeholder;
 
     private final ImageLoader imageLoader;
 
@@ -38,7 +42,7 @@ class ComicRenderer extends RVRenderer<ComicViewModel> {
     @Override
     public void render() {
         final ComicViewModel comic = getContent();
-        imageLoader.load(imgThumbnail, comic.getUrlThumbnail());
+        imageLoader.load(imgThumbnail, comic.getUrlThumbnail(), placeholder);
         txtTitle.setText(comic.getTitle());
         txtSeries.setText(comic.getSeriesTitle());
     }

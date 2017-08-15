@@ -17,12 +17,12 @@ import com.garagu.marvel.presentation.character.view.list.CharacterRenderer.OnCa
 import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.CardDecoration;
+import com.garagu.marvel.presentation.common.view.ImageLoader;
 import com.garagu.marvel.presentation.common.view.RVAnimRendererAdapter;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.Renderer;
 import com.pedrogomez.renderers.RendererBuilder;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ import butterknife.BindView;
 public class CharacterListFragment extends BaseFragment implements CharacterListView {
 
     @Inject
-    Picasso picasso; // TODO abstraction, not concretion
+    ImageLoader imageLoader;
     @Inject
     CharacterListPresenter presenter;
     @Inject
@@ -99,7 +99,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
                 }
             }
         });
-        final Renderer<CharacterViewModel> renderer = new CharacterRenderer(picasso, onCardClickListener);
+        final Renderer<CharacterViewModel> renderer = new CharacterRenderer(imageLoader, onCardClickListener);
         final RendererBuilder<CharacterViewModel> rendererBuilder = new RendererBuilder<>(renderer);
         final AdapteeCollection<CharacterViewModel> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
         adapter = new RVAnimRendererAdapter<>(rendererBuilder, emptyList);
