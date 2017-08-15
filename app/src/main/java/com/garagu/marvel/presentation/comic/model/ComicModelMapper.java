@@ -47,6 +47,7 @@ public class ComicModelMapper {
                     .withSeriesTitle(seriesTitle)
                     .withTitle(comic.getTitle())
                     .withUrlThumbnail(comic.getUrlThumbnail())
+                    .withImages(comic.getImages())
                     .build();
             list.add(viewModel);
         }

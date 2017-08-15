@@ -22,6 +22,9 @@ import java.util.List;
  */
 public class ComicEntityMapper {
 
+    private static final String IMAGE_NAME_GALLERY = ".";
+    private static final String IMAGE_NAME_THUMBNAIL = "/portrait_xlarge.";
+
     public ComicList mapEntityToModel(ResultEntity<ComicListEntity> entity) {
         final List<Comic> comicList = mapComicList(entity.getData().getResults());
         return new ComicList(
@@ -52,7 +55,8 @@ public class ComicEntityMapper {
                 mapCharacters(entity.getCharacters()),
                 entity.getIsbn(),
                 entity.getFormat(),
-                mapThumbnail(entity.getThumbnail())
+                mapThumbnail(entity.getThumbnail()),
+                mapGallery(entity.getImages())
         );
     }
 
@@ -94,10 +98,25 @@ public class ComicEntityMapper {
     }
 
     private String mapThumbnail(ImageEntity entity) {
+        return mapImage(entity, IMAGE_NAME_THUMBNAIL);
+    }
+
+    private List<String> mapGallery(ImageEntity[] entityArray) {
+        final List<String> modelList = new ArrayList<>();
+        for (ImageEntity entity : entityArray) {
+            final String url = mapImage(entity, IMAGE_NAME_GALLERY);
+            if (url != null) {
+                modelList.add(url);
+            }
+        }
+        return modelList;
+    }
+
+    private String mapImage(ImageEntity entity, String name) {
         if (entity.getPath().contains("image_not_available")) {
             return null;
         }
-        return entity.getPath() + "/portrait_xlarge." + entity.getExtension();
+        return entity.getPath() + name + entity.getExtension();
     }
 
 }

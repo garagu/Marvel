@@ -17,7 +17,7 @@
     <!-- Comics -->
     <string name="comics_nav_info">Info</string>
     <string name="comics_nav_reviews">Reviews</string>
-    <string name="comics_nav_images">Images</string>
+    <string name="comics_nav_gallery">Gallery</string>
     <string name="detail_label_summary">Summary</string>
     <string name="detail_label_series">Series:</string>
     <string name="detail_label_pages">Pages:</string>

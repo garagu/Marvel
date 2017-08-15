@@ -17,9 +17,9 @@ public class Comic {
     private final String isbn;
     private final String format;
     private final String urlThumbnail;
+    private final List<String> images;
 
-    public Comic(int id, String title, String description, int pages, ComicSeries series, List<ComicCreator> creators, List<ComicCharacter> characters, String isbn, String format,
-            String urlThumbnail) {
+    public Comic(int id, String title, String description, int pages, ComicSeries series, List<ComicCreator> creators, List<ComicCharacter> characters, String isbn, String format, String urlThumbnail, List<String> images) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -30,6 +30,7 @@ public class Comic {
         this.isbn = isbn;
         this.format = format;
         this.urlThumbnail = urlThumbnail;
+        this.images = images;
     }
 
     public int getId() {
@@ -70,6 +71,10 @@ public class Comic {
 
     public String getUrlThumbnail() {
         return urlThumbnail;
+    }
+
+    public List<String> getImages() {
+        return images;
     }
 
 }

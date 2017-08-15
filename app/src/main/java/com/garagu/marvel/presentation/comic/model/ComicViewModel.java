@@ -35,8 +35,9 @@ public class ComicViewModel implements Parcelable {
     private final String isbn;
     private final String format;
     private final String urlThumbnail;
+    private final List<String> images;
 
-    private ComicViewModel(String id, String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn, String format, String urlThumbnail) {
+    private ComicViewModel(String id, String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn, String format, String urlThumbnail, List<String> images) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -47,6 +48,7 @@ public class ComicViewModel implements Parcelable {
         this.isbn = isbn;
         this.format = format;
         this.urlThumbnail = urlThumbnail;
+        this.images = images;
     }
 
     public String getId() {
@@ -89,6 +91,45 @@ public class ComicViewModel implements Parcelable {
         return urlThumbnail;
     }
 
+    public List<String> getImages() {
+        return images;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(description);
+        dest.writeString(pages);
+        dest.writeString(seriesTitle);
+        dest.writeList(creators);
+        dest.writeStringList(characters);
+        dest.writeString(isbn);
+        dest.writeString(format);
+        dest.writeString(urlThumbnail);
+        dest.writeStringList(images);
+    }
+
+    protected ComicViewModel(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        pages = in.readString();
+        seriesTitle = in.readString();
+        creators = new ArrayList<>();
+        in.readList(creators, CreatorViewModel.class.getClassLoader());
+        characters = in.createStringArrayList();
+        isbn = in.readString();
+        format = in.readString();
+        urlThumbnail = in.readString();
+        images = in.createStringArrayList();
+    }
+
     public static class Builder {
 
         private String id;
@@ -101,6 +142,7 @@ public class ComicViewModel implements Parcelable {
         private String isbn;
         private String format;
         private String urlThumbnail;
+        private List<String> images;
 
         public Builder withId(String id) {
             this.id = id;
@@ -152,43 +194,15 @@ public class ComicViewModel implements Parcelable {
             return this;
         }
 
-        public ComicViewModel build() {
-            return new ComicViewModel(id, title, description, pages, seriesTitle, creators, characters, isbn, format, urlThumbnail);
+        public Builder withImages(List<String> images) {
+            this.images = images;
+            return this;
         }
 
-    }
+        public ComicViewModel build() {
+            return new ComicViewModel(id, title, description, pages, seriesTitle, creators, characters, isbn, format, urlThumbnail, images);
+        }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
-        dest.writeString(title);
-        dest.writeString(description);
-        dest.writeString(pages);
-        dest.writeString(seriesTitle);
-        dest.writeList(creators);
-        dest.writeStringList(characters);
-        dest.writeString(isbn);
-        dest.writeString(format);
-        dest.writeString(urlThumbnail);
-    }
-
-    protected ComicViewModel(Parcel in) {
-        id = in.readString();
-        title = in.readString();
-        description = in.readString();
-        pages = in.readString();
-        seriesTitle = in.readString();
-        creators = new ArrayList<>();
-        in.readList(creators, CreatorViewModel.class.getClassLoader());
-        characters = in.createStringArrayList();
-        isbn = in.readString();
-        format = in.readString();
-        urlThumbnail = in.readString();
     }
 
 }

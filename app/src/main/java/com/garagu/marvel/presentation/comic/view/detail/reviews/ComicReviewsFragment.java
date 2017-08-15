@@ -82,6 +82,12 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
         initPresenter();
     }
 
+    @Override
+    public void onDestroyView() {
+        presenter.unsubscribe();
+        super.onDestroyView();
+    }
+
     private void initDependencyInjector() {
         getComponent(ComicComponent.class).inject(this);
     }

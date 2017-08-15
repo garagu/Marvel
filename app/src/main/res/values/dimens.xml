@@ -1,4 +1,5 @@
 <resources>
+    <dimen name="border">2dp</dimen>
     <dimen name="margin_xsmall">4dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_medium">12dp</dimen>

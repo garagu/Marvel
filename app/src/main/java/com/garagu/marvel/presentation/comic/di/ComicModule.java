@@ -62,13 +62,13 @@ public class ComicModule {
         return new ComicLocalDatasource(fileManager, gson);
     }
 
-/*
-    @Provides
-    @ActivityScope
-    ComicDatasource provideComicDatasource(MarvelApi marvelApi) {
-        return new ComicRemoteDatasource(marvelApi);
-    }
-*/
+    /*
+        @Provides
+        @ActivityScope
+        ComicDatasource provideComicDatasource(MarvelApi marvelApi) {
+            return new ComicRemoteDatasource(marvelApi);
+        }
+    */
     @Provides
     @ActivityScope
     ComicEntityMapper provideComicEntityMapper() {

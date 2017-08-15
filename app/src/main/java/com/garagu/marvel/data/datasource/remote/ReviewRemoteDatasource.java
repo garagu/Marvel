@@ -69,7 +69,7 @@ public class ReviewRemoteDatasource implements ReviewDatasource {
         final String path = "/" + CHILD_REVIEWS + "/" + comicId + "/" + newKey;
         final Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put(path, reviewValues);
-        // String otherPath = "/" + CHILD_USER_REVIEWS + "/" + comicId + "/" + newKey;
+        // String otherPath = "/" + CHILD_USER_REVIEWS + "/" + usernameId + "/" + newKey;
         // childUpdates.put(otherPath, reviewValues);
         return Observable.create(subscriber -> databaseReference.updateChildren(childUpdates, (databaseError, databaseReference) -> {
             if (databaseError == null) {

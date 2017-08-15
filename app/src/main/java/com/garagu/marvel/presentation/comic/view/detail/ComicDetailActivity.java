@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
@@ -70,8 +69,8 @@ public class ComicDetailActivity extends BottonNavActivity implements HasInjecti
                 navigator.openComicReviews(this, selectedComic);
                 return true;
             case R.id.bottom_nav_images:
-                Toast.makeText(this, R.string.message_next_version, Toast.LENGTH_SHORT).show();
-                break;
+                navigator.openComicGallery(this, selectedComic.getImages());
+                return true;
         }
         return false;
     }

@@ -2,6 +2,7 @@ package com.garagu.marvel.presentation.common.view;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -21,19 +22,21 @@ public class BaseNavigator {
 
     @IdRes
     private static final int CONTAINER_VIEW_ID = R.id.frame_container;
+    private static final String TAG_ROOT_FRAGMENT = "rootFragment";
 
     protected void openFragment(@NonNull Activity activity, @NonNull Fragment fragment) {
-        activity.getFragmentManager()
-                .beginTransaction()
+        final FragmentManager fragmentManager = activity.getFragmentManager();
+        fragmentManager.popBackStack(TAG_ROOT_FRAGMENT, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        fragmentManager.beginTransaction()
                 .replace(CONTAINER_VIEW_ID, fragment)
+                .addToBackStack(TAG_ROOT_FRAGMENT)
                 .commit();
     }
 
     protected void addFragment(@NonNull Fragment currentFragment, @NonNull Fragment newFragment) {
         currentFragment.getFragmentManager()
                 .beginTransaction()
-                .hide(currentFragment)
-                .add(CONTAINER_VIEW_ID, newFragment)
+                .replace(CONTAINER_VIEW_ID, newFragment)
                 .addToBackStack(null)
                 .commit();
     }
