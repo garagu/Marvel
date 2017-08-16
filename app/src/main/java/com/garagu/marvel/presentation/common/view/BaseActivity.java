@@ -9,6 +9,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.garagu.marvel.R;
@@ -27,6 +29,8 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.nav_view)
     NavigationView navigationView;
 
+    private TextView txtUsername;
+    private TextView txtEmail;
     private ActionBarDrawerToggle drawerToggle;
 
     @Override
@@ -39,6 +43,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     private void initInjection() {
         ButterKnife.bind(this);
+        final View headerView = navigationView.getHeaderView(0);
+        txtUsername = ButterKnife.findById(headerView, R.id.txt_nav_header_username);
+        txtEmail = ButterKnife.findById(headerView, R.id.txt_nav_header_email);
     }
 
     private void initComponents() {
@@ -89,6 +96,11 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
     protected void hideMenu() {
         drawerToggle.setDrawerIndicatorEnabled(false);
+    }
+
+    public void initNavHeader(@NonNull String username, @NonNull String email) {
+        txtUsername.setText(username);
+        txtEmail.setText(email);
     }
 
 }

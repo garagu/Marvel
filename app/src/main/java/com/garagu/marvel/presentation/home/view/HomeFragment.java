@@ -2,7 +2,9 @@ package com.garagu.marvel.presentation.home.view;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
@@ -12,6 +14,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.garagu.marvel.R;
+import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.CardDecoration;
 import com.garagu.marvel.presentation.common.view.RVRenderer.OnRendererClickListener;
@@ -37,6 +40,8 @@ import butterknife.BindView;
  */
 public class HomeFragment extends BaseFragment implements HomeView {
 
+    private static final String KEY_USER = "user";
+
     @Inject
     HomePresenter presenter;
     @Inject
@@ -47,13 +52,26 @@ public class HomeFragment extends BaseFragment implements HomeView {
     @BindDimen(R.dimen.margin_medium)
     int margin;
 
-    public static HomeFragment newInstance() {
-        return new HomeFragment();
+    private UserViewModel user;
+
+    @NonNull
+    public static HomeFragment newInstance(@NonNull UserViewModel user) {
+        final HomeFragment fragment = new HomeFragment();
+        final Bundle args = new Bundle();
+        args.putParcelable(KEY_USER, user);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_list;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        user = getArguments().getParcelable(KEY_USER);
     }
 
     @Override
@@ -75,6 +93,7 @@ public class HomeFragment extends BaseFragment implements HomeView {
     }
 
     private void initComponents() {
+        getBaseActivity().initNavHeader(user.getName(), user.getEmail());
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         final LayoutManager layoutManager = new LinearLayoutManager(getActivity());

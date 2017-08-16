@@ -10,6 +10,7 @@ import com.garagu.marvel.data.entity.login.RegisterEntity;
 import com.garagu.marvel.data.entity.login.UserEntity;
 import com.garagu.marvel.data.net.exception.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuth.AuthStateListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
@@ -31,23 +32,35 @@ public class LoginRemoteDatasource implements LoginDatasource {
 
     @Override
     public Observable<UserEntity> getUser() {
-        final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        if (firebaseUser != null) {
-            final UserEntity user = new UserEntity(firebaseUser.getDisplayName(), firebaseUser.getEmail());
-            return Observable.just(user);
-        } else {
-            final String errorMessage = context.getString(R.string.login_error_unauthenticated);
-            final FirebaseException exception = new FirebaseException(errorMessage);
-            return Observable.error(exception);
-        }
+        return Observable.create(subscriber -> {
+            final AuthStateListener authStateListener = new AuthStateListener() {
+                @Override
+                public void onAuthStateChanged(@NonNull FirebaseAuth auth) {
+                    final FirebaseUser firebaseUser = auth.getCurrentUser();
+                    if (firebaseUser != null) {
+                        final UserEntity user = new UserEntity(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
+                        subscriber.onNext(user);
+                        subscriber.onComplete();
+                    } else {
+                        final String errorMessage = context.getString(R.string.login_error_unauthenticated);
+                        final FirebaseException exception = new FirebaseException(errorMessage);
+                        subscriber.onError(exception);
+                    }
+                    firebaseAuth.removeAuthStateListener(this);
+                }
+            };
+            firebaseAuth.addAuthStateListener(authStateListener);
+        });
     }
 
     @Override
-    public Observable<Boolean> login(LoginEntity login) {
+    public Observable<UserEntity> login(LoginEntity login) {
         return Observable.create(subscriber -> firebaseAuth
                 .signInWithEmailAndPassword(login.getEmail(), login.getPassword())
                 .addOnSuccessListener(authResult -> {
-                    subscriber.onNext(true);
+                    final FirebaseUser firebaseUser = authResult.getUser();
+                    final UserEntity user = new UserEntity(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
+                    subscriber.onNext(user);
                     subscriber.onComplete();
                 })
                 .addOnFailureListener(subscriber::onError)

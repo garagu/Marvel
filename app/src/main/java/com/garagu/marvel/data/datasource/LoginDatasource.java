@@ -12,7 +12,7 @@ import io.reactivex.Observable;
 public interface LoginDatasource {
     Observable<UserEntity> getUser();
 
-    Observable<Boolean> login(LoginEntity login);
+    Observable<UserEntity> login(LoginEntity login);
 
     Observable<Boolean> registerUser(RegisterEntity user);
 }

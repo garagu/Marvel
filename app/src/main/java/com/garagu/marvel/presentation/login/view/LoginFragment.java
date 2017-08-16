@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.widget.EditText;
 
 import com.garagu.marvel.R;
+import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.login.di.LoginComponent;
 
@@ -75,8 +76,8 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
     }
 
     @Override
-    public void openHome() {
-        navigator.openHome(getActivity());
+    public void openHome(@NonNull UserViewModel user) {
+        navigator.openHome(getActivity(), user);
     }
 
     @Override

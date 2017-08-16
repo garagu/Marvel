@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.garagu.marvel.data.datasource.LoginDatasource;
 import com.garagu.marvel.data.entity.login.LoginEntity;
 import com.garagu.marvel.data.entity.login.RegisterEntity;
+import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
 import com.garagu.marvel.presentation.login.view.LoginPresenter.LoginView;
@@ -53,12 +54,20 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        success -> {
-                        },
-                        error -> getView().showError(error.getMessage()),
-                        () -> {
+                        user -> {
+                            UserViewModel viewModel = new UserViewModel.Builder()
+                                    .withEmail(user.getEmail())
+                                    .withId(user.getId())
+                                    .withName(user.getName())
+                                    .build();
                             getView().hideProgress();
-                            getView().openHome();
+                            getView().openHome(viewModel);
+                        },
+                        error -> {
+                            getView().showError(error.getMessage());
+                            getView().hideProgress();
+                        },
+                        () -> {
                         },
                         compositeDisposable::add
                 );
@@ -71,11 +80,11 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        success -> {
-                            getView().showConfirmation();
+                        success -> getView().showConfirmation(),
+                        error -> {
+                            getView().showError(error.getMessage());
                             getView().hideProgress();
                         },
-                        error -> getView().showError(error.getMessage()),
                         () -> getView().hideProgress(),
                         compositeDisposable::add
                 );
@@ -84,7 +93,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     interface LoginView extends BaseView {
         void hideProgress();
 
-        void openHome();
+        void openHome(@NonNull UserViewModel user);
 
         void showConfirmation();
 
