@@ -11,11 +11,11 @@ import android.widget.ProgressBar;
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
-import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.comic.view.Navigator;
-import com.garagu.marvel.presentation.comic.view.list.ListPresenter.ListView;
+import com.garagu.marvel.presentation.comic.view.list.ComicListPresenter.ListView;
+import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
-import com.garagu.marvel.presentation.common.ImageLoader;
+import com.garagu.marvel.presentation.common.view.ImageLoader;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
@@ -32,10 +32,10 @@ import butterknife.BindView;
 /**
  * Created by garagu.
  */
-public class ListFragment extends BaseFragment implements ListView {
+public class ComicListFragment extends BaseFragment implements ListView {
 
     @Inject
-    ListPresenter presenter;
+    ComicListPresenter presenter;
     @Inject
     Navigator navigator;
     @Inject
@@ -50,8 +50,8 @@ public class ListFragment extends BaseFragment implements ListView {
     private boolean hasMore;
     private int offset;
 
-    public static ListFragment newInstance() {
-        return new ListFragment();
+    public static ComicListFragment newInstance() {
+        return new ComicListFragment();
     }
 
     @Override
@@ -123,7 +123,7 @@ public class ListFragment extends BaseFragment implements ListView {
 
     @Override
     public void openDetail(@NonNull ComicViewModel comic) {
-        navigator.openComicDetail(this, comic);
+        navigator.openComicDetail(getActivity(), comic);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class ListFragment extends BaseFragment implements ListView {
 
     @Override
     public void showError(@NonNull String message) {
-        showMessage(message);
+        showSnackbar(message);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.garagu.marvel.presentation.character.view.detail;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -18,10 +19,11 @@ import com.garagu.marvel.presentation.character.di.CharacterComponent;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
 import com.garagu.marvel.presentation.character.view.detail.CharacterDetailPresenter.CharacterDetailView;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
-import com.squareup.picasso.Picasso;
+import com.garagu.marvel.presentation.common.view.ImageLoader;
 
 import javax.inject.Inject;
 
+import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -33,7 +35,7 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     private static final String KEY_SELECTED_CHARACTER = "selectedCharacter";
 
     @Inject
-    Picasso picasso;
+    ImageLoader imageLoader;
     @Inject
     CharacterDetailPresenter presenter;
 
@@ -53,6 +55,8 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     TextView txtFirstComics;
     @BindView(R.id.btn_character_comics)
     Button btnComics;
+    @BindDrawable(R.drawable.placeholder_character)
+    Drawable placeholder;
 
     private CharacterViewModel character;
 
@@ -116,7 +120,7 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
 
     @Override
     public void loadImage(@NonNull String url) {
-        picasso.load(character.getUrlThumbnail()).into(imgThumbnail);
+        imageLoader.load(imgThumbnail, url, placeholder);
     }
 
     @Override

@@ -32,7 +32,6 @@ public class CharacterModelMapper {
     @NonNull
     private List<CharacterViewModel> mapCharacters(@NonNull List<Character> modelList) {
         final List<CharacterViewModel> viewModelList = new ArrayList<>();
-        // TODO
         for (Character modelItem : modelList) {
             final CollectionViewModel comics = mapCollectionModelToViewModel(modelItem.getComics());
             final List<LinkViewModel> links = mapLinkModelToViewModel(modelItem.getLinks());

@@ -1,8 +1,10 @@
-package com.garagu.marvel.presentation.comic.view.detail;
+package com.garagu.marvel.presentation.comic.view.detail.info;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
@@ -16,7 +18,7 @@ import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
-import com.garagu.marvel.presentation.common.ImageLoader;
+import com.garagu.marvel.presentation.common.view.ImageLoader;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
@@ -28,18 +30,21 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindDimen;
+import butterknife.BindDrawable;
 import butterknife.BindView;
 
 /**
  * Created by garagu.
  */
-public class DetailFragment extends BaseFragment {
+public class ComicInfoFragment extends BaseFragment {
 
-    private static final String KEY_COMIC = "comic";
+    private static final String KEY_SELECTED_COMIC = "selectedComic";
 
     @Inject
     ImageLoader imageLoader;
 
+    @BindView(R.id.nested_scroll_view)
+    NestedScrollView nestedScrollView;
     @BindView(R.id.img_thumbnail)
     ImageView imgThumbnail;
     @BindView(R.id.txt_title)
@@ -56,33 +61,37 @@ public class DetailFragment extends BaseFragment {
     TextView txtFormat;
     @BindView(R.id.txt_isbn)
     TextView txtIsbn;
+    @BindView(R.id.rv_dates)
+    RecyclerView rvDates;
     @BindView(R.id.rv_credits)
     RecyclerView rvCredits;
     @BindView(R.id.rv_characters)
     RecyclerView rvCharacters;
+    @BindDrawable(R.mipmap.placeholder)
+    Drawable placeholder;
 
     @BindDimen(R.dimen.margin_small)
     int space;
 
     private ComicViewModel selectedComic;
 
-    public static DetailFragment newInstance(ComicViewModel selectedComic) {
-        DetailFragment fragment = new DetailFragment();
+    public static ComicInfoFragment newInstance(ComicViewModel selectedComic) {
+        ComicInfoFragment fragment = new ComicInfoFragment();
         Bundle args = new Bundle();
-        args.putParcelable(KEY_COMIC, selectedComic);
+        args.putParcelable(KEY_SELECTED_COMIC, selectedComic);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_detail;
+        return R.layout.fragment_comic_info;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        selectedComic = getArguments().getParcelable(KEY_COMIC);
+        selectedComic = getArguments().getParcelable(KEY_SELECTED_COMIC);
     }
 
     @Override
@@ -97,7 +106,7 @@ public class DetailFragment extends BaseFragment {
     }
 
     private void initComicInfo() {
-        imageLoader.load(imgThumbnail, selectedComic.getUrlThumbnail());
+        imageLoader.load(imgThumbnail, selectedComic.getUrlThumbnail(), placeholder);
         txtTitle.setText(selectedComic.getTitle());
         if (!selectedComic.getDescription().isEmpty()) {
             txtSummary.setText(selectedComic.getDescription());
@@ -108,8 +117,14 @@ public class DetailFragment extends BaseFragment {
         txtPages.setText(selectedComic.getPages());
         txtFormat.setText(selectedComic.getFormat());
         txtIsbn.setText(selectedComic.getIsbn());
+        initDates();
         initCredits();
         initCharacters();
+        nestedScrollView.smoothScrollTo(0, 0);
+    }
+
+    private void initDates() {
+        initRecyclerView(rvDates, new DateRenderer(), selectedComic.getDates());
     }
 
     private void initCredits() {

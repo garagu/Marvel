@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.comic.view;
+package com.garagu.marvel.presentation.comic.view.list;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.di.ComicModule;
 import com.garagu.marvel.presentation.comic.di.DaggerComicComponent;
+import com.garagu.marvel.presentation.comic.view.Navigator;
 import com.garagu.marvel.presentation.common.view.BaseActivity;
 import com.garagu.marvel.presentation.common.view.HasInjection;
 
@@ -16,7 +17,7 @@ import javax.inject.Inject;
 /**
  * Created by garagu.
  */
-public class ComicActivity extends BaseActivity implements HasInjection<ComicComponent> {
+public class ComicListActivity extends BaseActivity implements HasInjection<ComicComponent> {
 
     @Inject
     Navigator navigator;
@@ -24,7 +25,7 @@ public class ComicActivity extends BaseActivity implements HasInjection<ComicCom
     private ComicComponent comicComponent;
 
     public static Intent getCallingIntent(@NonNull Activity activity) {
-        return new Intent(activity, ComicActivity.class);
+        return new Intent(activity, ComicListActivity.class);
     }
 
     @Override

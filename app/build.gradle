@@ -29,6 +29,7 @@ android {
 
 dependencies {
     compile androidSupport.values()
+    compile firebase.values()
     compile retrofit.values()
     compile rx.values()
     compile butterknife.library
@@ -41,3 +42,5 @@ dependencies {
     annotationProcessor dagger.compiler
     compile lottie
 }
+
+apply plugin: 'com.google.gms.google-services'

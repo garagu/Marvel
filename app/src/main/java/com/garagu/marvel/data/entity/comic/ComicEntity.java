@@ -20,6 +20,7 @@ public class ComicEntity {
     private ImageEntity thumbnail;
     private CreatorCollectionEntity creators;
     private DefaultCollectionEntity characters;
+    private ImageEntity[] images;
 
     public int getId() {
         return id;
@@ -63,6 +64,10 @@ public class ComicEntity {
 
     public DefaultCollectionEntity getCharacters() {
         return characters;
+    }
+
+    public ImageEntity[] getImages() {
+        return images;
     }
 
 }

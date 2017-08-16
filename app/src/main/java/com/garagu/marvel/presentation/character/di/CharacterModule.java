@@ -1,9 +1,7 @@
 package com.garagu.marvel.presentation.character.di;
 
 import com.garagu.marvel.data.datasource.CharacterDatasource;
-import com.garagu.marvel.data.datasource.local.CharacterLocalDatasource;
 import com.garagu.marvel.data.datasource.remote.CharacterRemoteDatasource;
-import com.garagu.marvel.data.local.FileManager;
 import com.garagu.marvel.data.mapper.CharacterEntityMapper;
 import com.garagu.marvel.data.net.MarvelApi;
 import com.garagu.marvel.data.repository.CharacterDataRepository;
@@ -11,7 +9,6 @@ import com.garagu.marvel.domain.repository.CharacterRepository;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
 import com.garagu.marvel.presentation.character.model.CharacterModelMapper;
 import com.garagu.marvel.presentation.character.view.Navigator;
-import com.google.gson.Gson;
 
 import dagger.Module;
 import dagger.Provides;

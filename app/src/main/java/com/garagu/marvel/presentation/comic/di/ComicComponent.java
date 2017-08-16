@@ -2,9 +2,14 @@ package com.garagu.marvel.presentation.comic.di;
 
 import com.garagu.marvel.presentation.application.di.ActivityScope;
 import com.garagu.marvel.presentation.application.di.AppComponent;
-import com.garagu.marvel.presentation.comic.view.ComicActivity;
-import com.garagu.marvel.presentation.comic.view.detail.DetailFragment;
-import com.garagu.marvel.presentation.comic.view.list.ListFragment;
+import com.garagu.marvel.presentation.comic.view.detail.ComicDetailActivity;
+import com.garagu.marvel.presentation.comic.view.detail.gallery.ComicGalleryFragment;
+import com.garagu.marvel.presentation.comic.view.detail.gallery.ImageDetailFragment;
+import com.garagu.marvel.presentation.comic.view.detail.info.ComicInfoFragment;
+import com.garagu.marvel.presentation.comic.view.detail.reviews.ComicReviewsFragment;
+import com.garagu.marvel.presentation.comic.view.detail.reviews.NewReviewFragment;
+import com.garagu.marvel.presentation.comic.view.list.ComicListActivity;
+import com.garagu.marvel.presentation.comic.view.list.ComicListFragment;
 
 import dagger.Component;
 
@@ -14,11 +19,19 @@ import dagger.Component;
 @ActivityScope
 @Component(dependencies = AppComponent.class, modules = ComicModule.class)
 public interface ComicComponent {
+    void inject(ComicListActivity activity);
 
-    void inject(ComicActivity activity);
+    void inject(ComicListFragment fragment);
 
-    void inject(ListFragment fragment);
+    void inject(ComicDetailActivity activity);
 
-    void inject(DetailFragment fragment);
+    void inject(ComicInfoFragment fragment);
 
+    void inject(ComicReviewsFragment fragment);
+
+    void inject(NewReviewFragment fragment);
+
+    void inject(ComicGalleryFragment fragment);
+
+    void inject(ImageDetailFragment fragment);
 }

@@ -1,18 +1,18 @@
 package com.garagu.marvel.data.mapper;
 
-import com.garagu.marvel.data.entity.common.DefaultCollectionEntity;
-import com.garagu.marvel.data.entity.common.ImageEntity;
-import com.garagu.marvel.data.entity.common.NameEntity;
-import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.data.entity.comic.ComicEntity;
 import com.garagu.marvel.data.entity.comic.ComicListEntity;
 import com.garagu.marvel.data.entity.comic.CreatorCollectionEntity;
 import com.garagu.marvel.data.entity.comic.CreatorEntity;
-import com.garagu.marvel.domain.model.Comic;
-import com.garagu.marvel.domain.model.ComicCharacter;
-import com.garagu.marvel.domain.model.ComicCreator;
-import com.garagu.marvel.domain.model.ComicList;
-import com.garagu.marvel.domain.model.ComicSeries;
+import com.garagu.marvel.data.entity.common.DefaultCollectionEntity;
+import com.garagu.marvel.data.entity.common.ImageEntity;
+import com.garagu.marvel.data.entity.common.NameEntity;
+import com.garagu.marvel.data.entity.common.ResultEntity;
+import com.garagu.marvel.domain.model.comic.Comic;
+import com.garagu.marvel.domain.model.comic.ComicCharacter;
+import com.garagu.marvel.domain.model.comic.ComicCreator;
+import com.garagu.marvel.domain.model.comic.ComicList;
+import com.garagu.marvel.domain.model.comic.ComicSeries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,15 @@ import java.util.List;
  * Created by garagu.
  */
 public class ComicEntityMapper {
+
+    private static final String IMAGE_NAME_GALLERY = ".";
+    private static final String IMAGE_NAME_THUMBNAIL = "/portrait_xlarge.";
+
+    private final ComicDateEntityMapper dateMapper;
+
+    public ComicEntityMapper(ComicDateEntityMapper dateMapper) {
+        this.dateMapper = dateMapper;
+    }
 
     public ComicList mapEntityToModel(ResultEntity<ComicListEntity> entity) {
         final List<Comic> comicList = mapComicList(entity.getData().getResults());
@@ -43,6 +52,7 @@ public class ComicEntityMapper {
 
     private Comic mapComic(ComicEntity entity) {
         return new Comic(
+                entity.getId(),
                 entity.getTitle(),
                 (entity.getDescription() != null) ? entity.getDescription() : "",
                 entity.getPageCount(),
@@ -51,7 +61,9 @@ public class ComicEntityMapper {
                 mapCharacters(entity.getCharacters()),
                 entity.getIsbn(),
                 entity.getFormat(),
-                mapThumbnail(entity.getThumbnail())
+                mapThumbnail(entity.getThumbnail()),
+                mapGallery(entity.getImages()),
+                dateMapper.mapListEntityToModel(entity.getDates())
         );
     }
 
@@ -93,10 +105,25 @@ public class ComicEntityMapper {
     }
 
     private String mapThumbnail(ImageEntity entity) {
+        return mapImage(entity, IMAGE_NAME_THUMBNAIL);
+    }
+
+    private List<String> mapGallery(ImageEntity[] entityArray) {
+        final List<String> modelList = new ArrayList<>();
+        for (ImageEntity entity : entityArray) {
+            final String url = mapImage(entity, IMAGE_NAME_GALLERY);
+            if (url != null) {
+                modelList.add(url);
+            }
+        }
+        return modelList;
+    }
+
+    private String mapImage(ImageEntity entity, String name) {
         if (entity.getPath().contains("image_not_available")) {
             return null;
         }
-        return entity.getPath() + "/portrait_xlarge." + entity.getExtension();
+        return entity.getPath() + name + entity.getExtension();
     }
 
 }

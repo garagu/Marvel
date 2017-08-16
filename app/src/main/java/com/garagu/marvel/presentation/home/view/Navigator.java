@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.presentation.character.view.CharacterActivity;
-import com.garagu.marvel.presentation.comic.view.ComicActivity;
+import com.garagu.marvel.presentation.comic.view.list.ComicListActivity;
 import com.garagu.marvel.presentation.common.view.BaseNavigator;
 
 /**
@@ -23,7 +23,7 @@ public class Navigator extends BaseNavigator {
     }
 
     void openComics(@NonNull Activity activity) {
-        final Intent intent = ComicActivity.getCallingIntent(activity);
+        final Intent intent = ComicListActivity.getCallingIntent(activity);
         activity.startActivity(intent);
     }
 

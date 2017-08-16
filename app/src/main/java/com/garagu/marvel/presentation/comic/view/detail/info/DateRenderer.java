@@ -1,9 +1,9 @@
-package com.garagu.marvel.presentation.comic.view.detail;
+package com.garagu.marvel.presentation.comic.view.detail.info;
 
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.presentation.comic.model.CreatorViewModel;
+import com.garagu.marvel.presentation.comic.model.ComicDateViewModel;
 import com.garagu.marvel.presentation.common.view.RVRenderer;
 
 import butterknife.BindView;
@@ -11,12 +11,12 @@ import butterknife.BindView;
 /**
  * Created by garagu.
  */
-class CreatorRenderer extends RVRenderer<CreatorViewModel> {
+class DateRenderer extends RVRenderer<ComicDateViewModel> {
 
     @BindView(R.id.txt_role)
-    TextView txtRole;
+    TextView txtType;
     @BindView(R.id.txt_name)
-    TextView txtName;
+    TextView txtDate;
 
     @Override
     protected int getLayoutResId() {
@@ -25,9 +25,9 @@ class CreatorRenderer extends RVRenderer<CreatorViewModel> {
 
     @Override
     public void render() {
-        final CreatorViewModel creator = getContent();
-        txtRole.setText(creator.getRole());
-        txtName.setText(creator.getName());
+        final ComicDateViewModel comicDate = getContent();
+        txtType.setText(comicDate.getType());
+        txtDate.setText(comicDate.getDate());
     }
 
 }

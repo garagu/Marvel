@@ -27,14 +27,20 @@
         </activity>
 
         <activity
-            android:name=".presentation.comic.view.ComicActivity"
+            android:name=".presentation.character.view.CharacterActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".presentation.character.view.CharacterActivity"
+            android:name=".presentation.comic.view.list.ComicListActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity
+            android:name=".presentation.comic.view.detail.ComicDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 
