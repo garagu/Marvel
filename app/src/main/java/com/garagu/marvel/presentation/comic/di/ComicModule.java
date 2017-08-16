@@ -5,6 +5,7 @@ import com.garagu.marvel.data.datasource.ReviewDatasource;
 import com.garagu.marvel.data.datasource.local.ComicLocalDatasource;
 import com.garagu.marvel.data.datasource.remote.ReviewRemoteDatasource;
 import com.garagu.marvel.data.local.FileManager;
+import com.garagu.marvel.data.mapper.ComicDateEntityMapper;
 import com.garagu.marvel.data.mapper.ComicEntityMapper;
 import com.garagu.marvel.data.mapper.ReviewEntityMapper;
 import com.garagu.marvel.data.repository.ComicDataRepository;
@@ -72,7 +73,8 @@ public class ComicModule {
     @Provides
     @ActivityScope
     ComicEntityMapper provideComicEntityMapper() {
-        return new ComicEntityMapper();
+        final ComicDateEntityMapper dateMapper = new ComicDateEntityMapper();
+        return new ComicEntityMapper(dateMapper);
     }
 
     @Provides

@@ -6,6 +6,7 @@ import android.text.Html;
 import com.garagu.marvel.domain.model.comic.Comic;
 import com.garagu.marvel.domain.model.comic.ComicCharacter;
 import com.garagu.marvel.domain.model.comic.ComicCreator;
+import com.garagu.marvel.domain.model.comic.ComicDate;
 import com.garagu.marvel.domain.model.comic.ComicList;
 import com.garagu.marvel.domain.model.comic.ComicSeries;
 import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
@@ -36,6 +37,7 @@ public class ComicModelMapper {
             final String description = mapDescription(comic.getDescription());
             final String pages = String.valueOf(comic.getPages());
             final String seriesTitle = mapSeriesTitle(comic.getSeries());
+            final List<ComicDateViewModel> dates = mapDates(comic.getDates());
             final ComicViewModel viewModel = new ComicViewModel.Builder()
                     .withCharacters(characters)
                     .withCreators(creators)
@@ -48,6 +50,7 @@ public class ComicModelMapper {
                     .withTitle(comic.getTitle())
                     .withUrlThumbnail(comic.getUrlThumbnail())
                     .withImages(comic.getImages())
+                    .withDates(dates)
                     .build();
             list.add(viewModel);
         }
@@ -93,6 +96,18 @@ public class ComicModelMapper {
 
     private String mapSeriesTitle(ComicSeries model) {
         return model.getName();
+    }
+
+    private List<ComicDateViewModel> mapDates(List<ComicDate> modelList) {
+        final List<ComicDateViewModel> viewModelList = new ArrayList<>();
+        for (ComicDate model : modelList) {
+            final ComicDateViewModel viewModel = new ComicDateViewModel.Builder()
+                    .withDate(model.getDate())
+                    .withType(model.getType())
+                    .build();
+            viewModelList.add(viewModel);
+        }
+        return viewModelList;
     }
 
 }

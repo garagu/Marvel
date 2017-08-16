@@ -22,6 +22,8 @@
         <item name="contentPadding">@dimen/margin</item>
     </style>
 
+    <style name="TitleExtraBig" parent="@style/TextAppearance.AppCompat.Large" />
+
     <style name="TitleBig" parent="@style/TextAppearance.AppCompat.Title" />
 
     <style name="TitleSmall" parent="@style/TextAppearance.AppCompat.Body2" />

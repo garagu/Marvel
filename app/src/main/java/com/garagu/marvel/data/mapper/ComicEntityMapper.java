@@ -25,6 +25,12 @@ public class ComicEntityMapper {
     private static final String IMAGE_NAME_GALLERY = ".";
     private static final String IMAGE_NAME_THUMBNAIL = "/portrait_xlarge.";
 
+    private final ComicDateEntityMapper dateMapper;
+
+    public ComicEntityMapper(ComicDateEntityMapper dateMapper) {
+        this.dateMapper = dateMapper;
+    }
+
     public ComicList mapEntityToModel(ResultEntity<ComicListEntity> entity) {
         final List<Comic> comicList = mapComicList(entity.getData().getResults());
         return new ComicList(
@@ -56,7 +62,8 @@ public class ComicEntityMapper {
                 entity.getIsbn(),
                 entity.getFormat(),
                 mapThumbnail(entity.getThumbnail()),
-                mapGallery(entity.getImages())
+                mapGallery(entity.getImages()),
+                dateMapper.mapListEntityToModel(entity.getDates())
         );
     }
 

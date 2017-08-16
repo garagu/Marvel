@@ -12,7 +12,6 @@ import java.util.List;
 public class ComicViewModel implements Parcelable {
 
     public static final Creator<ComicViewModel> CREATOR = new Creator<ComicViewModel>() {
-
         @Override
         public ComicViewModel createFromParcel(Parcel source) {
             return new ComicViewModel(source);
@@ -22,7 +21,6 @@ public class ComicViewModel implements Parcelable {
         public ComicViewModel[] newArray(int size) {
             return new ComicViewModel[size];
         }
-
     };
 
     private final String id;
@@ -36,8 +34,9 @@ public class ComicViewModel implements Parcelable {
     private final String format;
     private final String urlThumbnail;
     private final List<String> images;
+    private final List<ComicDateViewModel> dates;
 
-    private ComicViewModel(String id, String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn, String format, String urlThumbnail, List<String> images) {
+    private ComicViewModel(String id, String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn, String format, String urlThumbnail, List<String> images, List<ComicDateViewModel> dates) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -49,6 +48,7 @@ public class ComicViewModel implements Parcelable {
         this.format = format;
         this.urlThumbnail = urlThumbnail;
         this.images = images;
+        this.dates = dates;
     }
 
     public String getId() {
@@ -95,6 +95,10 @@ public class ComicViewModel implements Parcelable {
         return images;
     }
 
+    public List<ComicDateViewModel> getDates() {
+        return dates;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -113,6 +117,7 @@ public class ComicViewModel implements Parcelable {
         dest.writeString(format);
         dest.writeString(urlThumbnail);
         dest.writeStringList(images);
+        dest.writeList(dates);
     }
 
     protected ComicViewModel(Parcel in) {
@@ -128,6 +133,8 @@ public class ComicViewModel implements Parcelable {
         format = in.readString();
         urlThumbnail = in.readString();
         images = in.createStringArrayList();
+        dates = new ArrayList<>();
+        in.readList(dates, ComicDateViewModel.class.getClassLoader());
     }
 
     public static class Builder {
@@ -143,6 +150,7 @@ public class ComicViewModel implements Parcelable {
         private String format;
         private String urlThumbnail;
         private List<String> images;
+        private List<ComicDateViewModel> dates;
 
         public Builder withId(String id) {
             this.id = id;
@@ -199,8 +207,13 @@ public class ComicViewModel implements Parcelable {
             return this;
         }
 
+        public Builder withDates(List<ComicDateViewModel> dates) {
+            this.dates = dates;
+            return this;
+        }
+
         public ComicViewModel build() {
-            return new ComicViewModel(id, title, description, pages, seriesTitle, creators, characters, isbn, format, urlThumbnail, images);
+            return new ComicViewModel(id, title, description, pages, seriesTitle, creators, characters, isbn, format, urlThumbnail, images, dates);
         }
 
     }

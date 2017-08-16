@@ -18,8 +18,9 @@ public class Comic {
     private final String format;
     private final String urlThumbnail;
     private final List<String> images;
+    private final List<ComicDate> dates;
 
-    public Comic(int id, String title, String description, int pages, ComicSeries series, List<ComicCreator> creators, List<ComicCharacter> characters, String isbn, String format, String urlThumbnail, List<String> images) {
+    public Comic(int id, String title, String description, int pages, ComicSeries series, List<ComicCreator> creators, List<ComicCharacter> characters, String isbn, String format, String urlThumbnail, List<String> images, List<ComicDate> dates) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -31,6 +32,7 @@ public class Comic {
         this.format = format;
         this.urlThumbnail = urlThumbnail;
         this.images = images;
+        this.dates = dates;
     }
 
     public int getId() {
@@ -75,6 +77,10 @@ public class Comic {
 
     public List<String> getImages() {
         return images;
+    }
+
+    public List<ComicDate> getDates() {
+        return dates;
     }
 
 }

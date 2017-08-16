@@ -61,6 +61,8 @@ public class ComicInfoFragment extends BaseFragment {
     TextView txtFormat;
     @BindView(R.id.txt_isbn)
     TextView txtIsbn;
+    @BindView(R.id.rv_dates)
+    RecyclerView rvDates;
     @BindView(R.id.rv_credits)
     RecyclerView rvCredits;
     @BindView(R.id.rv_characters)
@@ -115,9 +117,14 @@ public class ComicInfoFragment extends BaseFragment {
         txtPages.setText(selectedComic.getPages());
         txtFormat.setText(selectedComic.getFormat());
         txtIsbn.setText(selectedComic.getIsbn());
+        initDates();
         initCredits();
         initCharacters();
         nestedScrollView.smoothScrollTo(0, 0);
+    }
+
+    private void initDates() {
+        initRecyclerView(rvDates, new DateRenderer(), selectedComic.getDates());
     }
 
     private void initCredits() {

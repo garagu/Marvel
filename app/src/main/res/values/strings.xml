@@ -23,6 +23,7 @@
     <string name="detail_label_pages">Pages:</string>
     <string name="detail_label_isbn">ISBN:</string>
     <string name="detail_label_format">Format:</string>
+    <string name="detail_label_dates">Dates</string>
     <string name="detail_label_credits">Credits</string>
     <string name="detail_label_characters">Characters</string>
     <string name="comicnewreview_hint_review">Review</string>
