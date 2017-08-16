@@ -81,10 +81,14 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     }
 
     protected void showBackButton() {
-        drawerToggle.setDrawerIndicatorEnabled(false);
+        hideMenu();
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    protected void hideMenu() {
+        drawerToggle.setDrawerIndicatorEnabled(false);
     }
 
 }

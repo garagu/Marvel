@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.home.view;
+package com.garagu.marvel.presentation.login.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,32 +7,32 @@ import android.support.annotation.NonNull;
 
 import com.garagu.marvel.presentation.common.view.BaseActivity;
 import com.garagu.marvel.presentation.common.view.HasInjection;
-import com.garagu.marvel.presentation.home.di.DaggerHomeComponent;
-import com.garagu.marvel.presentation.home.di.HomeComponent;
+import com.garagu.marvel.presentation.login.di.DaggerLoginComponent;
+import com.garagu.marvel.presentation.login.di.LoginComponent;
 
 import javax.inject.Inject;
 
-public class HomeActivity extends BaseActivity implements HasInjection<HomeComponent> {
+public class LoginActivity extends BaseActivity implements HasInjection<LoginComponent> {
 
     @Inject
     Navigator navigator;
 
-    private HomeComponent component;
+    private LoginComponent component;
 
-    @NonNull
     public static Intent getCallingIntent(@NonNull Activity activity) {
-        return new Intent(activity, HomeActivity.class);
+        return new Intent(activity, LoginActivity.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDependencyInjection();
-        navigator.openHome(this);
+        hideMenu();
+        navigator.openLogin(this);
     }
 
     private void initDependencyInjection() {
-        component = DaggerHomeComponent.builder()
+        component = DaggerLoginComponent.builder()
                 .appComponent(getAppComponent())
                 .build();
         component.inject(this);
@@ -40,7 +40,7 @@ public class HomeActivity extends BaseActivity implements HasInjection<HomeCompo
 
     @NonNull
     @Override
-    public HomeComponent getComponent() {
+    public LoginComponent getComponent() {
         return component;
     }
 
