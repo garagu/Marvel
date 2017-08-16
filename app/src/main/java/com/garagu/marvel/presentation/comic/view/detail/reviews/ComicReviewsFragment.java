@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
@@ -49,6 +50,8 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
     ProgressBar progressBar;
     @BindView(R.id.txt_title)
     TextView txtTitle;
+    @BindView(R.id.rating_bar)
+    RatingBar ratingBar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
@@ -129,12 +132,17 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
 
     @Override
     public void showError(@NonNull String message) {
-        showMessage(message);
+        showSnackbar(message);
     }
 
     @Override
     public void showProgress() {
         progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showRate(float rate) {
+        ratingBar.setRating(rate);
     }
 
     @Override

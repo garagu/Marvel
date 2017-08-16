@@ -154,7 +154,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
 
     @Override
     public void showError(@NonNull String message) {
-        showMessage(message);
+        showSnackbar(message);
     }
 
     @Override

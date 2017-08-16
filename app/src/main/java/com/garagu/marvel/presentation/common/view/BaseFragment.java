@@ -50,11 +50,11 @@ public abstract class BaseFragment extends Fragment {
         return component.cast(injectedActivity.getComponent());
     }
 
-    protected void showMessage(String message) {
+    protected void showSnackbar(String message) {
         Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
     }
 
-    protected void showMessage(@StringRes int message) {
+    protected void showSnackbar(@StringRes int message) {
         Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
     }
 

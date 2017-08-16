@@ -10,4 +10,5 @@
     <color name="colorBottomNavEnabled">#FFFFFF</color>
     <color name="colorBottomNavDisabled">#99FFFFFF</color>
     <color name="colorDivider">#DCDCDC</color>
+    <color name="colorRating">#BF9D18</color>
 </resources>

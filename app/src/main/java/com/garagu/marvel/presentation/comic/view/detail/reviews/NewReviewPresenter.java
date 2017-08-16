@@ -1,7 +1,9 @@
 package com.garagu.marvel.presentation.comic.view.detail.reviews;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 
+import com.garagu.marvel.R;
 import com.garagu.marvel.domain.usecase.AddReviewToComic;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.comic.view.detail.reviews.NewReviewPresenter.NewReviewView;
@@ -46,34 +48,39 @@ public class NewReviewPresenter extends BasePresenter<NewReviewView> {
         getView().hideKeyboard();
     }
 
-    void onPublishClick(ComicViewModel comic, String reviewText) {
-        // TODO author + rate
-        final ReviewViewModel review = new ReviewViewModel.Builder()
-                .withAuthor("username1")
-                .withDate(getCurrentDate())
-                .withRate(5)
-                .withText(reviewText)
-                .withTitle(comic.getTitle())
-                .build();
-        getView().showProgress();
-        Observable.just(review)
-                .map(mapper::mapSimpleViewModelToModel)
-                .map(model -> new AddReviewToComic.InputParam(comic.getId(), model))
-                .flatMap(addReviewToComic::execute)
-                .subscribe(
-                        published -> {
-                            getView().showConfirmation();
-                            getView().close();
-                        },
-                        error -> {
-                            getView().showError(error.getMessage());
-                            getView().hideProgress();
-                        },
-                        () -> getView().hideProgress(),
-                        compositeDisposable::add
-                );
+    void onPublishClick(@NonNull ComicViewModel comic, int rating, @NonNull String reviewText) {
+        if ((rating != 0) && !reviewText.isEmpty()) {
+            // TODO author
+            final ReviewViewModel review = new ReviewViewModel.Builder()
+                    .withAuthor("username1")
+                    .withDate(getCurrentDate())
+                    .withRate(rating)
+                    .withText(reviewText)
+                    .withTitle(comic.getTitle())
+                    .build();
+            getView().showProgress();
+            Observable.just(review)
+                    .map(mapper::mapSimpleViewModelToModel)
+                    .map(model -> new AddReviewToComic.InputParam(comic.getId(), model))
+                    .flatMap(addReviewToComic::execute)
+                    .subscribe(
+                            published -> {
+                                getView().showAlert(R.string.comicnewreview_message_confirmation);
+                                getView().close();
+                            },
+                            error -> {
+                                getView().showError(error.getMessage());
+                                getView().hideProgress();
+                            },
+                            () -> getView().hideProgress(),
+                            compositeDisposable::add
+                    );
+        } else {
+            getView().showAlert(R.string.comicnewreview_message_required_fields);
+        }
     }
 
+    @NonNull
     private String getCurrentDate() {
         final Date currentDate = new Date();
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -87,7 +94,7 @@ public class NewReviewPresenter extends BasePresenter<NewReviewView> {
 
         void hideProgress();
 
-        void showConfirmation();
+        void showAlert(@StringRes int messageIdRes);
 
         void showError(@NonNull String message);
 

@@ -28,6 +28,7 @@
     <string name="detail_label_characters">Characters</string>
     <string name="comicnewreview_hint_review">Review</string>
     <string name="comicnewreview_button">Publish</string>
+    <string name="comicnewreview_message_required_fields">Oops! Some field is empty</string>
     <string name="comicnewreview_message_confirmation">Review published!</string>
 
     <!-- Characters -->

@@ -22,7 +22,9 @@
         <item name="contentPadding">@dimen/margin</item>
     </style>
 
-    <style name="TitleExtraBig" parent="@style/TextAppearance.AppCompat.Large" />
+    <style name="TitleExtraBig" parent="@style/TextAppearance.AppCompat.Large">
+        <item name="android:textStyle">bold</item>
+    </style>
 
     <style name="TitleBig" parent="@style/TextAppearance.AppCompat.Title" />
 
@@ -32,4 +34,17 @@
         <item name="android:textColor">@color/colorBackground</item>
         <item name="android:textStyle">italic</item>
     </style>
+
+    <style name="RatingBar" parent="android:style/Widget.Material.RatingBar">
+        <item name="android:stepSize">1</item>
+        <item name="android:progressTint">@color/colorRating</item>
+        <item name="android:secondaryProgressTint">@color/colorRating</item>
+    </style>
+
+    <style name="RatingBarSmall" parent="android:style/Widget.Material.RatingBar.Small">
+        <item name="android:isIndicator">true</item>
+        <item name="android:progressTint">@color/colorRating</item>
+        <item name="android:secondaryProgressTint">@color/colorRating</item>
+    </style>
+
 </resources>

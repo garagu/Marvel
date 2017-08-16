@@ -13,6 +13,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -35,7 +36,11 @@ public class ComicReviewsPresenter extends BasePresenter<ComicReviewsView> {
         getReviewsByComic.execute(comicId)
                 .map(mapper::mapListModelToViewModel)
                 .subscribe(
-                        reviews -> getView().showReviews(reviews),
+                        reviews -> {
+                            getView().showReviews(reviews);
+                            final float rate = getRate(reviews);
+                            getView().showRate(rate);
+                        },
                         error -> {
                             getView().showError(error.getMessage());
                             getView().hideProgress();
@@ -58,6 +63,14 @@ public class ComicReviewsPresenter extends BasePresenter<ComicReviewsView> {
         getView().openNewReview();
     }
 
+    private float getRate(@NonNull List<ReviewViewModel> reviews) {
+        float rate = 0;
+        for (ReviewViewModel review : reviews) {
+            rate += review.getRate();
+        }
+        return rate / reviews.size();
+    }
+
     interface ComicReviewsView extends BaseView {
         void hideProgress();
 
@@ -66,6 +79,8 @@ public class ComicReviewsPresenter extends BasePresenter<ComicReviewsView> {
         void showError(@NonNull String message);
 
         void showProgress();
+
+        void showRate(float rate);
 
         void showReviews(List<ReviewViewModel> reviews);
     }

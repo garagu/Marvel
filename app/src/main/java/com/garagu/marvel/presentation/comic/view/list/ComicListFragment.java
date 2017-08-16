@@ -141,7 +141,7 @@ public class ComicListFragment extends BaseFragment implements ListView {
 
     @Override
     public void showError(@NonNull String message) {
-        showMessage(message);
+        showSnackbar(message);
     }
 
     @Override

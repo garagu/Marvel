@@ -26,13 +26,21 @@
 
         <TextView
             android:id="@+id/txt_review_username"
+            style="@style/TitleBig"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="Username" />
 
-        <!-- TODO rate -->
-
     </LinearLayout>
+
+    <RatingBar
+        android:id="@+id/rating_bar"
+        style="@style/RatingBarSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:isIndicator="true"
+        tools:rating="3" />
 
     <TextView
         android:id="@+id/txt_review"

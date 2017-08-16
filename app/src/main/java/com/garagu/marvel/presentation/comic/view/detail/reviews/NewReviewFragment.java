@@ -4,15 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
+import com.garagu.marvel.presentation.comic.view.detail.reviews.NewReviewPresenter.NewReviewView;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 
 import javax.inject.Inject;
@@ -24,7 +27,7 @@ import butterknife.OnClick;
  * Created by garagu.
  */
 
-public class NewReviewFragment extends BaseFragment implements NewReviewPresenter.NewReviewView {
+public class NewReviewFragment extends BaseFragment implements NewReviewView {
 
     private static final String KEY_SELECTED_COMIC = "selectedComic";
 
@@ -35,6 +38,8 @@ public class NewReviewFragment extends BaseFragment implements NewReviewPresente
     ProgressBar progressBar;
     @BindView(R.id.txt_comic_title)
     TextView txtTitle;
+    @BindView(R.id.rating_bar)
+    RatingBar ratingBar;
     @BindView(R.id.edtxt_comic_review)
     EditText edTxtReview;
 
@@ -88,7 +93,7 @@ public class NewReviewFragment extends BaseFragment implements NewReviewPresente
 
     @OnClick(R.id.btn_publish)
     void onPublishClick() {
-        presenter.onPublishClick(selectedComic, edTxtReview.getText().toString());
+        presenter.onPublishClick(selectedComic, (int) ratingBar.getRating(), edTxtReview.getText().toString());
     }
 
     @Override
@@ -108,13 +113,13 @@ public class NewReviewFragment extends BaseFragment implements NewReviewPresente
     }
 
     @Override
-    public void showConfirmation() {
-        showMessage(R.string.comicnewreview_message_confirmation);
+    public void showAlert(@StringRes int messageIdRes) {
+        showSnackbar(messageIdRes);
     }
 
     @Override
     public void showError(@NonNull String message) {
-        showMessage(message);
+        showSnackbar(message);
     }
 
     @Override

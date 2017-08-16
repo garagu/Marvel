@@ -1,5 +1,6 @@
 package com.garagu.marvel.presentation.comic.view.detail.reviews;
 
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
@@ -15,6 +16,8 @@ public class ReviewRenderer extends RVRenderer<ReviewViewModel> {
 
     @BindView(R.id.txt_review_username)
     TextView txtUsername;
+    @BindView(R.id.rating_bar)
+    RatingBar ratingBar;
     @BindView(R.id.txt_review)
     TextView txtReview;
 
@@ -28,6 +31,7 @@ public class ReviewRenderer extends RVRenderer<ReviewViewModel> {
         final ReviewViewModel review = getContent();
         txtUsername.setText(review.getAuthor());
         txtReview.setText(review.getText());
+        ratingBar.setRating(review.getRate());
     }
 
 }
