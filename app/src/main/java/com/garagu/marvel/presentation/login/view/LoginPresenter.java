@@ -2,9 +2,8 @@ package com.garagu.marvel.presentation.login.view;
 
 import android.support.annotation.NonNull;
 
-import com.garagu.marvel.data.datasource.LoginDatasource;
-import com.garagu.marvel.data.entity.login.LoginEntity;
-import com.garagu.marvel.data.entity.login.RegisterEntity;
+import com.garagu.marvel.domain.usecase.Login;
+import com.garagu.marvel.presentation.common.model.UserModelMapper;
 import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
@@ -12,27 +11,26 @@ import com.garagu.marvel.presentation.login.view.LoginPresenter.LoginView;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by garagu.
  */
 public class LoginPresenter extends BasePresenter<LoginView> {
 
-    // TODO domain layer
-
-    private final LoginDatasource datasource;
+    private final Login login;
+    private final UserModelMapper mapper;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
-    public LoginPresenter(LoginDatasource datasource) {
-        this.datasource = datasource;
+    public LoginPresenter(Login login, UserModelMapper mapper) {
+        this.login = login;
+        this.mapper = mapper;
     }
 
     @Override
     public void subscribe() {
+        // do nothing
     }
 
     @Override
@@ -41,53 +39,35 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
     void onGoClick(@NonNull String email, @NonNull String password) {
-        if (email.isEmpty() || password.isEmpty()) {
-            // TODO show required fields
-        } else {
-            login(new LoginEntity(email, password));
+        getView().showRequiredFieldError(email.isEmpty(), password.isEmpty());
+        if (!email.isEmpty() && !password.isEmpty()) {
+            final Login.InputParam input = new Login.InputParam(email, password);
+            login(input);
         }
     }
 
-    private void login(@NonNull LoginEntity login) {
-        getView().showProgress();
-        datasource.login(login)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        user -> {
-                            UserViewModel viewModel = new UserViewModel.Builder()
-                                    .withEmail(user.getEmail())
-                                    .withId(user.getId())
-                                    .withName(user.getName())
-                                    .build();
-                            getView().hideProgress();
-                            getView().openHome(viewModel);
-                        },
-                        error -> {
-                            getView().showError(error.getMessage());
-                            getView().hideProgress();
-                        },
-                        () -> {
-                        },
-                        compositeDisposable::add
-                );
-
+    void onRegisterClick() {
+        getView().openRegister();
     }
 
-    private void registerUser(@NonNull RegisterEntity user) {
+    private void login(@NonNull Login.InputParam input) {
         getView().showProgress();
-        datasource.registerUser(user)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+        login.execute(input)
+                .map(mapper::mapUserModelToViewModel)
                 .subscribe(
-                        success -> getView().showConfirmation(),
-                        error -> {
-                            getView().showError(error.getMessage());
+                        user -> {
                             getView().hideProgress();
+                            getView().openHome(user);
                         },
-                        () -> getView().hideProgress(),
+                        error -> {;
+                            getView().hideProgress();
+                            getView().showError(error.getMessage());
+                        },
+                        () -> { // do nothing
+                        },
                         compositeDisposable::add
                 );
+
     }
 
     interface LoginView extends BaseView {
@@ -95,11 +75,13 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
         void openHome(@NonNull UserViewModel user);
 
-        void showConfirmation();
+        void openRegister();
 
         void showError(@NonNull String message);
 
         void showProgress();
+
+        void showRequiredFieldError(boolean email, boolean password);
     }
 
 }

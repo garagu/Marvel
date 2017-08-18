@@ -3,6 +3,8 @@ package com.garagu.marvel.presentation.splash.view;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.data.datasource.LoginDatasource;
+import com.garagu.marvel.domain.usecase.GetUser;
+import com.garagu.marvel.presentation.common.model.UserModelMapper;
 import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
@@ -19,32 +21,24 @@ import io.reactivex.schedulers.Schedulers;
  */
 public class SplashPresenter extends BasePresenter<SplashView> {
 
-    // TODO domain layer
-
-    private final LoginDatasource datasource;
+    private final GetUser getUser;
+    private final UserModelMapper mapper;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
-    public SplashPresenter(LoginDatasource datasource) {
-        this.datasource = datasource;
+    public SplashPresenter(GetUser getUser, UserModelMapper mapper) {
+        this.getUser = getUser;
+        this.mapper = mapper;
     }
 
     @Override
     public void subscribe() {
-        datasource.getUser()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
+        getUser.execute(null)
+                .map(mapper::mapUserModelToViewModel)
                 .subscribe(
-                        user -> {
-                            UserViewModel viewModel = new UserViewModel.Builder()
-                                    .withEmail(user.getEmail())
-                                    .withId(user.getId())
-                                    .withName(user.getName())
-                                    .build();
-                            getView().openHome(viewModel);
-                        },
+                        getView()::openHome,
                         error -> getView().openLogin(),
-                        () -> {
+                        () -> { // do nothing
                         },
                         compositeDisposable::add
                 );

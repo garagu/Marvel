@@ -1,6 +1,8 @@
 package com.garagu.marvel.presentation.login.view;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 
 import com.garagu.marvel.R;
@@ -23,10 +25,16 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
     @Inject
     Navigator navigator;
 
+    @BindView(R.id.txt_layout_email)
+    TextInputLayout txtLayoutEmail;
     @BindView(R.id.edtxt_email)
     EditText edtxtEmail;
+    @BindView(R.id.txt_layout_password)
+    TextInputLayout txtLayoutPassword;
     @BindView(R.id.edtxt_password)
     EditText edtxtPassword;
+
+    private ProgressDialog pd;
 
     @NonNull
     public static LoginFragment newInstance() {
@@ -57,7 +65,6 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
     }
 
     private void initComponents() {
-
     }
 
     private void initPresenter() {
@@ -70,9 +77,18 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
         presenter.onGoClick(edtxtEmail.getText().toString(), edtxtPassword.getText().toString());
     }
 
+    @OnClick(R.id.btn_register)
+    void onRegisterClick() {
+        presenter.onRegisterClick();
+    }
+
     @Override
     public void hideProgress() {
-
+        try {
+            pd.dismiss();
+        } catch (Exception e) {
+            // do nothing
+        }
     }
 
     @Override
@@ -81,8 +97,8 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
     }
 
     @Override
-    public void showConfirmation() {
-        showSnackbar(R.string.register_message_confirmation);
+    public void openRegister() {
+        navigator.openRegister(getActivity());
     }
 
     @Override
@@ -92,7 +108,20 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
 
     @Override
     public void showProgress() {
+        if (pd == null) {
+            pd = new ProgressDialog(getActivity());
+            pd.setCancelable(false);
+            pd.setMessage(getString(R.string.login_pd_message));
+        }
+        pd.show();
+    }
 
+    @Override
+    public void showRequiredFieldError(boolean email, boolean password) {
+        txtLayoutEmail.setErrorEnabled(email);
+        txtLayoutEmail.setError(email ? getString(R.string.login_error_empty_field) : null);
+        txtLayoutPassword.setErrorEnabled(password);
+        txtLayoutPassword.setError(password ? getString(R.string.login_error_empty_field) : null);
     }
 
 }

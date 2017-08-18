@@ -1,8 +1,6 @@
 package com.garagu.marvel.data.datasource;
 
-import com.garagu.marvel.data.entity.login.LoginEntity;
-import com.garagu.marvel.data.entity.login.RegisterEntity;
-import com.garagu.marvel.data.entity.login.UserEntity;
+import com.garagu.marvel.data.entity.common.UserEntity;
 
 import io.reactivex.Observable;
 
@@ -12,7 +10,9 @@ import io.reactivex.Observable;
 public interface LoginDatasource {
     Observable<UserEntity> getUser();
 
-    Observable<UserEntity> login(LoginEntity login);
+    Observable<UserEntity> login(String email, String password);
 
-    Observable<Boolean> registerUser(RegisterEntity user);
+    void logout();
+
+    Observable<Boolean> registerUser(String name, String email, String password);
 }

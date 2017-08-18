@@ -6,12 +6,15 @@
 
     <!-- Login -->
     <string name="login_toolbar_title">Welcome</string>
-    <string name="login_title">Login</string>
+    <string name="login_card_title">Login</string>
     <string name="login_hint_email">Email</string>
     <string name="login_hint_password">Password</string>
-    <string name="login_button">Go</string>
-    <string name="login_link_forgot_password">Forgot your password?</string>
+    <string name="login_button_go">Go</string>
+    <string name="login_button_register">Register</string>
+    <string name="login_button_forgot_password">Forgot your password?</string>
+    <string name="login_pd_message">Authenticating&#8230;</string>
     <string name="login_error_unauthenticated">Unauthenticated user</string>
+    <string name="login_error_empty_field">Please enter a value</string>
     <!-- Register -->
     <string name="register_message_confirmation">User registered!</string>
     <!-- Home -->

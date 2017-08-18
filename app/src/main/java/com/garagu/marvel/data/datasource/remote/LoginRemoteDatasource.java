@@ -5,9 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.data.datasource.LoginDatasource;
-import com.garagu.marvel.data.entity.login.LoginEntity;
-import com.garagu.marvel.data.entity.login.RegisterEntity;
-import com.garagu.marvel.data.entity.login.UserEntity;
+import com.garagu.marvel.data.entity.common.UserEntity;
 import com.garagu.marvel.data.net.exception.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener;
@@ -54,30 +52,35 @@ public class LoginRemoteDatasource implements LoginDatasource {
     }
 
     @Override
-    public Observable<UserEntity> login(LoginEntity login) {
-        return Observable.create(subscriber -> firebaseAuth
-                .signInWithEmailAndPassword(login.getEmail(), login.getPassword())
-                .addOnSuccessListener(authResult -> {
-                    final FirebaseUser firebaseUser = authResult.getUser();
-                    final UserEntity user = new UserEntity(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
-                    subscriber.onNext(user);
-                    subscriber.onComplete();
-                })
-                .addOnFailureListener(subscriber::onError)
-        );
+    public Observable<UserEntity> login(String email, String password) {
+        return Observable.create(subscriber -> {
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                    .addOnSuccessListener(authResult -> {
+                        final FirebaseUser firebaseUser = authResult.getUser();
+                        final UserEntity user = new UserEntity(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
+                        subscriber.onNext(user);
+                        subscriber.onComplete();
+                    })
+                    .addOnFailureListener(subscriber::onError);
+        });
     }
 
     @Override
-    public Observable<Boolean> registerUser(RegisterEntity user) {
-        return Observable.create(subscriber -> firebaseAuth
-                .createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
-                .addOnSuccessListener(authResult -> {
-                    final UserProfileChangeRequest updateRequest = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(user.getName())
-                            .build();
-                    updateProfile(authResult.getUser(), updateRequest, subscriber);
-                })
-                .addOnFailureListener(subscriber::onError)
+    public void logout() {
+        firebaseAuth.signOut();
+    }
+
+    @Override
+    public Observable<Boolean> registerUser(String name, String email, String password) {
+        return Observable.create(subscriber ->
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnSuccessListener(authResult -> {
+                            final UserProfileChangeRequest updateRequest = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name)
+                                    .build();
+                            updateProfile(authResult.getUser(), updateRequest, subscriber);
+                        })
+                        .addOnFailureListener(subscriber::onError)
         );
     }
 
