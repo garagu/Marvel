@@ -3,6 +3,7 @@
     <string name="error_generic">Oops! Something was wrong.</string>
     <string name="error_connection">Oops! There\'s no Internet connection and no more saved info. Check the network and try again.</string>
     <string name="message_next_version">It will be available soon!</string>
+    <string name="error_empty_field">Please enter a value</string>
 
     <!-- Login -->
     <string name="login_toolbar_title">Welcome</string>
@@ -14,9 +15,16 @@
     <string name="login_button_forgot_password">Forgot your password?</string>
     <string name="login_pd_message">Authenticating&#8230;</string>
     <string name="login_error_unauthenticated">Unauthenticated user</string>
-    <string name="login_error_empty_field">Please enter a value</string>
     <!-- Register -->
-    <string name="register_message_confirmation">User registered!</string>
+    <string name="register_toolbar_title">Welcome</string>
+    <string name="register_card_title">Register</string>
+    <string name="register_hint_username">Username</string>
+    <string name="register_hint_email">Email</string>
+    <string name="register_hint_password">Password</string>
+    <string name="register_button_register">Register</string>
+    <string name="register_button_login">Login</string>
+    <string name="register_pd_message">Registering&#8230;</string>
+    <string name="register_message_confirmation">User registered. Welcome!</string>
     <!-- Home -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

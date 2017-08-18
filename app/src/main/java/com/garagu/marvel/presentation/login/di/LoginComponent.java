@@ -4,6 +4,7 @@ import com.garagu.marvel.presentation.application.di.ActivityScope;
 import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.login.view.LoginActivity;
 import com.garagu.marvel.presentation.login.view.LoginFragment;
+import com.garagu.marvel.presentation.login.view.RegisterFragment;
 
 import dagger.Component;
 
@@ -16,4 +17,6 @@ public interface LoginComponent {
     void inject(LoginActivity activity);
 
     void inject(LoginFragment fragment);
+
+    void inject(RegisterFragment fragment);
 }

@@ -71,7 +71,7 @@ public class LoginRemoteDatasource implements LoginDatasource {
     }
 
     @Override
-    public Observable<Boolean> registerUser(String name, String email, String password) {
+    public Observable<UserEntity> registerUser(String name, String email, String password) {
         return Observable.create(subscriber ->
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnSuccessListener(authResult -> {
@@ -84,10 +84,11 @@ public class LoginRemoteDatasource implements LoginDatasource {
         );
     }
 
-    private void updateProfile(@NonNull FirebaseUser user, @NonNull UserProfileChangeRequest updateRequest, @NonNull ObservableEmitter<Boolean> subscriber) {
-        user.updateProfile(updateRequest)
+    private void updateProfile(@NonNull FirebaseUser firebaseUser, @NonNull UserProfileChangeRequest updateRequest, @NonNull ObservableEmitter<UserEntity> subscriber) {
+        firebaseUser.updateProfile(updateRequest)
                 .addOnSuccessListener(voidObject -> {
-                    subscriber.onNext(true);
+                    final UserEntity user = new UserEntity(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
+                    subscriber.onNext(user);
                     subscriber.onComplete();
                 })
                 .addOnFailureListener(subscriber::onError);
