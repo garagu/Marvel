@@ -8,6 +8,7 @@ import com.garagu.marvel.data.net.ApiConnection;
 import com.garagu.marvel.data.net.MarvelApi;
 import com.garagu.marvel.presentation.common.view.ImageLoader;
 import com.garagu.marvel.presentation.common.view.PicassoImpl;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
@@ -41,6 +42,12 @@ public class NetModule {
     @Singleton
     MarvelApi provideApi(Application application) {
         return new ApiConnection(application).getServices(MarvelApi.class, MarvelApi.BASE_URL);
+    }
+
+    @Provides
+    @Singleton
+    FirebaseAuth provideFirebaseAuth() {
+        return FirebaseAuth.getInstance();
     }
 
 }

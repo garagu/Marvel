@@ -25,6 +25,7 @@ ext {
     ]
     firebasePackage = 'com.google.firebase'
     firebase = [
+            auth: "${firebasePackage}:firebase-auth:${firebaseVersion}",
             core: "${firebasePackage}:firebase-core:${firebaseVersion}",
             database: "${firebasePackage}:firebase-database:${firebaseVersion}"
     ]

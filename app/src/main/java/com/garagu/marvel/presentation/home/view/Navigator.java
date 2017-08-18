@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import com.garagu.marvel.presentation.character.view.CharacterActivity;
 import com.garagu.marvel.presentation.comic.view.list.ComicListActivity;
+import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BaseNavigator;
 
 /**
@@ -13,8 +14,8 @@ import com.garagu.marvel.presentation.common.view.BaseNavigator;
  */
 public class Navigator extends BaseNavigator {
 
-    void openHome(@NonNull Activity activity) {
-        openFragment(activity, HomeFragment.newInstance());
+    void openHome(@NonNull Activity activity, @NonNull UserViewModel user) {
+        openFragment(activity, HomeFragment.newInstance(user));
     }
 
     void openCharacters(@NonNull Activity activity) {

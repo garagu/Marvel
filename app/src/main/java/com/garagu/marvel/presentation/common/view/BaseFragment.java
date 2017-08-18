@@ -40,6 +40,13 @@ public abstract class BaseFragment extends Fragment {
         unbinder.unbind();
     }
 
+    protected BaseActivity getBaseActivity() {
+        if (!(getActivity() instanceof BaseActivity)) {
+            throw new UnsupportedOperationException(getActivity().getClass().getSimpleName() + " isn't an instance of BaseActivity");
+        }
+        return (BaseActivity) getActivity();
+    }
+
     @SuppressWarnings("unchecked")
     protected <T> T getComponent(Class<T> component) {
         Class<?> clazz = getActivity().getClass();

@@ -55,13 +55,14 @@ public class ComicModule {
     ReviewModelMapper provideReviewModelMapper() {
         return new ReviewModelMapper();
     }
-/*
-    @Provides
-    @ActivityScope
-    ComicDatasource provideComicDatasource(FileManager fileManager, Gson gson) {
-        return new ComicLocalDatasource(fileManager, gson);
-    }
-*/
+
+    /*
+        @Provides
+        @ActivityScope
+        ComicDatasource provideComicDatasource(FileManager fileManager, Gson gson) {
+            return new ComicLocalDatasource(fileManager, gson);
+        }
+    */
     @Provides
     @ActivityScope
     ComicDatasource provideComicDatasource(MarvelApi marvelApi) {

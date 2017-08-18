@@ -7,6 +7,7 @@ import com.garagu.marvel.data.net.MarvelApi;
 import com.garagu.marvel.domain.thread.ExecutorThread;
 import com.garagu.marvel.domain.thread.PostExecutionThread;
 import com.garagu.marvel.presentation.common.view.ImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import javax.inject.Singleton;
@@ -32,4 +33,6 @@ public interface AppComponent {
     ImageLoader imageLoader();
 
     MarvelApi api();
+
+    FirebaseAuth firebaseAuth();
 }

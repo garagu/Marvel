@@ -3,7 +3,6 @@ package com.garagu.marvel.data.datasource;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.data.entity.review.ReviewEntity;
-import com.garagu.marvel.domain.model.common.Review;
 
 import java.util.List;
 
