@@ -14,5 +14,5 @@ public interface LoginDatasource {
 
     void logout();
 
-    Observable<Boolean> registerUser(String name, String email, String password);
+    Observable<UserEntity> registerUser(String name, String email, String password);
 }

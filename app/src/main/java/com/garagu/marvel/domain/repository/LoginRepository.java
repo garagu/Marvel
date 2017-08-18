@@ -14,5 +14,5 @@ public interface LoginRepository {
 
     void logout();
 
-    Observable<Boolean> registerUser(String email, String password, String name);
+    Observable<User> registerUser(String email, String password, String name);
 }

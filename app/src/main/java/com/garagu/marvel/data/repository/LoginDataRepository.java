@@ -39,8 +39,8 @@ public class LoginDataRepository implements LoginRepository {
     }
 
     @Override
-    public Observable<Boolean> registerUser(String name, String email, String password) {
-        return datasource.registerUser(name, email, password);
+    public Observable<User> registerUser(String name, String email, String password) {
+        return datasource.registerUser(name, email, password).map(mapper::mapUserEntityToModel);
     }
 
 }

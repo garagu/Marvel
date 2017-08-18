@@ -50,7 +50,6 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
     protected void onCreateView() {
         super.onCreateView();
         initDependencyInjection();
-        initComponents();
         initPresenter();
     }
 
@@ -62,9 +61,6 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
 
     private void initDependencyInjection() {
         getComponent(LoginComponent.class).inject(this);
-    }
-
-    private void initComponents() {
     }
 
     private void initPresenter() {
@@ -119,9 +115,9 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
     @Override
     public void showRequiredFieldError(boolean email, boolean password) {
         txtLayoutEmail.setErrorEnabled(email);
-        txtLayoutEmail.setError(email ? getString(R.string.login_error_empty_field) : null);
+        txtLayoutEmail.setError(email ? getString(R.string.error_empty_field) : null);
         txtLayoutPassword.setErrorEnabled(password);
-        txtLayoutPassword.setError(password ? getString(R.string.login_error_empty_field) : null);
+        txtLayoutPassword.setError(password ? getString(R.string.error_empty_field) : null);
     }
 
 }

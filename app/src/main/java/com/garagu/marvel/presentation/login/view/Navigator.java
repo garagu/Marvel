@@ -34,8 +34,7 @@ public class Navigator extends BaseNavigator {
     }
 
     public void openRegister(@NonNull Activity activity) {
-        Toast.makeText(activity, R.string.message_next_version, Toast.LENGTH_SHORT).show();
-        // TODO openFragment(activity, RegisterFragment.newInstance());
+        openFragment(activity, RegisterFragment.newInstance());
     }
 
 }
