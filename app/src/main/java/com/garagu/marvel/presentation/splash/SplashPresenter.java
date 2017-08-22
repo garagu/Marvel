@@ -1,20 +1,17 @@
-package com.garagu.marvel.presentation.splash.view;
+package com.garagu.marvel.presentation.splash;
 
 import android.support.annotation.NonNull;
 
-import com.garagu.marvel.data.datasource.LoginDatasource;
 import com.garagu.marvel.domain.usecase.GetUser;
 import com.garagu.marvel.presentation.common.model.UserModelMapper;
 import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
-import com.garagu.marvel.presentation.splash.view.SplashPresenter.SplashView;
+import com.garagu.marvel.presentation.splash.SplashPresenter.SplashView;
 
 import javax.inject.Inject;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by garagu.
@@ -37,7 +34,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
                 .map(mapper::mapUserModelToViewModel)
                 .subscribe(
                         getView()::openHome,
-                        error -> getView().openLogin(),
+                        error -> getView().openAuth(),
                         () -> { // do nothing
                         },
                         compositeDisposable::add
@@ -52,7 +49,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
     interface SplashView extends BaseView {
         void openHome(@NonNull UserViewModel user);
 
-        void openLogin();
+        void openAuth();
     }
 
 }

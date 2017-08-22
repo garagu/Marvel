@@ -3,14 +3,14 @@ package com.garagu.marvel.presentation.common.model;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.domain.model.common.User;
-import com.garagu.marvel.presentation.application.di.ActivityScope;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by garagu.
  */
-@ActivityScope
+@Singleton
 public class UserModelMapper {
 
     @Inject

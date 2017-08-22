@@ -1,13 +1,13 @@
-package com.garagu.marvel.presentation.login.view;
+package com.garagu.marvel.presentation.auth;
 
 import android.support.annotation.NonNull;
 
-import com.garagu.marvel.domain.usecase.Login;
+import com.garagu.marvel.domain.usecase.SignIn;
+import com.garagu.marvel.presentation.auth.SignInPresenter.SignInView;
 import com.garagu.marvel.presentation.common.model.UserModelMapper;
 import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
-import com.garagu.marvel.presentation.login.view.LoginPresenter.LoginView;
 
 import javax.inject.Inject;
 
@@ -16,15 +16,15 @@ import io.reactivex.disposables.CompositeDisposable;
 /**
  * Created by garagu.
  */
-public class LoginPresenter extends BasePresenter<LoginView> {
+public class SignInPresenter extends BasePresenter<SignInView> {
 
-    private final Login login;
+    private final SignIn signIn;
     private final UserModelMapper mapper;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
-    public LoginPresenter(Login login, UserModelMapper mapper) {
-        this.login = login;
+    public SignInPresenter(SignIn signIn, UserModelMapper mapper) {
+        this.signIn = signIn;
         this.mapper = mapper;
     }
 
@@ -41,8 +41,8 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     void onGoClick(@NonNull String email, @NonNull String password) {
         getView().showRequiredFieldError(email.isEmpty(), password.isEmpty());
         if (!email.isEmpty() && !password.isEmpty()) {
-            final Login.InputParam input = new Login.InputParam(email, password);
-            login(input);
+            final SignIn.InputParam input = new SignIn.InputParam(email, password);
+            signIn(input);
         }
     }
 
@@ -50,16 +50,17 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         getView().openRegister();
     }
 
-    private void login(@NonNull Login.InputParam input) {
+    private void signIn(@NonNull SignIn.InputParam input) {
         getView().showProgress();
-        login.execute(input)
+        signIn.execute(input)
                 .map(mapper::mapUserModelToViewModel)
                 .subscribe(
                         user -> {
                             getView().hideProgress();
                             getView().openHome(user);
                         },
-                        error -> {;
+                        error -> {
+                            ;
                             getView().hideProgress();
                             getView().showError(error.getMessage());
                         },
@@ -70,7 +71,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     }
 
-    interface LoginView extends BaseView {
+    interface SignInView extends BaseView {
         void hideProgress();
 
         void openHome(@NonNull UserViewModel user);

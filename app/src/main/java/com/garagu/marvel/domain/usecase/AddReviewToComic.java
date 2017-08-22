@@ -26,21 +26,27 @@ public class AddReviewToComic extends UseCase<InputParam, Boolean> {
 
     @Override
     protected Observable<Boolean> buildObservable(InputParam inputParam) {
-        return repository.addReviewToComic(inputParam.getComicId(), inputParam.getReview());
+        return repository.addReviewToComic(inputParam.getComicId(), inputParam.getUserId(), inputParam.getReview());
     }
 
     public static class InputParam {
 
         private String comicId;
+        private String userId;
         private Review review;
 
-        public InputParam(String comicId, Review review) {
+        public InputParam(String comicId, String userId, Review review) {
             this.comicId = comicId;
+            this.userId = userId;
             this.review = review;
         }
 
         public String getComicId() {
             return comicId;
+        }
+
+        public String getUserId() {
+            return userId;
         }
 
         public Review getReview() {

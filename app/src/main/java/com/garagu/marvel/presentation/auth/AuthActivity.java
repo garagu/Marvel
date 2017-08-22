@@ -1,26 +1,25 @@
-package com.garagu.marvel.presentation.login.view;
+package com.garagu.marvel.presentation.auth;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.common.view.BaseActivity;
 import com.garagu.marvel.presentation.common.view.HasInjection;
-import com.garagu.marvel.presentation.login.di.DaggerLoginComponent;
-import com.garagu.marvel.presentation.login.di.LoginComponent;
 
 import javax.inject.Inject;
 
-public class LoginActivity extends BaseActivity implements HasInjection<LoginComponent> {
+public class AuthActivity extends BaseActivity implements HasInjection<AppComponent> {
 
     @Inject
     Navigator navigator;
 
-    private LoginComponent component;
+    private AppComponent component;
 
     public static Intent getCallingIntent(@NonNull Activity activity) {
-        return new Intent(activity, LoginActivity.class);
+        return new Intent(activity, AuthActivity.class);
     }
 
     @Override
@@ -28,19 +27,17 @@ public class LoginActivity extends BaseActivity implements HasInjection<LoginCom
         super.onCreate(savedInstanceState);
         initDependencyInjection();
         hideMenu();
-        navigator.openLogin(this);
+        navigator.openSignIn(this);
     }
 
     private void initDependencyInjection() {
-        component = DaggerLoginComponent.builder()
-                .appComponent(getAppComponent())
-                .build();
+        component = getAppComponent();
         component.inject(this);
     }
 
     @NonNull
     @Override
-    public LoginComponent getComponent() {
+    public AppComponent getComponent() {
         return component;
     }
 

@@ -9,6 +9,8 @@ import com.garagu.marvel.data.net.MarvelApi;
 import com.garagu.marvel.presentation.common.view.ImageLoader;
 import com.garagu.marvel.presentation.common.view.PicassoImpl;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Singleton;
@@ -48,6 +50,12 @@ public class NetModule {
     @Singleton
     FirebaseAuth provideFirebaseAuth() {
         return FirebaseAuth.getInstance();
+    }
+
+    @Provides
+    @Singleton
+    DatabaseReference provideFirebaseDBReference() {
+        return FirebaseDatabase.getInstance().getReference();
     }
 
 }

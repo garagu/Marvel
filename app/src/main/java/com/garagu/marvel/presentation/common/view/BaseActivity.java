@@ -78,7 +78,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         final int id = item.getItemId();
-        if (id == R.id.nav_logout) {
+        if (id == R.id.nav_sign_out) {
             Toast.makeText(this, R.string.message_next_version, Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_about) {
             Toast.makeText(this, R.string.message_next_version, Toast.LENGTH_SHORT).show();

@@ -4,14 +4,14 @@ import android.support.annotation.NonNull;
 
 import com.garagu.marvel.data.entity.common.UserEntity;
 import com.garagu.marvel.domain.model.common.User;
-import com.garagu.marvel.presentation.application.di.ActivityScope;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by garagu.
  */
-@ActivityScope
+@Singleton
 public class UserEntityMapper {
 
     @Inject

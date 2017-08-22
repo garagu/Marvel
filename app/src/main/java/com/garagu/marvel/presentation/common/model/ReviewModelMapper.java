@@ -3,14 +3,22 @@ package com.garagu.marvel.presentation.common.model;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.domain.model.common.Review;
+import com.garagu.marvel.presentation.application.di.ActivityScope;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by garagu.
  */
+@ActivityScope
 public class ReviewModelMapper {
+
+    @Inject
+    public ReviewModelMapper() {
+    }
 
     @NonNull
     public List<ReviewViewModel> mapListModelToViewModel(@NonNull List<Review> modelList) {

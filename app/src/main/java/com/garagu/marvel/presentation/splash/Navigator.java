@@ -1,40 +1,37 @@
-package com.garagu.marvel.presentation.login.view;
+package com.garagu.marvel.presentation.splash;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
-import com.garagu.marvel.R;
-import com.garagu.marvel.presentation.application.di.ActivityScope;
+import com.garagu.marvel.presentation.auth.AuthActivity;
 import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BaseNavigator;
 import com.garagu.marvel.presentation.home.view.HomeActivity;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by garagu.
  */
-@ActivityScope
+@Singleton
 public class Navigator extends BaseNavigator {
 
     @Inject
     public Navigator() {
     }
 
-    public void openLogin(@NonNull Activity activity) {
-        openFragment(activity, LoginFragment.newInstance());
-    }
-
-    public void openHome(@NonNull Activity activity, @NonNull UserViewModel user) {
+    void openHome(@NonNull Activity activity, @NonNull UserViewModel user) {
         final Intent intent = HomeActivity.getCallingIntent(activity, user);
         activity.startActivity(intent);
         activity.finish();
     }
 
-    public void openRegister(@NonNull Activity activity) {
-        openFragment(activity, RegisterFragment.newInstance());
+    void openAuth(@NonNull Activity activity) {
+        final Intent intent = AuthActivity.getCallingIntent(activity);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
 }

@@ -10,6 +10,7 @@ import com.garagu.marvel.presentation.comic.view.detail.reviews.ComicReviewsFrag
 import com.garagu.marvel.presentation.comic.view.detail.reviews.NewReviewFragment;
 import com.garagu.marvel.presentation.comic.view.list.ComicListActivity;
 import com.garagu.marvel.presentation.comic.view.list.ComicListFragment;
+import com.garagu.marvel.presentation.reviews.di.MyReviewsModule;
 
 import dagger.Component;
 
@@ -17,7 +18,7 @@ import dagger.Component;
  * Created by garagu.
  */
 @ActivityScope
-@Component(dependencies = AppComponent.class, modules = ComicModule.class)
+@Component(dependencies = AppComponent.class, modules = {ComicModule.class, MyReviewsModule.class})
 public interface ComicComponent {
     void inject(ComicListActivity activity);
 

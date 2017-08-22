@@ -1,20 +1,17 @@
-package com.garagu.marvel.presentation.splash.view;
+package com.garagu.marvel.presentation.splash;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BaseActivity;
-import com.garagu.marvel.presentation.splash.di.DaggerSplashComponent;
-import com.garagu.marvel.presentation.splash.di.SplashComponent;
-import com.garagu.marvel.presentation.splash.view.SplashPresenter.SplashView;
 
 import javax.inject.Inject;
 
 /**
  * Created by garagu.
  */
-public class SplashActivity extends BaseActivity implements SplashView {
+public class SplashActivity extends BaseActivity implements SplashPresenter.SplashView {
 
     @Inject
     SplashPresenter presenter;
@@ -35,10 +32,7 @@ public class SplashActivity extends BaseActivity implements SplashView {
     }
 
     private void initDependencyInjection() {
-        final SplashComponent component = DaggerSplashComponent.builder()
-                .appComponent(getAppComponent())
-                .build();
-        component.inject(this);
+        getAppComponent().inject(this);
     }
 
     private void initPresenter() {
@@ -52,8 +46,8 @@ public class SplashActivity extends BaseActivity implements SplashView {
     }
 
     @Override
-    public void openLogin() {
-        navigator.openLogin(this);
+    public void openAuth() {
+        navigator.openAuth(this);
     }
 
 }

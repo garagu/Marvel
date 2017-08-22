@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.data.datasource.LoginDatasource;
+import com.garagu.marvel.data.datasource.AuthDatasource;
 import com.garagu.marvel.data.entity.common.UserEntity;
 import com.garagu.marvel.data.net.exception.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,12 +18,12 @@ import io.reactivex.ObservableEmitter;
 /**
  * Created by garagu.
  */
-public class LoginRemoteDatasource implements LoginDatasource {
+public class AuthRemoteDatasource implements AuthDatasource {
 
     private final Context context;
     private final FirebaseAuth firebaseAuth;
 
-    public LoginRemoteDatasource(@NonNull Context context, @NonNull FirebaseAuth firebaseAuth) {
+    public AuthRemoteDatasource(@NonNull Context context, @NonNull FirebaseAuth firebaseAuth) {
         this.context = context;
         this.firebaseAuth = firebaseAuth;
     }
@@ -40,7 +40,7 @@ public class LoginRemoteDatasource implements LoginDatasource {
                         subscriber.onNext(user);
                         subscriber.onComplete();
                     } else {
-                        final String errorMessage = context.getString(R.string.login_error_unauthenticated);
+                        final String errorMessage = context.getString(R.string.signin_error_unauthenticated);
                         final FirebaseException exception = new FirebaseException(errorMessage);
                         subscriber.onError(exception);
                     }
@@ -52,7 +52,7 @@ public class LoginRemoteDatasource implements LoginDatasource {
     }
 
     @Override
-    public Observable<UserEntity> login(String email, String password) {
+    public Observable<UserEntity> signIn(String email, String password) {
         return Observable.create(subscriber -> {
             firebaseAuth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener(authResult -> {
@@ -66,12 +66,12 @@ public class LoginRemoteDatasource implements LoginDatasource {
     }
 
     @Override
-    public void logout() {
+    public void signOut() {
         firebaseAuth.signOut();
     }
 
     @Override
-    public Observable<UserEntity> registerUser(String name, String email, String password) {
+    public Observable<UserEntity> createUser(String name, String email, String password) {
         return Observable.create(subscriber ->
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnSuccessListener(authResult -> {

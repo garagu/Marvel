@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.splash.view.SplashActivity"
+            android:name=".presentation.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,9 +25,9 @@
         </activity>
 
         <activity
-            android:name=".presentation.login.view.LoginActivity"
+            android:name=".presentation.auth.AuthActivity"
             android:screenOrientation="portrait"
-            android:label="@string/login_toolbar_title"
+            android:label="@string/signin_toolbar_title"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
@@ -50,6 +50,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".presentation.reviews.view.MyReviewsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

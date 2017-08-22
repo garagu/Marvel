@@ -50,13 +50,15 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
     void onReviewsOptionClick() {
-        getView().showNextVersionMessage();
+        getView().openMyReviews();
     }
 
     interface HomeView extends BaseView {
         void openCharacters();
 
         void openComics();
+
+        void openMyReviews();
 
         void showHomeOptions(@NonNull List<HomeOptionViewModel> homeOptions);
 
