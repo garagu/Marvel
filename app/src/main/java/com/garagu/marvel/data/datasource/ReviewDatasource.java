@@ -12,7 +12,9 @@ import io.reactivex.Observable;
  * Created by garagu.
  */
 public interface ReviewDatasource {
+    Observable<Boolean> addReviewToComic(@NonNull String comicId, @NonNull String userId, @NonNull ReviewEntity review);
+
     Observable<List<ReviewEntity>> getReviewsByComic(@NonNull String comicId);
 
-    Observable<Boolean> addReviewToComic(@NonNull String comicId, @NonNull ReviewEntity review);
+    Observable<List<ReviewEntity>> getReviewsByUser(@NonNull String userId);
 }

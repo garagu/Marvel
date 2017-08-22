@@ -5,24 +5,24 @@
     <string name="message_next_version">It will be available soon!</string>
     <string name="error_empty_field">Please enter a value</string>
 
-    <!-- Login -->
-    <string name="login_toolbar_title">Welcome</string>
-    <string name="login_card_title">Login</string>
-    <string name="login_hint_email">Email</string>
-    <string name="login_hint_password">Password</string>
-    <string name="login_button_go">Go</string>
-    <string name="login_button_register">Register</string>
-    <string name="login_button_forgot_password">Forgot your password?</string>
-    <string name="login_pd_message">Authenticating&#8230;</string>
-    <string name="login_error_unauthenticated">Unauthenticated user</string>
+    <!-- Sign in -->
+    <string name="signin_toolbar_title">Welcome</string>
+    <string name="signin_card_title">Sign in</string>
+    <string name="signin_hint_email">Email</string>
+    <string name="signin_hint_password">Password</string>
+    <string name="signin_button_go">Go</string>
+    <string name="signin_button_register">Create user</string>
+    <string name="signin_button_forgot_password">Forgot your password?</string>
+    <string name="signin_pd_message">Authenticating&#8230;</string>
+    <string name="signin_error_unauthenticated">Unauthenticated user</string>
     <!-- Register -->
     <string name="register_toolbar_title">Welcome</string>
-    <string name="register_card_title">Register</string>
+    <string name="register_card_title">Create user</string>
     <string name="register_hint_username">Username</string>
     <string name="register_hint_email">Email</string>
     <string name="register_hint_password">Password</string>
     <string name="register_button_register">Register</string>
-    <string name="register_button_login">Login</string>
+    <string name="register_button_sign_in">Sign in</string>
     <string name="register_pd_message">Registering&#8230;</string>
     <string name="register_message_confirmation">User registered. Welcome!</string>
     <!-- Home -->

@@ -4,11 +4,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 
 import com.garagu.marvel.R;
+import com.garagu.marvel.domain.model.common.Review;
+import com.garagu.marvel.domain.model.common.User;
 import com.garagu.marvel.domain.usecase.AddReviewToComic;
+import com.garagu.marvel.domain.usecase.GetUser;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.comic.view.detail.reviews.NewReviewPresenter.NewReviewView;
-import com.garagu.marvel.presentation.common.model.ReviewModelMapper;
-import com.garagu.marvel.presentation.common.model.ReviewViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
 
@@ -18,7 +19,6 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
 
 /**
@@ -27,14 +27,14 @@ import io.reactivex.disposables.CompositeDisposable;
 
 public class NewReviewPresenter extends BasePresenter<NewReviewView> {
 
+    private final GetUser getUser;
     private final AddReviewToComic addReviewToComic;
-    private final ReviewModelMapper mapper;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
-    public NewReviewPresenter(AddReviewToComic addReviewToComic, ReviewModelMapper mapper) {
+    public NewReviewPresenter(GetUser getUser, AddReviewToComic addReviewToComic) {
+        this.getUser = getUser;
         this.addReviewToComic = addReviewToComic;
-        this.mapper = mapper;
     }
 
     @Override
@@ -48,20 +48,11 @@ public class NewReviewPresenter extends BasePresenter<NewReviewView> {
         getView().hideKeyboard();
     }
 
-    void onPublishClick(@NonNull ComicViewModel comic, int rating, @NonNull String reviewText) {
-        if ((rating != 0) && !reviewText.isEmpty()) {
-            // TODO author
-            final ReviewViewModel review = new ReviewViewModel.Builder()
-                    .withAuthor("username1")
-                    .withDate(getCurrentDate())
-                    .withRate(rating)
-                    .withText(reviewText)
-                    .withTitle(comic.getTitle())
-                    .build();
+    void onPublishClick(@NonNull ComicViewModel comic, int rate, @NonNull String reviewText) {
+        if ((rate != 0) && !reviewText.isEmpty()) {
             getView().showProgress();
-            Observable.just(review)
-                    .map(mapper::mapSimpleViewModelToModel)
-                    .map(model -> new AddReviewToComic.InputParam(comic.getId(), model))
+            getUser.execute(null)
+                    .map(user -> getAddReviewInputParam(comic, rate, reviewText, user))
                     .flatMap(addReviewToComic::execute)
                     .subscribe(
                             published -> {
@@ -78,6 +69,11 @@ public class NewReviewPresenter extends BasePresenter<NewReviewView> {
         } else {
             getView().showAlert(R.string.comicnewreview_message_required_fields);
         }
+    }
+
+    private AddReviewToComic.InputParam getAddReviewInputParam(@NonNull ComicViewModel comic, int rate, @NonNull String reviewText, @NonNull User user) {
+        final Review review = new Review(rate, reviewText, user.getName(), comic.getTitle(), getCurrentDate());
+        return new AddReviewToComic.InputParam(comic.getId(), user.getId(), review);
     }
 
     @NonNull

@@ -1,14 +1,13 @@
-package com.garagu.marvel.presentation.login.view;
+package com.garagu.marvel.presentation.auth;
 
 import android.support.annotation.NonNull;
 
-import com.garagu.marvel.domain.usecase.Login;
 import com.garagu.marvel.domain.usecase.RegisterUser;
+import com.garagu.marvel.presentation.auth.RegisterPresenter.RegisterView;
 import com.garagu.marvel.presentation.common.model.UserModelMapper;
 import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
-import com.garagu.marvel.presentation.login.view.RegisterPresenter.RegisterView;
 
 import javax.inject.Inject;
 
@@ -47,8 +46,8 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
         }
     }
 
-    void onLoginClick() {
-        getView().openLogin();
+    void onSignInClick() {
+        getView().openSignIn();
     }
 
     private void registerUser(@NonNull RegisterUser.InputParam input) {
@@ -74,7 +73,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
 
         void openHome(@NonNull UserViewModel user);
 
-        void openLogin();
+        void openSignIn();
 
         void showConfirmation();
 

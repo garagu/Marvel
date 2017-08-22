@@ -2,7 +2,7 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/CardView.Light"
-    android:layout_width="@dimen/card_login_width"
+    android:layout_width="@dimen/card_auth_width"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layout_margin="@dimen/margin_xlarge"
@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin"
-                android:text="@string/login_card_title"
+                android:text="@string/signin_card_title"
                 android:textColor="@color/colorAccent" />
 
             <android.support.design.widget.TextInputLayout
@@ -36,7 +36,7 @@
                     android:id="@+id/edtxt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/login_hint_email"
+                    android:hint="@string/signin_hint_email"
                     android:inputType="textEmailAddress" />
 
             </android.support.design.widget.TextInputLayout>
@@ -52,7 +52,7 @@
                     android:id="@+id/edtxt_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/login_hint_password"
+                    android:hint="@string/signin_hint_password"
                     android:inputType="textPassword" />
 
             </android.support.design.widget.TextInputLayout>
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/login_button_go" />
+                android:text="@string/signin_button_go" />
 
             <Button
                 android:id="@+id/btn_register"
@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/login_button_register" />
+                android:text="@string/signin_button_register" />
 
         </LinearLayout>
 

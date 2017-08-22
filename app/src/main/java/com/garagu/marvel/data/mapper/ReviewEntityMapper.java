@@ -4,14 +4,22 @@ import android.support.annotation.NonNull;
 
 import com.garagu.marvel.data.entity.review.ReviewEntity;
 import com.garagu.marvel.domain.model.common.Review;
+import com.garagu.marvel.presentation.application.di.ActivityScope;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by garagu.
  */
+@ActivityScope
 public class ReviewEntityMapper {
+
+    @Inject
+    public ReviewEntityMapper() {
+    }
 
     @NonNull
     public List<Review> listEntityToModel(@NonNull List<ReviewEntity> entityList) {

@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.login.view;
+package com.garagu.marvel.presentation.auth;
 
 import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
@@ -6,9 +6,10 @@ import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 
 import com.garagu.marvel.R;
+import com.garagu.marvel.presentation.application.di.AppComponent;
+import com.garagu.marvel.presentation.auth.SignInPresenter.SignInView;
 import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
-import com.garagu.marvel.presentation.login.di.LoginComponent;
 
 import javax.inject.Inject;
 
@@ -18,10 +19,10 @@ import butterknife.OnClick;
 /**
  * Created by garagu.
  */
-public class LoginFragment extends BaseFragment implements LoginPresenter.LoginView {
+public class SignInFragment extends BaseFragment implements SignInView {
 
     @Inject
-    LoginPresenter presenter;
+    SignInPresenter presenter;
     @Inject
     Navigator navigator;
 
@@ -37,13 +38,13 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
     private ProgressDialog pd;
 
     @NonNull
-    public static LoginFragment newInstance() {
-        return new LoginFragment();
+    public static SignInFragment newInstance() {
+        return new SignInFragment();
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_login;
+        return R.layout.fragment_sign_in;
     }
 
     @Override
@@ -60,7 +61,7 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
     }
 
     private void initDependencyInjection() {
-        getComponent(LoginComponent.class).inject(this);
+        getComponent(AppComponent.class).inject(this);
     }
 
     private void initPresenter() {
@@ -94,7 +95,7 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
 
     @Override
     public void openRegister() {
-        navigator.openRegister(getActivity());
+        navigator.openCreateUser(getActivity());
     }
 
     @Override
@@ -107,7 +108,7 @@ public class LoginFragment extends BaseFragment implements LoginPresenter.LoginV
         if (pd == null) {
             pd = new ProgressDialog(getActivity());
             pd.setCancelable(false);
-            pd.setMessage(getString(R.string.login_pd_message));
+            pd.setMessage(getString(R.string.signin_pd_message));
         }
         pd.show();
     }

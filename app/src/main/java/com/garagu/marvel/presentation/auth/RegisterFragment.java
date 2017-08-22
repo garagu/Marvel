@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.login.view;
+package com.garagu.marvel.presentation.auth;
 
 import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
@@ -6,9 +6,8 @@ import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
 
 import com.garagu.marvel.R;
+import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.common.model.UserViewModel;
-import com.garagu.marvel.presentation.login.di.LoginComponent;
-import com.garagu.marvel.presentation.login.view.RegisterPresenter.RegisterView;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 
 import javax.inject.Inject;
@@ -20,7 +19,7 @@ import butterknife.OnClick;
  * Created by garagu.
  */
 
-public class RegisterFragment extends BaseFragment implements RegisterView {
+public class RegisterFragment extends BaseFragment implements RegisterPresenter.RegisterView {
 
     @Inject
     RegisterPresenter presenter;
@@ -66,7 +65,7 @@ public class RegisterFragment extends BaseFragment implements RegisterView {
     }
 
     private void initDependencyInjection() {
-        getComponent(LoginComponent.class).inject(this);
+        getComponent(AppComponent.class).inject(this);
     }
 
     private void initPresenter() {
@@ -83,9 +82,9 @@ public class RegisterFragment extends BaseFragment implements RegisterView {
         );
     }
 
-    @OnClick(R.id.btn_login)
-    void onLoginClick() {
-        presenter.onLoginClick();
+    @OnClick(R.id.btn_sign_in)
+    void onSignInClick() {
+        presenter.onSignInClick();
     }
 
     @Override
@@ -103,8 +102,8 @@ public class RegisterFragment extends BaseFragment implements RegisterView {
     }
 
     @Override
-    public void openLogin() {
-        navigator.openLogin(getActivity());
+    public void openSignIn() {
+        navigator.openSignIn(getActivity());
     }
 
     @Override

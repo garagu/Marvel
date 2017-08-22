@@ -26,15 +26,22 @@ public class ReviewDataRepository implements ReviewRepository {
     }
 
     @Override
+    public Observable<Boolean> addReviewToComic(String comicId, String userId, Review review) {
+        return Observable.just(review)
+                .map(mapper::simpleModelToEntity)
+                .flatMap(entity -> datasource.addReviewToComic(comicId, userId, entity));
+    }
+
+    @Override
     public Observable<List<Review>> getReviewByComic(String comicId) {
         return datasource.getReviewsByComic(comicId)
                 .map(mapper::listEntityToModel);
     }
 
     @Override
-    public Observable<Boolean> addReviewToComic(String comicId, Review review) {
-        return Observable.just(review)
-                .map(mapper::simpleModelToEntity)
-                .flatMap(entity -> datasource.addReviewToComic(comicId, entity));
+    public Observable<List<Review>> getReviewsByUser(String userId) {
+        return datasource.getReviewsByUser(userId)
+                .map(mapper::listEntityToModel);
     }
+
 }

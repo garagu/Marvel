@@ -1,21 +1,22 @@
 package com.garagu.marvel.data.datasource.remote;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.data.datasource.ReviewDatasource;
 import com.garagu.marvel.data.entity.review.ReviewEntity;
+import com.garagu.marvel.data.net.NetworkUtils;
+import com.garagu.marvel.data.net.exception.ConnectionException;
 import com.garagu.marvel.data.net.exception.FirebaseException;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 
@@ -27,58 +28,65 @@ public class ReviewRemoteDatasource implements ReviewDatasource {
     private static final String CHILD_REVIEWS = "reviews";
     private static final String CHILD_USER_REVIEWS = "user-reviews";
 
-    // TODO Inject
+    private final Context context;
     private final DatabaseReference databaseReference;
 
-    public ReviewRemoteDatasource() {
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+    @Inject
+    public ReviewRemoteDatasource(Context context, DatabaseReference databaseReference) {
+        this.context = context;
+        this.databaseReference = databaseReference;
+    }
+
+    @Override
+    public Observable<Boolean> addReviewToComic(@NonNull String comicId, @NonNull String userId, @NonNull ReviewEntity review) {
+        if (NetworkUtils.isOnline(context)) {
+            final Map<String, Object> reviewValues = review.toMap();
+            final String newKey = databaseReference.push().getKey();
+            final String pathReviews = "/" + CHILD_REVIEWS + "/" + comicId + "/" + newKey;
+            final Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put(pathReviews, reviewValues);
+            String pathUserReviews = "/" + CHILD_USER_REVIEWS + "/" + userId + "/" + newKey;
+            childUpdates.put(pathUserReviews, reviewValues);
+            return Observable.create(subscriber -> databaseReference.updateChildren(childUpdates, (databaseError, databaseReference) -> {
+                if (databaseError == null) {
+                    subscriber.onNext(true);
+                    subscriber.onComplete();
+                } else {
+                    final FirebaseException exception = new FirebaseException(databaseError.getMessage());
+                    subscriber.onError(exception);
+                }
+            }));
+        } else {
+            final ConnectionException exception = new ConnectionException(context);
+            return Observable.error(exception);
+        }
+
     }
 
     @Override
     public Observable<List<ReviewEntity>> getReviewsByComic(@NonNull String comicId) {
-        // TODO handle connection
         final Query query = databaseReference.child(CHILD_REVIEWS).child(comicId);
-        return Observable.create(subscriber -> {
-            final ValueEventListener eventListener = new SingleValueEventListener(query) {
-                @Override
-                void onRecoverData(DataSnapshot dataSnapshot) {
-                    final List<ReviewEntity> reviews = new ArrayList<>();
-                    for (DataSnapshot children : dataSnapshot.getChildren()) {
-                        final ReviewEntity review = children.getValue(ReviewEntity.class);
-                        reviews.add(review);
-                    }
-                    subscriber.onNext(reviews);
-                    subscriber.onComplete();
-                }
+        return getReviews(query);
+    }
 
-                @Override
-                void onError(DatabaseError databaseError) {
-                    final FirebaseException exception = new FirebaseException(databaseError.getMessage());
-                    subscriber.onError(exception);
-                }
-            };
-            query.addListenerForSingleValueEvent(eventListener);
+
+    @Override
+    public Observable<List<ReviewEntity>> getReviewsByUser(@NonNull String userId) {
+        final Query query = databaseReference.child(CHILD_USER_REVIEWS).child(userId);
+        return getReviews(query);
+    }
+
+    @SuppressWarnings("unchecked")
+    private Observable<List<ReviewEntity>> getReviews(@NonNull Query query) {
+        return Observable.create(subscriber -> {
+            if (NetworkUtils.isOnline(context)) {
+                final ValueEventListener eventListener = new SingleValueEventListener(query, subscriber, ReviewEntity.class);
+                query.addListenerForSingleValueEvent(eventListener);
+            } else {
+                final ConnectionException exception = new ConnectionException(context);
+                subscriber.onError(exception);
+            }
         });
     }
 
-    @Override
-    public Observable<Boolean> addReviewToComic(@NonNull String comicId, @NonNull ReviewEntity review) {
-        // TODO handle connection
-        final Map<String, Object> reviewValues = review.toMap();
-        final String newKey = databaseReference.push().getKey();
-        final String path = "/" + CHILD_REVIEWS + "/" + comicId + "/" + newKey;
-        final Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put(path, reviewValues);
-        // String otherPath = "/" + CHILD_USER_REVIEWS + "/" + usernameId + "/" + newKey;
-        // childUpdates.put(otherPath, reviewValues);
-        return Observable.create(subscriber -> databaseReference.updateChildren(childUpdates, (databaseError, databaseReference) -> {
-            if (databaseError == null) {
-                subscriber.onNext(true);
-                subscriber.onComplete();
-            } else {
-                final FirebaseException exception = new FirebaseException(databaseError.getMessage());
-                subscriber.onError(exception);
-            }
-        }));
-    }
 }

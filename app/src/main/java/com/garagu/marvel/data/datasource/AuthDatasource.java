@@ -7,12 +7,12 @@ import io.reactivex.Observable;
 /**
  * Created by garagu.
  */
-public interface LoginDatasource {
+public interface AuthDatasource {
     Observable<UserEntity> getUser();
 
-    Observable<UserEntity> login(String email, String password);
+    Observable<UserEntity> signIn(String email, String password);
 
-    void logout();
+    void signOut();
 
-    Observable<UserEntity> registerUser(String name, String email, String password);
+    Observable<UserEntity> createUser(String name, String email, String password);
 }

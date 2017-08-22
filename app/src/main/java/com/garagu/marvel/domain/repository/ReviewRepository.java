@@ -10,7 +10,9 @@ import io.reactivex.Observable;
  * Created by garagu.
  */
 public interface ReviewRepository {
+    Observable<Boolean> addReviewToComic(String comicId, String userId, Review review);
+
     Observable<List<Review>> getReviewByComic(String comicId);
 
-    Observable<Boolean> addReviewToComic(String comicId, Review review);
+    Observable<List<Review>> getReviewsByUser(String userId);
 }

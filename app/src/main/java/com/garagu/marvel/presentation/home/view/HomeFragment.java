@@ -154,6 +154,11 @@ public class HomeFragment extends BaseFragment implements HomeView {
     }
 
     @Override
+    public void openMyReviews() {
+        navigator.openMyReviews(getActivity());
+    }
+
+    @Override
     public void showHomeOptions(@NonNull List<HomeOptionViewModel> homeOptions) {
         final Renderer<HomeOptionViewModel> renderer = new HomeOptionRenderer(
                 getOnHomeOptionClickListener(),
