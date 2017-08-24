@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import com.garagu.marvel.domain.usecase.RegisterUser;
 import com.garagu.marvel.presentation.auth.RegisterPresenter.RegisterView;
 import com.garagu.marvel.presentation.common.model.UserModelMapper;
-import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
 
@@ -57,7 +56,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
                 .subscribe(
                         user -> {
                             getView().showConfirmation();
-                            getView().openHome(user);
+                            getView().openHome();
                         },
                         error -> {
                             getView().showError(error.getMessage());
@@ -71,7 +70,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
     interface RegisterView extends BaseView {
         void hideProgress();
 
-        void openHome(@NonNull UserViewModel user);
+        void openHome();
 
         void openSignIn();
 

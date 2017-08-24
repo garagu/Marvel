@@ -30,6 +30,12 @@ public class UserViewModel implements Parcelable {
         this.email = email;
     }
 
+    protected UserViewModel(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        email = in.readString();
+    }
+
     public String getId() {
         return id;
     }
@@ -42,7 +48,6 @@ public class UserViewModel implements Parcelable {
         return email;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -53,12 +58,6 @@ public class UserViewModel implements Parcelable {
         dest.writeString(id);
         dest.writeString(name);
         dest.writeString(email);
-    }
-
-    protected UserViewModel(Parcel in) {
-        id = in.readString();
-        name = in.readString();
-        email = in.readString();
     }
 
     public static class Builder {

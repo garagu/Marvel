@@ -2,7 +2,7 @@ package com.garagu.marvel.presentation.home.view;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,11 +14,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.presentation.common.model.UserViewModel;
+import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.CardDecoration;
+import com.garagu.marvel.presentation.common.view.OnLateralMenuItemSelectedListener;
 import com.garagu.marvel.presentation.common.view.RVRenderer.OnRendererClickListener;
-import com.garagu.marvel.presentation.home.di.HomeComponent;
 import com.garagu.marvel.presentation.home.model.HomeOptionType;
 import com.garagu.marvel.presentation.home.model.HomeOptionViewModel;
 import com.garagu.marvel.presentation.home.view.HomePresenter.HomeView;
@@ -38,9 +38,7 @@ import butterknife.BindView;
 /**
  * Created by garagu.
  */
-public class HomeFragment extends BaseFragment implements HomeView {
-
-    private static final String KEY_USER = "user";
+public class HomeFragment extends BaseFragment implements HomeView, OnLateralMenuItemSelectedListener {
 
     @Inject
     HomePresenter presenter;
@@ -52,26 +50,14 @@ public class HomeFragment extends BaseFragment implements HomeView {
     @BindDimen(R.dimen.margin_medium)
     int margin;
 
-    private UserViewModel user;
-
     @NonNull
-    public static HomeFragment newInstance(@NonNull UserViewModel user) {
-        final HomeFragment fragment = new HomeFragment();
-        final Bundle args = new Bundle();
-        args.putParcelable(KEY_USER, user);
-        fragment.setArguments(args);
-        return fragment;
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
     }
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_list;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        user = getArguments().getParcelable(KEY_USER);
     }
 
     @Override
@@ -89,11 +75,10 @@ public class HomeFragment extends BaseFragment implements HomeView {
     }
 
     private void initDependencyInjection() {
-        getComponent(HomeComponent.class).inject(this);
+        getComponent(AppComponent.class).inject(this);
     }
 
     private void initComponents() {
-        getBaseActivity().initNavHeader(user.getName(), user.getEmail());
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         final LayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -144,6 +129,26 @@ public class HomeFragment extends BaseFragment implements HomeView {
     }
 
     @Override
+    public void onLateralMenuItemSelected(@IdRes int idMenuItem) {
+        if (idMenuItem == R.id.nav_sign_out) {
+            presenter.onSignOutClick();
+        } else if (idMenuItem == R.id.nav_about) {
+            presenter.onAboutClick();
+        }
+    }
+
+    @Override
+    public void initLateralMenu(@Nullable String name, @Nullable String email) {
+        initNavigationView(name, email, this);
+    }
+
+    @Override
+    public void openAbout() {
+        // TODO
+        Toast.makeText(getActivity(), R.string.message_next_version, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void openCharacters() {
         navigator.openCharacters(getActivity());
     }
@@ -156,6 +161,16 @@ public class HomeFragment extends BaseFragment implements HomeView {
     @Override
     public void openMyReviews() {
         navigator.openMyReviews(getActivity());
+    }
+
+    @Override
+    public void openSignIn() {
+        navigator.openSignIn(getActivity());
+    }
+
+    @Override
+    public void showError(@NonNull String message) {
+        showSnackbar(message);
     }
 
     @Override

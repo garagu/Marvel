@@ -8,9 +8,9 @@ import android.text.TextUtils;
 
 import com.garagu.marvel.presentation.application.di.ActivityScope;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
+import com.garagu.marvel.presentation.character.model.LinkViewModel;
 import com.garagu.marvel.presentation.character.view.detail.CharacterDetailPresenter.CharacterDetailView;
 import com.garagu.marvel.presentation.common.model.CollectionViewModel;
-import com.garagu.marvel.presentation.common.model.LinkViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
 

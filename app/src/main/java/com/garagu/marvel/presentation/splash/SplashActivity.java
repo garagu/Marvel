@@ -1,9 +1,7 @@
 package com.garagu.marvel.presentation.splash;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 
-import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BaseActivity;
 
 import javax.inject.Inject;
@@ -41,8 +39,8 @@ public class SplashActivity extends BaseActivity implements SplashPresenter.Spla
     }
 
     @Override
-    public void openHome(@NonNull UserViewModel user) {
-        navigator.openHome(this, user);
+    public void openHome() {
+        navigator.openHome(this);
     }
 
     @Override

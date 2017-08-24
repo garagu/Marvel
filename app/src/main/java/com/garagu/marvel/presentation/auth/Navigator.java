@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
-import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BaseNavigator;
 import com.garagu.marvel.presentation.home.view.HomeActivity;
 
@@ -25,8 +24,8 @@ public class Navigator extends BaseNavigator {
         openFragment(activity, SignInFragment.newInstance());
     }
 
-    public void openHome(@NonNull Activity activity, @NonNull UserViewModel user) {
-        final Intent intent = HomeActivity.getCallingIntent(activity, user);
+    public void openHome(@NonNull Activity activity) {
+        final Intent intent = HomeActivity.getCallingIntent(activity);
         activity.startActivity(intent);
         activity.finish();
     }

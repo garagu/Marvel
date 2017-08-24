@@ -39,8 +39,8 @@ public class AuthDataRepository implements AuthRepository {
     }
 
     @Override
-    public void signOut() {
-        datasource.signOut();
+    public Observable<Boolean> signOut() {
+        return datasource.signOut();
     }
 
 }

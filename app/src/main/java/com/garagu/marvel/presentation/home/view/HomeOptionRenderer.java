@@ -16,12 +16,11 @@ import butterknife.BindView;
  */
 class HomeOptionRenderer extends RVRenderer<HomeOptionViewModel> {
 
+    private final int cellHeight;
     @BindView(R.id.img_home_option)
     ImageView imgHomeOption;
     @BindView(R.id.txt_home_option)
     TextView txtHomeOption;
-
-    private final int cellHeight;
 
     HomeOptionRenderer(@NonNull OnRendererClickListener<HomeOptionViewModel> clickListener, int cellHeight) {
         super(clickListener);

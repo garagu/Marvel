@@ -10,9 +10,9 @@ import com.garagu.marvel.data.entity.common.ImageEntity;
 import com.garagu.marvel.data.entity.common.NameEntity;
 import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.domain.model.character.Character;
+import com.garagu.marvel.domain.model.character.Link;
 import com.garagu.marvel.domain.model.character.PaginatedCharacterList;
 import com.garagu.marvel.domain.model.common.Collection;
-import com.garagu.marvel.domain.model.common.Link;
 
 import java.util.ArrayList;
 import java.util.List;

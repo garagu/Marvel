@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.garagu.marvel.presentation.common.model.CollectionViewModel;
-import com.garagu.marvel.presentation.common.model.LinkViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

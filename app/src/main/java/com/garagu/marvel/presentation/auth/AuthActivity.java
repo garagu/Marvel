@@ -26,7 +26,7 @@ public class AuthActivity extends BaseActivity implements HasInjection<AppCompon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDependencyInjection();
-        hideMenu();
+        hideNavigationView();
         navigator.openSignIn(this);
     }
 

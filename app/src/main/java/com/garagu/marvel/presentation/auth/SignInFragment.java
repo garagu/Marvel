@@ -8,7 +8,6 @@ import android.widget.EditText;
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.auth.SignInPresenter.SignInView;
-import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 
 import javax.inject.Inject;
@@ -89,8 +88,8 @@ public class SignInFragment extends BaseFragment implements SignInView {
     }
 
     @Override
-    public void openHome(@NonNull UserViewModel user) {
-        navigator.openHome(getActivity(), user);
+    public void openHome() {
+        navigator.openHome(getActivity());
     }
 
     @Override

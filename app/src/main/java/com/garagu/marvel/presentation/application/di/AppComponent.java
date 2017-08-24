@@ -11,6 +11,8 @@ import com.garagu.marvel.presentation.auth.AuthActivity;
 import com.garagu.marvel.presentation.auth.RegisterFragment;
 import com.garagu.marvel.presentation.auth.SignInFragment;
 import com.garagu.marvel.presentation.common.view.ImageLoader;
+import com.garagu.marvel.presentation.home.view.HomeActivity;
+import com.garagu.marvel.presentation.home.view.HomeFragment;
 import com.garagu.marvel.presentation.splash.SplashActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -46,11 +48,15 @@ public interface AppComponent {
 
     AuthRepository authRepository();
 
+    void inject(SplashActivity activity);
+
     void inject(AuthActivity activity);
 
     void inject(SignInFragment fragment);
 
     void inject(RegisterFragment fragment);
 
-    void inject(SplashActivity activity);
+    void inject(HomeActivity activity);
+
+    void inject(HomeFragment fragment);
 }
