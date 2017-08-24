@@ -4,7 +4,7 @@ import com.garagu.marvel.domain.model.comic.PaginatedComicList;
 import com.garagu.marvel.domain.repository.ComicRepository;
 import com.garagu.marvel.domain.thread.ExecutorThread;
 import com.garagu.marvel.domain.thread.PostExecutionThread;
-import com.garagu.marvel.domain.usecase.GetComicsByCharacter.InputParam;
+import com.garagu.marvel.domain.usecase.GetComicsByTitle.InputParam;
 
 import javax.inject.Inject;
 
@@ -13,33 +13,33 @@ import io.reactivex.Observable;
 /**
  * Created by garagu.
  */
-public class GetComicsByCharacter extends UseCase<InputParam, PaginatedComicList> {
+public class GetComicsByTitle extends UseCase<InputParam, PaginatedComicList> {
 
     private final ComicRepository repository;
 
     @Inject
-    GetComicsByCharacter(ExecutorThread executorThread, PostExecutionThread postExecutionThread, ComicRepository repository) {
+    GetComicsByTitle(ExecutorThread executorThread, PostExecutionThread postExecutionThread, ComicRepository repository) {
         super(executorThread, postExecutionThread);
         this.repository = repository;
     }
 
     @Override
-    protected Observable<PaginatedComicList> buildObservable(InputParam param) {
-        return repository.getComicsByCharacter(param.getCharacterId(), param.getOffset());
+    protected Observable<PaginatedComicList> buildObservable(InputParam inputParam) {
+        return repository.getComicsByTitle(inputParam.getTitle(), inputParam.getOffset());
     }
 
     public static class InputParam {
 
-        private final int characterId;
+        private final String title;
         private final int offset;
 
-        public InputParam(int characterId, int offset) {
-            this.characterId = characterId;
+        public InputParam(String title, int offset) {
+            this.title = title;
             this.offset = offset;
         }
 
-        private int getCharacterId() {
-            return characterId;
+        private String getTitle() {
+            return title;
         }
 
         private int getOffset() {

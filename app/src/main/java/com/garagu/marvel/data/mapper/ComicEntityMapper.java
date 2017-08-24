@@ -11,15 +11,19 @@ import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.domain.model.comic.Comic;
 import com.garagu.marvel.domain.model.comic.ComicCharacter;
 import com.garagu.marvel.domain.model.comic.ComicCreator;
-import com.garagu.marvel.domain.model.comic.ComicList;
 import com.garagu.marvel.domain.model.comic.ComicSeries;
+import com.garagu.marvel.domain.model.comic.PaginatedComicList;
+import com.garagu.marvel.presentation.application.di.ActivityScope;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by garagu.
  */
+@ActivityScope
 public class ComicEntityMapper {
 
     private static final String IMAGE_NAME_GALLERY = ".";
@@ -27,13 +31,14 @@ public class ComicEntityMapper {
 
     private final ComicDateEntityMapper dateMapper;
 
+    @Inject
     public ComicEntityMapper(ComicDateEntityMapper dateMapper) {
         this.dateMapper = dateMapper;
     }
 
-    public ComicList mapEntityToModel(ResultEntity<ComicListEntity> entity) {
+    public PaginatedComicList mapEntityToModel(ResultEntity<ComicListEntity> entity) {
         final List<Comic> comicList = mapComicList(entity.getData().getResults());
-        return new ComicList(
+        return new PaginatedComicList(
                 entity.getData().getCount(),
                 entity.getData().getOffset(),
                 entity.getData().getTotal(),

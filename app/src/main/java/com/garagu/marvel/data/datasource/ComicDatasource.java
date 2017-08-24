@@ -11,5 +11,7 @@ import io.reactivex.Observable;
 public interface ComicDatasource {
     Observable<ResultEntity<ComicListEntity>> getComics(int offset);
 
-    Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(String id, int offset);
+    Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(int id, int offset);
+
+    Observable<ResultEntity<ComicListEntity>> getComicsByTitle(String title, int offset);
 }

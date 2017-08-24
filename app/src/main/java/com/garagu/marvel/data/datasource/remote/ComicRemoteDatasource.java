@@ -22,8 +22,13 @@ public class ComicRemoteDatasource extends MarvelDatasource implements ComicData
     }
 
     @Override
-    public Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(String id, int offset) {
+    public Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(int id, int offset) {
         return getApi().getComicsByCharacter(id, offset, getAuthParameters());
+    }
+
+    @Override
+    public Observable<ResultEntity<ComicListEntity>> getComicsByTitle(String title, int offset) {
+        return getApi().getComicsByTitle(title, offset, getAuthParameters());
     }
 
 }

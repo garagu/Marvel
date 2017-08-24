@@ -20,18 +20,16 @@ import butterknife.OnClick;
  */
 class CharacterRenderer extends RVRenderer<CharacterViewModel> {
 
+    private final ImageLoader imageLoader;
+    private final OnCardClickListener onCardClickListener;
+    //@BindView(R.id.img_favorite)
+    //LottieAnimationView imgFavorite;
     @BindView(R.id.img_thumbnail_character)
     ImageView imgThumbnail;
     @BindView(R.id.txt_character_name)
     TextView txtName;
-    //@BindView(R.id.img_favorite)
-    //LottieAnimationView imgFavorite;
-
     @BindDrawable(R.drawable.placeholder_character)
     Drawable placeholder;
-
-    private final ImageLoader imageLoader;
-    private final OnCardClickListener onCardClickListener;
 
     CharacterRenderer(@NonNull ImageLoader imageLoader, @NonNull OnCardClickListener onCardClickListener) {
         this.imageLoader = imageLoader;

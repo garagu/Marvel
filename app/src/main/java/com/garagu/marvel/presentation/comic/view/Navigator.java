@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.garagu.marvel.presentation.application.di.ActivityScope;
+import com.garagu.marvel.presentation.character.model.CharacterViewModel;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.comic.view.detail.ComicDetailActivity;
 import com.garagu.marvel.presentation.comic.view.detail.gallery.ComicGalleryFragment;
@@ -17,13 +19,20 @@ import com.garagu.marvel.presentation.common.view.BaseNavigator;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by garagu.
  */
+@ActivityScope
 public class Navigator extends BaseNavigator {
 
-    public void openComicList(@NonNull Activity activity) {
-        openFragment(activity, ComicListFragment.newInstance());
+    @Inject
+    public Navigator() {
+    }
+
+    public void openComicList(@NonNull Activity activity, int characterId) {
+        openFragment(activity, (characterId == CharacterViewModel.DEFAULT_ID) ? ComicListFragment.newInstance() : ComicListFragment.newInstance(characterId));
     }
 
     public void openComicDetail(@NonNull Activity activity, @NonNull ComicViewModel comic) {

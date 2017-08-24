@@ -20,15 +20,20 @@ public interface MarvelApi {
 
     String BASE_URL = BuildConfig.MARVEL_API_URL;
 
-    @GET("characters/{id}/comics?orderBy=title")
-    Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(
-            @Path("id") String id,
+    @GET("comics?orderBy=title")
+    Observable<ResultEntity<ComicListEntity>> getComics(
             @Query("offset") int offset,
             @QueryMap Map<String, String> authParameters);
 
+    @GET("comics")
+    Observable<ResultEntity<ComicListEntity>> getComicsByTitle(
+            @Query("title") String title,
+            @Query("offset") int offset,
+            @QueryMap Map<String, String> authParameters);
 
-    @GET("comics?orderBy=title")
-    Observable<ResultEntity<ComicListEntity>> getComics(
+    @GET("characters/{id}/comics?orderBy=title")
+    Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(
+            @Path("id") int id,
             @Query("offset") int offset,
             @QueryMap Map<String, String> authParameters);
 

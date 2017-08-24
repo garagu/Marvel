@@ -30,21 +30,26 @@ public class ComicLocalDatasource implements ComicDatasource {
 
     @Override
     public Observable<ResultEntity<ComicListEntity>> getComics(int offset) {
-        return getComicsByCharacter("", offset);
+        return getComicsByCharacter(0, offset);
     }
 
     @Override
-    public Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(String id, int offset) {
+    public Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(int id, int offset) {
         ResultEntity<ComicListEntity> entity = new ResultEntity<>();
         try {
-            String json = fileManager.readAsset("comics.json");
-            Type type = new TypeToken<ResultEntity<ComicListEntity>>() {
+            final String json = fileManager.readAsset("comics.json");
+            final Type type = new TypeToken<ResultEntity<ComicListEntity>>() {
             }.getType();
             entity = gson.fromJson(json, type);
         } catch (IOException | JsonSyntaxException e) {
             Log.e("Error reading file!", e.getMessage());
         }
         return Observable.just(entity);
+    }
+
+    @Override
+    public Observable<ResultEntity<ComicListEntity>> getComicsByTitle(String title, int offset) {
+        return getComicsByCharacter(0, offset);
     }
 
 }

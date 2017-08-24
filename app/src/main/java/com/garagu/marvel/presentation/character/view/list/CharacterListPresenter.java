@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.garagu.marvel.domain.model.common.Offset;
 import com.garagu.marvel.domain.usecase.GetCharacters;
 import com.garagu.marvel.presentation.character.model.CharacterModelMapper;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
@@ -35,7 +34,7 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
 
     @Override
     public void subscribe() {
-        getCharacters(Offset.DEFAULT);
+        getCharacters(0);
     }
 
     @Override
@@ -43,7 +42,7 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
         compositeDisposable.dispose();
     }
 
-    private void getCharacters(@NonNull Offset offset) {
+    private void getCharacters(int offset) {
         getView().showProgress();
         getCharacters.execute(offset)
                 .map(mapper::mapModelToViewModel)
@@ -59,8 +58,7 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
     }
 
     void onListScrolled(int offset) {
-        final Offset model = new Offset(offset);
-        getCharacters(model);
+        getCharacters(offset);
     }
 
     void onThumbnailClicked(@Nullable View clickedView, @NonNull CharacterViewModel character) {

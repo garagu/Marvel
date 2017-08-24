@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
+import com.garagu.marvel.presentation.character.model.CharacterViewModel;
 import com.garagu.marvel.presentation.comic.di.ComicComponent;
 import com.garagu.marvel.presentation.comic.di.ComicModule;
 import com.garagu.marvel.presentation.comic.di.DaggerComicComponent;
@@ -19,21 +21,32 @@ import javax.inject.Inject;
  */
 public class ComicListActivity extends BaseActivity implements HasInjection<ComicComponent> {
 
+    private static final String KEY_CHARACTER_ID = "characterId";
+
     @Inject
     Navigator navigator;
 
     private ComicComponent comicComponent;
 
+    @NonNull
     public static Intent getCallingIntent(@NonNull Activity activity) {
         return new Intent(activity, ComicListActivity.class);
     }
 
+    @NonNull
+    public static Intent getCallingIntent(@NonNull Activity activity, int characterId) {
+        final Intent intent = new Intent(activity, ComicListActivity.class);
+        intent.putExtra(KEY_CHARACTER_ID, characterId);
+        return intent;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDependencyInjection();
         showBackButton();
-        navigator.openComicList(this);
+        final int characterId = getIntent().getIntExtra(KEY_CHARACTER_ID, CharacterViewModel.DEFAULT_ID);
+        navigator.openComicList(this, characterId);
     }
 
     private void initDependencyInjection() {

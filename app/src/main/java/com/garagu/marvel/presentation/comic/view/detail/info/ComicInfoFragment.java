@@ -75,6 +75,7 @@ public class ComicInfoFragment extends BaseFragment {
 
     private ComicViewModel selectedComic;
 
+    @NonNull
     public static ComicInfoFragment newInstance(ComicViewModel selectedComic) {
         ComicInfoFragment fragment = new ComicInfoFragment();
         Bundle args = new Bundle();
@@ -97,11 +98,11 @@ public class ComicInfoFragment extends BaseFragment {
     @Override
     protected void onCreateView() {
         super.onCreateView();
-        initDependencyInjector();
+        initDependencyInjection();
         initComicInfo();
     }
 
-    private void initDependencyInjector() {
+    private void initDependencyInjection() {
         getComponent(ComicComponent.class).inject(this);
     }
 

@@ -12,11 +12,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.character.di.CharacterComponent;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
+import com.garagu.marvel.presentation.character.view.Navigator;
 import com.garagu.marvel.presentation.character.view.detail.CharacterDetailPresenter.CharacterDetailView;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.ImageLoader;
@@ -35,9 +35,11 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     private static final String KEY_SELECTED_CHARACTER = "selectedCharacter";
 
     @Inject
+    CharacterDetailPresenter presenter;
+    @Inject
     ImageLoader imageLoader;
     @Inject
-    CharacterDetailPresenter presenter;
+    Navigator navigator;
 
     @BindView(R.id.img_thumbnail_character)
     ImageView imgThumbnail;
@@ -103,7 +105,7 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
 
     @OnClick(R.id.btn_character_comics)
     void onMoreComicsClick() {
-        Toast.makeText(getActivity(), R.string.message_next_version, Toast.LENGTH_SHORT).show();
+        presenter.onMoreComicsClick();
     }
 
     @Override
@@ -121,6 +123,11 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     @Override
     public void loadImage(@NonNull String url) {
         imageLoader.load(imgThumbnail, url, placeholder);
+    }
+
+    @Override
+    public void openComics() {
+        navigator.openComics(getActivity(), character.getId());
     }
 
     @Override
