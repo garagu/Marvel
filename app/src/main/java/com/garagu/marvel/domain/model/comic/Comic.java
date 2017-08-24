@@ -20,7 +20,8 @@ public class Comic {
     private final List<String> images;
     private final List<ComicDate> dates;
 
-    public Comic(int id, String title, String description, int pages, ComicSeries series, List<ComicCreator> creators, List<ComicCharacter> characters, String isbn, String format, String urlThumbnail, List<String> images, List<ComicDate> dates) {
+    public Comic(int id, String title, String description, int pages, ComicSeries series, List<ComicCreator> creators, List<ComicCharacter> characters, String isbn, String format,
+                 String urlThumbnail, List<String> images, List<ComicDate> dates) {
         this.id = id;
         this.title = title;
         this.description = description;

@@ -29,6 +29,11 @@ public class ComicDateViewModel implements Parcelable {
         this.date = date;
     }
 
+    protected ComicDateViewModel(Parcel in) {
+        type = in.readString();
+        date = in.readString();
+    }
+
     public String getType() {
         return type;
     }
@@ -46,11 +51,6 @@ public class ComicDateViewModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(type);
         dest.writeString(date);
-    }
-
-    protected ComicDateViewModel(Parcel in) {
-        type = in.readString();
-        date = in.readString();
     }
 
     public static class Builder {

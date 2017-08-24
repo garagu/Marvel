@@ -46,6 +46,10 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
         initComics(character.getComics());
     }
 
+    void onMoreComicsClick() {
+        getView().openComics();
+    }
+
     private void initComics(@NonNull CollectionViewModel comics) {
         if (comics.getFirstItems().isEmpty()) {
             getView().hideComics();
@@ -115,13 +119,15 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
     interface CharacterDetailView extends BaseView {
         void hideComics();
 
+        void hideImage();
+
         void hideLinks();
 
         void loadImage(@NonNull String url);
 
-        void showComics(@NonNull String comics);
+        void openComics();
 
-        void hideImage();
+        void showComics(@NonNull String comics);
 
         void showDescription(@NonNull String description);
 

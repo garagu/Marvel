@@ -7,19 +7,27 @@ import com.garagu.marvel.domain.model.comic.Comic;
 import com.garagu.marvel.domain.model.comic.ComicCharacter;
 import com.garagu.marvel.domain.model.comic.ComicCreator;
 import com.garagu.marvel.domain.model.comic.ComicDate;
-import com.garagu.marvel.domain.model.comic.ComicList;
 import com.garagu.marvel.domain.model.comic.ComicSeries;
+import com.garagu.marvel.domain.model.comic.PaginatedComicList;
+import com.garagu.marvel.presentation.application.di.ActivityScope;
 import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by garagu.
  */
+@ActivityScope
 public class ComicModelMapper {
 
-    public PaginatedListViewModel<ComicViewModel> mapModelToViewModel(ComicList model) {
+    @Inject
+    public ComicModelMapper() {
+    }
+
+    public PaginatedListViewModel<ComicViewModel> mapModelToViewModel(PaginatedComicList model) {
         final List<ComicViewModel> items = mapList(model.getList());
         final int offset = model.getOffset() + model.getCount();
         return new PaginatedListViewModel.Builder<ComicViewModel>()

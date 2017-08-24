@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class CharacterViewModel implements Parcelable {
 
+    public static final int DEFAULT_ID = -1;
     public static final Creator<CharacterViewModel> CREATOR = new Creator<CharacterViewModel>() {
         @Override
         public CharacterViewModel createFromParcel(Parcel source) {
@@ -36,7 +37,8 @@ public class CharacterViewModel implements Parcelable {
     private final CollectionViewModel events;
     private final List<LinkViewModel> links;
 
-    private CharacterViewModel(int id, String name, String description, String urlThumbnail, CollectionViewModel comics, CollectionViewModel series, CollectionViewModel stories, CollectionViewModel events, List<LinkViewModel> links) {
+    private CharacterViewModel(int id, String name, String description, String urlThumbnail, CollectionViewModel comics, CollectionViewModel series, CollectionViewModel stories,
+                               CollectionViewModel events, List<LinkViewModel> links) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -46,6 +48,20 @@ public class CharacterViewModel implements Parcelable {
         this.stories = stories;
         this.events = events;
         this.links = links;
+    }
+
+    private CharacterViewModel(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        description = in.readString();
+        urlThumbnail = in.readString();
+        final ClassLoader collectionClassLoader = CollectionViewModel.class.getClassLoader();
+        comics = in.readParcelable(collectionClassLoader);
+        series = in.readParcelable(collectionClassLoader);
+        stories = in.readParcelable(collectionClassLoader);
+        events = in.readParcelable(collectionClassLoader);
+        links = new ArrayList<>();
+        in.readList(this.links, LinkViewModel.class.getClassLoader());
     }
 
     public int getId() {
@@ -104,20 +120,6 @@ public class CharacterViewModel implements Parcelable {
         dest.writeParcelable(stories, flags);
         dest.writeParcelable(events, flags);
         dest.writeList(links);
-    }
-
-    private CharacterViewModel(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
-        description = in.readString();
-        urlThumbnail = in.readString();
-        final ClassLoader collectionClassLoader = CollectionViewModel.class.getClassLoader();
-        comics = in.readParcelable(collectionClassLoader);
-        series = in.readParcelable(collectionClassLoader);
-        stories = in.readParcelable(collectionClassLoader);
-        events = in.readParcelable(collectionClassLoader);
-        links = new ArrayList<>();
-        in.readList(this.links, LinkViewModel.class.getClassLoader());
     }
 
     public static class Builder {

@@ -4,6 +4,7 @@
     <string name="error_connection">Oops! There\'s no Internet connection and no more saved info. Check the network and try again.</string>
     <string name="message_next_version">It will be available soon!</string>
     <string name="error_empty_field">Please enter a value</string>
+    <string name="menu_search">Search</string>
 
     <!-- Sign in -->
     <string name="signin_toolbar_title">Welcome</string>
@@ -39,14 +40,15 @@
     <string name="comics_nav_info">Info</string>
     <string name="comics_nav_reviews">Reviews</string>
     <string name="comics_nav_gallery">Gallery</string>
-    <string name="detail_label_summary">Summary</string>
-    <string name="detail_label_series">Series:</string>
-    <string name="detail_label_pages">Pages:</string>
-    <string name="detail_label_isbn">ISBN:</string>
-    <string name="detail_label_format">Format:</string>
-    <string name="detail_label_dates">Dates</string>
-    <string name="detail_label_credits">Credits</string>
-    <string name="detail_label_characters">Characters</string>
+    <string name="comicinfo_hint_search">Search comic</string>
+    <string name="comicinfo_label_summary">Summary</string>
+    <string name="comicinfo_label_series">Series:</string>
+    <string name="comicinfo_label_pages">Pages:</string>
+    <string name="comicinfo_label_isbn">ISBN:</string>
+    <string name="comicinfo_label_format">Format:</string>
+    <string name="comicinfo_label_dates">Dates</string>
+    <string name="comicinfo_label_credits">Credits</string>
+    <string name="comicinfo_label_characters">Characters</string>
     <string name="comicnewreview_hint_review">Review</string>
     <string name="comicnewreview_button">Publish</string>
     <string name="comicnewreview_message_required_fields">Oops! Some field is empty</string>

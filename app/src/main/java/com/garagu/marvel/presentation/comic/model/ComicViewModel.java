@@ -36,7 +36,8 @@ public class ComicViewModel implements Parcelable {
     private final List<String> images;
     private final List<ComicDateViewModel> dates;
 
-    private ComicViewModel(String id, String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn, String format, String urlThumbnail, List<String> images, List<ComicDateViewModel> dates) {
+    private ComicViewModel(String id, String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn,
+                           String format, String urlThumbnail, List<String> images, List<ComicDateViewModel> dates) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -49,6 +50,23 @@ public class ComicViewModel implements Parcelable {
         this.urlThumbnail = urlThumbnail;
         this.images = images;
         this.dates = dates;
+    }
+
+    protected ComicViewModel(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        pages = in.readString();
+        seriesTitle = in.readString();
+        creators = new ArrayList<>();
+        in.readList(creators, CreatorViewModel.class.getClassLoader());
+        characters = in.createStringArrayList();
+        isbn = in.readString();
+        format = in.readString();
+        urlThumbnail = in.readString();
+        images = in.createStringArrayList();
+        dates = new ArrayList<>();
+        in.readList(dates, ComicDateViewModel.class.getClassLoader());
     }
 
     public String getId() {
@@ -118,23 +136,6 @@ public class ComicViewModel implements Parcelable {
         dest.writeString(urlThumbnail);
         dest.writeStringList(images);
         dest.writeList(dates);
-    }
-
-    protected ComicViewModel(Parcel in) {
-        id = in.readString();
-        title = in.readString();
-        description = in.readString();
-        pages = in.readString();
-        seriesTitle = in.readString();
-        creators = new ArrayList<>();
-        in.readList(creators, CreatorViewModel.class.getClassLoader());
-        characters = in.createStringArrayList();
-        isbn = in.readString();
-        format = in.readString();
-        urlThumbnail = in.readString();
-        images = in.createStringArrayList();
-        dates = new ArrayList<>();
-        in.readList(dates, ComicDateViewModel.class.getClassLoader());
     }
 
     public static class Builder {

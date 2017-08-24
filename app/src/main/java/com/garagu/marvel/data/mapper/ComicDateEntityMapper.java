@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.garagu.marvel.data.entity.comic.ComicDateEntity;
 import com.garagu.marvel.domain.model.comic.ComicDate;
+import com.garagu.marvel.presentation.application.di.ActivityScope;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,13 +14,20 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 /**
  * Created by garagu.
  */
+@ActivityScope
 public class ComicDateEntityMapper {
 
     private static final String DATE_FORMAT_API = "yyyy-MM-dd'T'HH:mm:ssZ";
     private static final String DATE_FORMAT = "dd/MM/yyyy";
+
+    @Inject
+    public ComicDateEntityMapper() {
+    }
 
     @NonNull
     List<ComicDate> mapListEntityToModel(@NonNull ComicDateEntity[] entityArray) {

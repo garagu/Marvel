@@ -18,6 +18,7 @@ import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.CardDecoration;
 import com.garagu.marvel.presentation.common.view.ImageLoader;
+import com.garagu.marvel.presentation.common.view.OnListBottomReachedListener;
 import com.garagu.marvel.presentation.common.view.RVAnimRendererAdapter;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
@@ -40,17 +41,6 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     ImageLoader imageLoader;
     @Inject
     CharacterListPresenter presenter;
-    @Inject
-    Navigator navigator;
-
-    @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
-
-    private RVAnimRendererAdapter<CharacterViewModel> adapter;
-    private boolean hasMore;
-    private int offset;
     private final OnCardClickListener onCardClickListener = new OnCardClickListener() {
         @Override
         public void onFavoriteClick(@NonNull CharacterViewModel character) {
@@ -62,6 +52,15 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
             presenter.onThumbnailClicked(character.isThumbnailAvailable() ? view : null, character);
         }
     };
+    @Inject
+    Navigator navigator;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    private RVAnimRendererAdapter<CharacterViewModel> adapter;
+    private boolean hasMore;
+    private int offset;
 
     public static CharacterListFragment newInstance() {
         return new CharacterListFragment();
@@ -91,10 +90,10 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration itemDecoration = new CardDecoration(getActivity());
         recyclerView.addItemDecoration(itemDecoration);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(new OnListBottomReachedListener(layoutManager) {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if (isNotLoading() && hasMore && checkScroll(layoutManager, dy)) {
+            public void onBottomReached() {
+                if (isNotLoading() && hasMore) {
                     presenter.onListScrolled(offset);
                 }
             }
@@ -113,16 +112,6 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     private void initPresenter() {
         presenter.setView(this);
         presenter.subscribe();
-    }
-
-    private boolean checkScroll(@NonNull LinearLayoutManager layoutManager, int dy) {
-        if (dy > 0) {
-            final int visibleItems = layoutManager.getChildCount();
-            final int firstVisibleItem = layoutManager.findFirstVisibleItemPosition();
-            final int totalItems = layoutManager.getItemCount();
-            return (visibleItems + firstVisibleItem >= totalItems);
-        }
-        return false;
     }
 
     private boolean isNotLoading() {

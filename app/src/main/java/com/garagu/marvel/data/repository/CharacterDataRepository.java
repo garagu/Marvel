@@ -3,7 +3,6 @@ package com.garagu.marvel.data.repository;
 import com.garagu.marvel.data.datasource.CharacterDatasource;
 import com.garagu.marvel.data.mapper.CharacterEntityMapper;
 import com.garagu.marvel.domain.model.character.PaginatedCharacterList;
-import com.garagu.marvel.domain.model.common.Offset;
 import com.garagu.marvel.domain.repository.CharacterRepository;
 
 import javax.inject.Inject;
@@ -25,8 +24,8 @@ public class CharacterDataRepository implements CharacterRepository {
     }
 
     @Override
-    public Observable<PaginatedCharacterList> getCharacters(Offset offset) {
-        return datasource.getCharacters(offset.getOffset()).map(mapper::mapEntityToModel);
+    public Observable<PaginatedCharacterList> getCharacters(int offset) {
+        return datasource.getCharacters(offset).map(mapper::mapEntityToModel);
     }
 
 }

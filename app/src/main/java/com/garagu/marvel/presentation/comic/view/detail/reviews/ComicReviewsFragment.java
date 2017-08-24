@@ -58,6 +58,7 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
     private ComicViewModel selectedComic;
     private RVRendererAdapter<ReviewViewModel> adapter;
 
+    @NonNull
     public static ComicReviewsFragment newInstance(ComicViewModel selectedComic) {
         final ComicReviewsFragment fragment = new ComicReviewsFragment();
         final Bundle args = new Bundle();
@@ -80,7 +81,7 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
     @Override
     protected void onCreateView() {
         super.onCreateView();
-        initDependencyInjector();
+        initDependencyInjection();
         initComponents();
         initPresenter();
     }
@@ -91,7 +92,7 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
         super.onDestroyView();
     }
 
-    private void initDependencyInjector() {
+    private void initDependencyInjection() {
         getComponent(ComicComponent.class).inject(this);
     }
 

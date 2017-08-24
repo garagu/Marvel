@@ -8,6 +8,19 @@ import android.os.Parcelable;
  */
 public class CreatorViewModel implements Parcelable {
 
+    public static final Creator<CreatorViewModel> CREATOR = new Creator<CreatorViewModel>() {
+
+        @Override
+        public CreatorViewModel createFromParcel(Parcel source) {
+            return new CreatorViewModel(source);
+        }
+
+        @Override
+        public CreatorViewModel[] newArray(int size) {
+            return new CreatorViewModel[size];
+        }
+
+    };
     private final String name;
     private final String role;
 
@@ -16,12 +29,28 @@ public class CreatorViewModel implements Parcelable {
         this.role = role;
     }
 
+    protected CreatorViewModel(Parcel in) {
+        name = in.readString();
+        role = in.readString();
+    }
+
     public String getName() {
         return name;
     }
 
     public String getRole() {
         return role;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(role);
     }
 
     public static class Builder {
@@ -44,35 +73,5 @@ public class CreatorViewModel implements Parcelable {
         }
 
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(name);
-        dest.writeString(role);
-    }
-
-    protected CreatorViewModel(Parcel in) {
-        name = in.readString();
-        role = in.readString();
-    }
-
-    public static final Creator<CreatorViewModel> CREATOR = new Creator<CreatorViewModel>() {
-
-        @Override
-        public CreatorViewModel createFromParcel(Parcel source) {
-            return new CreatorViewModel(source);
-        }
-
-        @Override
-        public CreatorViewModel[] newArray(int size) {
-            return new CreatorViewModel[size];
-        }
-
-    };
 
 }
