@@ -11,7 +11,7 @@ import java.util.Map;
  */
 class MarvelDatasource {
 
-    private MarvelApi api;
+    private final MarvelApi api;
     private final Map<String, String> authParameters = new HashMap<>();
 
     MarvelDatasource(MarvelApi api) {

@@ -1,7 +1,6 @@
 package com.garagu.marvel.domain.model.character;
 
 import com.garagu.marvel.domain.model.common.Collection;
-import com.garagu.marvel.domain.model.common.Link;
 
 import java.util.List;
 

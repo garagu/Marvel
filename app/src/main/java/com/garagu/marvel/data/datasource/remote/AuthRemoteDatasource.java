@@ -66,8 +66,9 @@ public class AuthRemoteDatasource implements AuthDatasource {
     }
 
     @Override
-    public void signOut() {
+    public Observable<Boolean> signOut() {
         firebaseAuth.signOut();
+        return Observable.just(firebaseAuth.getCurrentUser() == null);
     }
 
     @Override

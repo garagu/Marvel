@@ -14,5 +14,5 @@ public interface AuthRepository {
 
     Observable<User> signIn(String email, String password);
 
-    void signOut();
+    Observable<Boolean> signOut();
 }

@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.common.model;
+package com.garagu.marvel.presentation.character.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,7 +8,7 @@ import android.os.Parcelable;
  */
 public class LinkViewModel implements Parcelable {
 
-    public static final Parcelable.Creator<LinkViewModel> CREATOR = new Parcelable.Creator<LinkViewModel>() {
+    public static final Creator<LinkViewModel> CREATOR = new Creator<LinkViewModel>() {
         @Override
         public LinkViewModel createFromParcel(Parcel source) {
             return new LinkViewModel(source);
@@ -28,6 +28,11 @@ public class LinkViewModel implements Parcelable {
         this.url = url;
     }
 
+    private LinkViewModel(Parcel in) {
+        name = in.readString();
+        url = in.readString();
+    }
+
     public String getName() {
         return name;
     }
@@ -45,11 +50,6 @@ public class LinkViewModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(url);
-    }
-
-    private LinkViewModel(Parcel in) {
-        name = in.readString();
-        url = in.readString();
     }
 
     public static class Builder {

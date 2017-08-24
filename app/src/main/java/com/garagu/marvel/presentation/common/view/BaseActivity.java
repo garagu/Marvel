@@ -2,16 +2,15 @@ package com.garagu.marvel.presentation.common.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.application.MarvelApplication;
@@ -20,7 +19,7 @@ import com.garagu.marvel.presentation.application.di.AppComponent;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class BaseActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -34,7 +33,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle drawerToggle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
         initInjection();
@@ -54,7 +53,6 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         drawerToggle.setToolbarNavigationClickListener(view -> onBackPressed());
         drawerLayout.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
-        navigationView.setNavigationItemSelectedListener(this);
     }
 
     protected AppComponent getAppComponent() {
@@ -74,33 +72,25 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        final int id = item.getItemId();
-        if (id == R.id.nav_sign_out) {
-            Toast.makeText(this, R.string.message_next_version, Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.nav_about) {
-            Toast.makeText(this, R.string.message_next_version, Toast.LENGTH_SHORT).show();
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    protected void showBackButton() {
-        hideMenu();
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-    protected void hideMenu() {
+    protected void hideNavigationView() {
         drawerToggle.setDrawerIndicatorEnabled(false);
     }
 
-    public void initNavHeader(@NonNull String username, @NonNull String email) {
+    protected void initNavigationView(@Nullable String username, @Nullable String email, @NonNull OnLateralMenuItemSelectedListener onItemSelectedListener) {
         txtUsername.setText(username);
         txtEmail.setText(email);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            onItemSelectedListener.onLateralMenuItemSelected(item.getItemId());
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return false;
+        });
+    }
+
+    protected void showBackButton() {
+        hideNavigationView();
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
 }

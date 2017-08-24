@@ -3,11 +3,10 @@ package com.garagu.marvel.presentation.character.model;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.domain.model.character.Character;
+import com.garagu.marvel.domain.model.character.Link;
 import com.garagu.marvel.domain.model.common.Collection;
-import com.garagu.marvel.domain.model.common.Link;
 import com.garagu.marvel.domain.model.common.PaginatedList;
 import com.garagu.marvel.presentation.common.model.CollectionViewModel;
-import com.garagu.marvel.presentation.common.model.LinkViewModel;
 import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 
 import java.util.ArrayList;

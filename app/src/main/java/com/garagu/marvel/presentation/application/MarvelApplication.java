@@ -17,10 +17,10 @@ public class MarvelApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        initDependencyInjector();
+        initDependencyInjection();
     }
 
-    private void initDependencyInjector() {
+    private void initDependencyInjection() {
         appComponent = DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .netModule(new NetModule())

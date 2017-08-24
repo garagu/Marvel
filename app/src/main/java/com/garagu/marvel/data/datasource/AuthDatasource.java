@@ -12,7 +12,7 @@ public interface AuthDatasource {
 
     Observable<UserEntity> signIn(String email, String password);
 
-    void signOut();
+    Observable<Boolean> signOut();
 
     Observable<UserEntity> createUser(String name, String email, String password);
 }

@@ -1,4 +1,4 @@
-package com.garagu.marvel.domain.model.common;
+package com.garagu.marvel.domain.model.character;
 
 /**
  * Created by garagu.

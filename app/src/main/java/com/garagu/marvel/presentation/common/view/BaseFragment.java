@@ -3,6 +3,8 @@ package com.garagu.marvel.presentation.common.view;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
@@ -55,6 +57,10 @@ public abstract class BaseFragment extends Fragment {
         }
         HasInjection injectedActivity = (HasInjection<T>) getActivity();
         return component.cast(injectedActivity.getComponent());
+    }
+
+    protected void initNavigationView(@Nullable String username, @Nullable String email, @NonNull OnLateralMenuItemSelectedListener onItemSelectedListener) {
+        getBaseActivity().initNavigationView(username, email, onItemSelectedListener);
     }
 
     protected void showSnackbar(String message) {

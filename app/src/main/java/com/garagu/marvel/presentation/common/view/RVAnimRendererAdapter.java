@@ -3,13 +3,14 @@ package com.garagu.marvel.presentation.common.view;
 import android.animation.ObjectAnimator;
 
 import com.pedrogomez.renderers.AdapteeCollection;
+import com.pedrogomez.renderers.RVRendererAdapter;
 import com.pedrogomez.renderers.RendererBuilder;
 import com.pedrogomez.renderers.RendererViewHolder;
 
 /**
  * Created by garagu.
  */
-public class RVAnimRendererAdapter<T> extends com.pedrogomez.renderers.RVRendererAdapter {
+public class RVAnimRendererAdapter<T> extends RVRendererAdapter<T> {
 
     private int lastPosition;
 

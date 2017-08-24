@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import com.garagu.marvel.domain.usecase.SignIn;
 import com.garagu.marvel.presentation.auth.SignInPresenter.SignInView;
 import com.garagu.marvel.presentation.common.model.UserModelMapper;
-import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
 
@@ -57,7 +56,7 @@ public class SignInPresenter extends BasePresenter<SignInView> {
                 .subscribe(
                         user -> {
                             getView().hideProgress();
-                            getView().openHome(user);
+                            getView().openHome();
                         },
                         error -> {
                             ;
@@ -74,7 +73,7 @@ public class SignInPresenter extends BasePresenter<SignInView> {
     interface SignInView extends BaseView {
         void hideProgress();
 
-        void openHome(@NonNull UserViewModel user);
+        void openHome();
 
         void openRegister();
 

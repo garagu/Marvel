@@ -32,6 +32,12 @@ public class CollectionViewModel implements Parcelable {
         this.url = url;
     }
 
+    private CollectionViewModel(Parcel in) {
+        totalNumber = in.readString();
+        firstItems = in.createStringArrayList();
+        url = in.readString();
+    }
+
     public String getTotalNumber() {
         return totalNumber;
     }
@@ -44,7 +50,6 @@ public class CollectionViewModel implements Parcelable {
         return url;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -55,12 +60,6 @@ public class CollectionViewModel implements Parcelable {
         dest.writeString(totalNumber);
         dest.writeStringList(firstItems);
         dest.writeString(url);
-    }
-
-    private CollectionViewModel(Parcel in) {
-        totalNumber = in.readString();
-        firstItems = in.createStringArrayList();
-        url = in.readString();
     }
 
     public static class Builder {

@@ -4,19 +4,27 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 
+import com.garagu.marvel.presentation.auth.AuthActivity;
 import com.garagu.marvel.presentation.character.view.CharacterActivity;
 import com.garagu.marvel.presentation.comic.view.list.ComicListActivity;
-import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BaseNavigator;
 import com.garagu.marvel.presentation.reviews.view.MyReviewsActivity;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by garagu.
  */
+@Singleton
 public class Navigator extends BaseNavigator {
 
-    void openHome(@NonNull Activity activity, @NonNull UserViewModel user) {
-        openFragment(activity, HomeFragment.newInstance(user));
+    @Inject
+    public Navigator() {
+    }
+
+    void openHome(@NonNull Activity activity) {
+        openFragment(activity, HomeFragment.newInstance());
     }
 
     void openCharacters(@NonNull Activity activity) {
@@ -32,6 +40,12 @@ public class Navigator extends BaseNavigator {
     void openMyReviews(@NonNull Activity activity) {
         final Intent intent = MyReviewsActivity.getCallingIntent(activity);
         activity.startActivity(intent);
+    }
+
+    void openSignIn(@NonNull Activity activity) {
+        final Intent intent = AuthActivity.getCallingIntent(activity);
+        activity.startActivity(intent);
+        activity.finish();
     }
 
 }

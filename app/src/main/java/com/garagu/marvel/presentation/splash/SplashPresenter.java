@@ -1,10 +1,7 @@
 package com.garagu.marvel.presentation.splash;
 
-import android.support.annotation.NonNull;
-
 import com.garagu.marvel.domain.usecase.GetUser;
 import com.garagu.marvel.presentation.common.model.UserModelMapper;
-import com.garagu.marvel.presentation.common.model.UserViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
 import com.garagu.marvel.presentation.splash.SplashPresenter.SplashView;
@@ -33,7 +30,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
         getUser.execute(null)
                 .map(mapper::mapUserModelToViewModel)
                 .subscribe(
-                        getView()::openHome,
+                        user -> getView().openHome(),
                         error -> getView().openAuth(),
                         () -> { // do nothing
                         },
@@ -47,7 +44,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
     }
 
     interface SplashView extends BaseView {
-        void openHome(@NonNull UserViewModel user);
+        void openHome();
 
         void openAuth();
     }
