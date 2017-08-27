@@ -67,7 +67,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
     void onAboutClick() {
-        getView().openAbout();
+        getView().showAbout();
     }
 
     void onCharactersOptionClick() {
@@ -100,8 +100,6 @@ public class HomePresenter extends BasePresenter<HomeView> {
     interface HomeView extends BaseView {
         void initLateralMenu(@Nullable String name, @Nullable String email);
 
-        void openAbout();
-
         void openCharacters();
 
         void openComics();
@@ -109,6 +107,8 @@ public class HomePresenter extends BasePresenter<HomeView> {
         void openMyReviews();
 
         void openSignIn();
+
+        void showAbout();
 
         void showError(@NonNull String message);
 
