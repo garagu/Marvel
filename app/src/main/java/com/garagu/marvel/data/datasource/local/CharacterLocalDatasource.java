@@ -32,7 +32,7 @@ public class CharacterLocalDatasource implements CharacterDatasource {
     public Observable<ResultEntity<CharacterListEntity>> getCharacters(int offset) {
         ResultEntity<CharacterListEntity> entity = new ResultEntity<>();
         try {
-            final String json = fileManager.readAsset("characters.json");
+            final String json = fileManager.readFromAssets("characters.json");
             final Type type = new TypeToken<ResultEntity<CharacterListEntity>>() {
             }.getType();
             entity = gson.fromJson(json, type);

@@ -6,11 +6,13 @@ import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
 
-import com.garagu.marvel.presentation.application.di.ActivityScope;
+import com.garagu.marvel.domain.usecase.GetUser;
+import com.garagu.marvel.domain.usecase.IsFavorite;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
 import com.garagu.marvel.presentation.character.model.LinkViewModel;
 import com.garagu.marvel.presentation.character.view.detail.CharacterDetailPresenter.CharacterDetailView;
 import com.garagu.marvel.presentation.common.model.CollectionViewModel;
+import com.garagu.marvel.presentation.common.model.FavoriteType;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
 
@@ -18,14 +20,21 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.disposables.CompositeDisposable;
+
 /**
  * Created by garagu.
  */
-@ActivityScope
 public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView> {
 
+    private final GetUser getUser;
+    private final IsFavorite isFavorite;
+    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     @Inject
-    public CharacterDetailPresenter() {
+    public CharacterDetailPresenter(GetUser getUser, IsFavorite isFavorite) {
+        this.getUser = getUser;
+        this.isFavorite = isFavorite;
     }
 
     @Override
@@ -35,19 +44,34 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
 
     @Override
     public void unsubscribe() {
-        // do nothing
+        compositeDisposable.dispose();
     }
 
     void onInitView(@NonNull CharacterViewModel character) {
+        initCharacterInfo(character);
+        getUser.execute(null)
+                .map(user -> new IsFavorite.InputParam(user.getId(), character.getId(), FavoriteType.CHARACTER))
+                .flatMap(isFavorite::execute)
+                .subscribe(
+                        isFavorite -> getView().showFab(isFavorite),
+                        error -> { // do nothing
+                        },
+                        () -> { // do nothing
+                        },
+                        compositeDisposable::add
+                );
+    }
+
+    void onMoreComicsClick() {
+        getView().openComics();
+    }
+
+    private void initCharacterInfo(@NonNull CharacterViewModel character) {
         getView().showName(character.getName());
         initThumbnail(character.getUrlThumbnail());
         initDescription(character.getDescription());
         initLinks(character.getLinks());
         initComics(character.getComics());
-    }
-
-    void onMoreComicsClick() {
-        getView().openComics();
     }
 
     private void initComics(@NonNull CollectionViewModel comics) {
@@ -130,6 +154,8 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
         void showComics(@NonNull String comics);
 
         void showDescription(@NonNull String description);
+
+        void showFab(boolean isFavorite);
 
         void showLinks(@NonNull Spanned links);
 

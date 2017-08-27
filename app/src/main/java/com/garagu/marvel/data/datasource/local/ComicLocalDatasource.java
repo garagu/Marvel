@@ -37,7 +37,7 @@ public class ComicLocalDatasource implements ComicDatasource {
     public Observable<ResultEntity<ComicListEntity>> getComicsByCharacter(int id, int offset) {
         ResultEntity<ComicListEntity> entity = new ResultEntity<>();
         try {
-            final String json = fileManager.readAsset("comics.json");
+            final String json = fileManager.readFromAssets("comics.json");
             final Type type = new TypeToken<ResultEntity<ComicListEntity>>() {
             }.getType();
             entity = gson.fromJson(json, type);

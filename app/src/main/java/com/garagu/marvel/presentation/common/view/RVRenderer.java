@@ -29,7 +29,7 @@ public abstract class RVRenderer<T> extends Renderer<T> {
 
     @Override
     protected View inflate(LayoutInflater inflater, ViewGroup parent) {
-        View rootView = inflater.inflate(getLayoutResId(), parent, false);
+        final View rootView = inflater.inflate(getLayoutResId(), parent, false);
         ButterKnife.bind(this, rootView);
         if (clickListener != null) {
             rootView.setOnClickListener(view -> clickListener.onRendererClick(getContent()));

@@ -40,7 +40,6 @@ dependencies {
     compile renderers
     compile dagger.library
     annotationProcessor dagger.compiler
-    compile lottie
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -40,7 +40,6 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin"
         android:src="@drawable/ic_add"
-        android:tint="@android:color/white"
         app:fabSize="normal" />
 
 </FrameLayout>

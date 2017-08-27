@@ -18,7 +18,6 @@ import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.CardDecoration;
 import com.garagu.marvel.presentation.common.view.OnLateralMenuItemSelectedListener;
-import com.garagu.marvel.presentation.common.view.RVRenderer.OnRendererClickListener;
 import com.garagu.marvel.presentation.home.model.HomeOptionType;
 import com.garagu.marvel.presentation.home.model.HomeOptionViewModel;
 import com.garagu.marvel.presentation.home.view.HomePresenter.HomeView;
@@ -110,22 +109,20 @@ public class HomeFragment extends BaseFragment implements HomeView, OnLateralMen
         return (heightAvailable / listSize) - margin;
     }
 
-    private OnRendererClickListener<HomeOptionViewModel> getOnHomeOptionClickListener() {
-        return homeOption -> {
-            switch (homeOption.getType()) {
-                case HomeOptionType.CHARACTERS:
-                    presenter.onCharactersOptionClick();
-                    break;
-                case HomeOptionType.COMICS:
-                    presenter.onComicsOptionClick();
-                    break;
-                case HomeOptionType.FAVORITES:
-                    presenter.onFavoritesOptionClick();
-                    break;
-                case HomeOptionType.REVIEWS:
-                    presenter.onReviewsOptionClick();
-            }
-        };
+    private void onHomeOptionClick(HomeOptionViewModel homeOption) {
+        switch (homeOption.getType()) {
+            case HomeOptionType.CHARACTERS:
+                presenter.onCharactersOptionClick();
+                break;
+            case HomeOptionType.COMICS:
+                presenter.onComicsOptionClick();
+                break;
+            case HomeOptionType.FAVORITES:
+                presenter.onFavoritesOptionClick();
+                break;
+            case HomeOptionType.REVIEWS:
+                presenter.onReviewsOptionClick();
+        }
     }
 
     @Override
@@ -174,10 +171,7 @@ public class HomeFragment extends BaseFragment implements HomeView, OnLateralMen
 
     @Override
     public void showHomeOptions(@NonNull List<HomeOptionViewModel> homeOptions) {
-        final Renderer<HomeOptionViewModel> renderer = new HomeOptionRenderer(
-                getOnHomeOptionClickListener(),
-                getCellHeight(homeOptions.size(), margin)
-        );
+        final Renderer<HomeOptionViewModel> renderer = new HomeOptionRenderer(this::onHomeOptionClick, getCellHeight(homeOptions.size(), margin));
         final RendererBuilder<HomeOptionViewModel> rendererBuilder = new RendererBuilder<>(renderer);
         final AdapteeCollection<HomeOptionViewModel> collection = new ListAdapteeCollection<>(homeOptions);
         final RVRendererAdapter adapter = new RVRendererAdapter<>(rendererBuilder, collection);

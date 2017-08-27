@@ -5,6 +5,7 @@ import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.character.view.CharacterActivity;
 import com.garagu.marvel.presentation.character.view.detail.CharacterDetailFragment;
 import com.garagu.marvel.presentation.character.view.list.CharacterListFragment;
+import com.garagu.marvel.presentation.favorites.di.MyFavoritesModule;
 
 import dagger.Component;
 
@@ -12,7 +13,7 @@ import dagger.Component;
  * Created by garagu.
  */
 @ActivityScope
-@Component(dependencies = AppComponent.class, modules = CharacterModule.class)
+@Component(dependencies = AppComponent.class, modules = {CharacterModule.class, MyFavoritesModule.class})
 public interface CharacterComponent {
     void inject(CharacterActivity activity);
 
