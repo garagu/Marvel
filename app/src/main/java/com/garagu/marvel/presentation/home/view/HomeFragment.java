@@ -143,12 +143,6 @@ public class HomeFragment extends BaseFragment implements HomeView, OnLateralMen
     }
 
     @Override
-    public void openAbout() {
-        // TODO
-        Toast.makeText(getActivity(), R.string.message_next_version, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
     public void openCharacters() {
         navigator.openCharacters(getActivity());
     }
@@ -166,6 +160,11 @@ public class HomeFragment extends BaseFragment implements HomeView, OnLateralMen
     @Override
     public void openSignIn() {
         navigator.openSignIn(getActivity());
+    }
+
+    @Override
+    public void showAbout() {
+        showSnackbar(R.string.about_data);
     }
 
     @Override

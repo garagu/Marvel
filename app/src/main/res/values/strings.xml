@@ -5,7 +5,6 @@
     <string name="message_next_version">It will be available soon!</string>
     <string name="error_empty_field">Please enter a value</string>
     <string name="menu_search">Search</string>
-
     <!-- Sign in -->
     <string name="signin_toolbar_title">Welcome</string>
     <string name="signin_card_title">Sign in</string>
@@ -35,7 +34,6 @@
     <string name="home_comics">Comics</string>
     <string name="home_favorites">My favorites</string>
     <string name="home_reviews">My reviews</string>
-
     <!-- Comics -->
     <string name="comics_nav_info">Info</string>
     <string name="comics_nav_reviews">Reviews</string>
@@ -53,11 +51,12 @@
     <string name="comicnewreview_button">Publish</string>
     <string name="comicnewreview_message_required_fields">Oops! Some field is empty</string>
     <string name="comicnewreview_message_confirmation">Review published!</string>
-
     <!-- Characters -->
     <string name="transition_character_detail">character_detail</string>
     <string name="characterdetail_label_description_empty">No description yet</string>
     <string name="characterdetail_title_links">Links</string>
     <string name="characterdetail_title_comics">Comics</string>
     <string name="characterdetail_button_comics">More</string>
+    <!-- About -->
+    <string name="about_data">Data provided by Marvel. © 2017 Marvel</string>
 </resources>
