@@ -51,7 +51,7 @@ public class ComicModelMapper {
                     .withCreators(creators)
                     .withDescription(description)
                     .withFormat(comic.getFormat())
-                    .withId(String.valueOf(comic.getId()))
+                    .withId(comic.getId())
                     .withIsbn(comic.getIsbn())
                     .withPages(pages)
                     .withSeriesTitle(seriesTitle)

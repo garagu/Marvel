@@ -2,7 +2,7 @@ package com.garagu.marvel.presentation.common.model;
 
 import android.support.annotation.NonNull;
 
-import com.garagu.marvel.domain.model.common.Favorite;
+import com.garagu.marvel.domain.model.favorite.Favorite;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
 
 import java.util.ArrayList;

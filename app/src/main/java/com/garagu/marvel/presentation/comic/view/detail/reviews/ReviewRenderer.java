@@ -4,7 +4,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.presentation.common.model.ReviewViewModel;
+import com.garagu.marvel.presentation.comic.model.ReviewViewModel;
 import com.garagu.marvel.presentation.common.view.RVRenderer;
 
 import butterknife.BindView;
@@ -18,6 +18,8 @@ public class ReviewRenderer extends RVRenderer<ReviewViewModel> {
     TextView txtUsername;
     @BindView(R.id.rating_bar)
     RatingBar ratingBar;
+    @BindView(R.id.txt_review_date)
+    TextView txtDate;
     @BindView(R.id.txt_review)
     TextView txtReview;
 
@@ -30,8 +32,9 @@ public class ReviewRenderer extends RVRenderer<ReviewViewModel> {
     public void render() {
         final ReviewViewModel review = getContent();
         txtUsername.setText(review.getAuthor());
-        txtReview.setText(review.getText());
         ratingBar.setRating(review.getRate());
+        txtDate.setText(review.getDate());
+        txtReview.setText(review.getText());
     }
 
 }

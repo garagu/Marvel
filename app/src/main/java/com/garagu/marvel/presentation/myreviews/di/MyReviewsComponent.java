@@ -1,9 +1,9 @@
-package com.garagu.marvel.presentation.reviews.di;
+package com.garagu.marvel.presentation.myreviews.di;
 
 import com.garagu.marvel.presentation.application.di.ActivityScope;
 import com.garagu.marvel.presentation.application.di.AppComponent;
-import com.garagu.marvel.presentation.reviews.view.MyReviewsActivity;
-import com.garagu.marvel.presentation.reviews.view.MyReviewsFragment;
+import com.garagu.marvel.presentation.myreviews.view.MyReviewsActivity;
+import com.garagu.marvel.presentation.myreviews.view.MyReviewsFragment;
 
 import dagger.Component;
 

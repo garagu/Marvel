@@ -10,7 +10,7 @@ import com.garagu.marvel.presentation.comic.view.detail.reviews.ComicReviewsFrag
 import com.garagu.marvel.presentation.comic.view.detail.reviews.NewReviewFragment;
 import com.garagu.marvel.presentation.comic.view.list.ComicListActivity;
 import com.garagu.marvel.presentation.comic.view.list.ComicListFragment;
-import com.garagu.marvel.presentation.reviews.di.MyReviewsModule;
+import com.garagu.marvel.presentation.myreviews.di.MyReviewsModule;
 
 import dagger.Component;
 

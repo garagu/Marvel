@@ -2,7 +2,7 @@ package com.garagu.marvel.data.repository;
 
 import com.garagu.marvel.data.datasource.FavoriteDatasource;
 import com.garagu.marvel.data.mapper.FavoriteEntityMapper;
-import com.garagu.marvel.domain.model.common.Favorite;
+import com.garagu.marvel.domain.model.favorite.Favorite;
 import com.garagu.marvel.domain.repository.FavoriteRepository;
 
 import java.util.List;

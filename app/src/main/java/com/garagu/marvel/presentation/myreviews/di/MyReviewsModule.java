@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.reviews.di;
+package com.garagu.marvel.presentation.myreviews.di;
 
 import android.content.Context;
 

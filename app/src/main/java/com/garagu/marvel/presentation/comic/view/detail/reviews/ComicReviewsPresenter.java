@@ -3,9 +3,9 @@ package com.garagu.marvel.presentation.comic.view.detail.reviews;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.domain.usecase.GetReviewsByComic;
+import com.garagu.marvel.presentation.comic.model.ReviewModelMapper;
+import com.garagu.marvel.presentation.comic.model.ReviewViewModel;
 import com.garagu.marvel.presentation.comic.view.detail.reviews.ComicReviewsPresenter.ComicReviewsView;
-import com.garagu.marvel.presentation.common.model.ReviewModelMapper;
-import com.garagu.marvel.presentation.common.model.ReviewViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
 
@@ -30,10 +30,10 @@ public class ComicReviewsPresenter extends BasePresenter<ComicReviewsView> {
         this.mapper = mapper;
     }
 
-    void subscribe(String comicId) {
+    void subscribe(int comicId) {
         getView().showProgress();
         getReviewsByComic.execute(comicId)
-                .map(mapper::mapListModelToViewModel)
+                .map(mapper::listModelToViewModel)
                 .subscribe(
                         reviews -> {
                             getView().showReviews(reviews);

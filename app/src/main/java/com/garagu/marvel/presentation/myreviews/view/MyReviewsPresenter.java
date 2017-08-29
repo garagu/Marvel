@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.reviews.view;
+package com.garagu.marvel.presentation.myreviews.view;
 
 import android.support.annotation.NonNull;
 
@@ -6,11 +6,11 @@ import com.garagu.marvel.domain.model.common.User;
 import com.garagu.marvel.domain.usecase.GetReviewsByUser;
 import com.garagu.marvel.domain.usecase.GetUser;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
-import com.garagu.marvel.presentation.common.model.ReviewModelMapper;
-import com.garagu.marvel.presentation.common.model.ReviewViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;
-import com.garagu.marvel.presentation.reviews.view.MyReviewsPresenter.MyReviewsView;
+import com.garagu.marvel.presentation.myreviews.model.MyReviewModelMapper;
+import com.garagu.marvel.presentation.myreviews.model.MyReviewViewModel;
+import com.garagu.marvel.presentation.myreviews.view.MyReviewsPresenter.MyReviewsView;
 
 import java.util.List;
 
@@ -26,11 +26,11 @@ public class MyReviewsPresenter extends BasePresenter<MyReviewsView> {
 
     private final GetUser getUser;
     private final GetReviewsByUser getReviewsByUser;
-    private final ReviewModelMapper reviewMapper;
+    private final MyReviewModelMapper reviewMapper;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Inject
-    public MyReviewsPresenter(GetUser getUser, GetReviewsByUser getReviewsByUser, ReviewModelMapper reviewMapper) {
+    public MyReviewsPresenter(GetUser getUser, GetReviewsByUser getReviewsByUser, MyReviewModelMapper reviewMapper) {
         this.getUser = getUser;
         this.getReviewsByUser = getReviewsByUser;
         this.reviewMapper = reviewMapper;
@@ -42,7 +42,7 @@ public class MyReviewsPresenter extends BasePresenter<MyReviewsView> {
         getUser.execute(null)
                 .map(User::getId)
                 .flatMap(getReviewsByUser::execute)
-                .map(reviewMapper::mapListModelToViewModel)
+                .map(reviewMapper::listModelToViewModel)
                 .subscribe(
                         reviews -> getView().showReviews(reviews),
                         error -> {
@@ -59,6 +59,10 @@ public class MyReviewsPresenter extends BasePresenter<MyReviewsView> {
         compositeDisposable.clear();
     }
 
+    void onOpenComic(int comicId) {
+        // TODO
+    }
+
     interface MyReviewsView extends BaseView {
         void hideProgress();
 
@@ -66,7 +70,7 @@ public class MyReviewsPresenter extends BasePresenter<MyReviewsView> {
 
         void showProgress();
 
-        void showReviews(@NonNull List<ReviewViewModel> reviews);
+        void showReviews(@NonNull List<MyReviewViewModel> reviews);
     }
 
 }

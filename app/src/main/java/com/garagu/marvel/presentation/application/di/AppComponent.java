@@ -1,6 +1,5 @@
 package com.garagu.marvel.presentation.application.di;
 
-import android.app.Application;
 import android.content.Context;
 
 import com.garagu.marvel.data.local.FileManager;
@@ -15,7 +14,6 @@ import com.garagu.marvel.presentation.common.view.ImageLoader;
 import com.garagu.marvel.presentation.home.view.HomeActivity;
 import com.garagu.marvel.presentation.home.view.HomeFragment;
 import com.garagu.marvel.presentation.splash.SplashActivity;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.gson.Gson;
 

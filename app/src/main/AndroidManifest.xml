@@ -57,7 +57,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".presentation.reviews.view.MyReviewsActivity"
+            android:name=".presentation.myreviews.view.MyReviewsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

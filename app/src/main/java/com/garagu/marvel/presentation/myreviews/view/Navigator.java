@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.reviews.view;
+package com.garagu.marvel.presentation.myreviews.view;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;

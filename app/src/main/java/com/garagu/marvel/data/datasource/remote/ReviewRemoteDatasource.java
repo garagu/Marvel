@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.data.datasource.ReviewDatasource;
+import com.garagu.marvel.data.entity.review.MyReviewEntity;
 import com.garagu.marvel.data.entity.review.ReviewEntity;
 import com.garagu.marvel.data.net.NetworkUtils;
 import com.garagu.marvel.data.net.exception.ConnectionException;
@@ -38,15 +39,11 @@ public class ReviewRemoteDatasource implements ReviewDatasource {
     }
 
     @Override
-    public Observable<Boolean> addReviewToComic(@NonNull String comicId, @NonNull String userId, @NonNull ReviewEntity review) {
+    public Observable<Boolean> addReview(int comicId, @NonNull ReviewEntity comicReview, @NonNull String userId, @NonNull MyReviewEntity userReview) {
         if (NetworkUtils.isOnline(context)) {
-            final Map<String, Object> reviewValues = review.toMap();
-            final String newKey = databaseReference.push().getKey();
-            final String pathReviews = "/" + CHILD_REVIEWS + "/" + comicId + "/" + newKey;
             final Map<String, Object> childUpdates = new HashMap<>();
-            childUpdates.put(pathReviews, reviewValues);
-            String pathUserReviews = "/" + CHILD_USER_REVIEWS + "/" + userId + "/" + newKey;
-            childUpdates.put(pathUserReviews, reviewValues);
+            addComicReviewToDbUpdates(childUpdates, comicId, comicReview);
+            addUserReviewToDbUpdates(childUpdates, userId, userReview);
             return Observable.create(subscriber -> databaseReference.updateChildren(childUpdates, (databaseError, databaseReference) -> {
                 if (databaseError == null) {
                     subscriber.onNext(true);
@@ -60,27 +57,37 @@ public class ReviewRemoteDatasource implements ReviewDatasource {
             final ConnectionException exception = new ConnectionException(context);
             return Observable.error(exception);
         }
+    }
 
+    private void addComicReviewToDbUpdates(@NonNull Map<String, Object> childUpdates, int comicId, @NonNull ReviewEntity comicReview) {
+        final Map<String, Object> reviewValues = comicReview.toMap();
+        final String path = "/" + CHILD_REVIEWS + "/" + comicId + "/" + databaseReference.push().getKey();
+        childUpdates.put(path, reviewValues);
+    }
+
+    private void addUserReviewToDbUpdates(@NonNull Map<String, Object> childUpdates, @NonNull String userId, @NonNull MyReviewEntity userReview) {
+        final Map<String, Object> reviewValues = userReview.toMap();
+        final String path = "/" + CHILD_USER_REVIEWS + "/" + userId + "/" + databaseReference.push().getKey();
+        childUpdates.put(path, reviewValues);
     }
 
     @Override
-    public Observable<List<ReviewEntity>> getReviewsByComic(@NonNull String comicId) {
-        final Query query = databaseReference.child(CHILD_REVIEWS).child(comicId);
-        return getReviews(query);
+    public Observable<List<ReviewEntity>> getReviewsByComic(int comicId) {
+        return getList(CHILD_REVIEWS, String.valueOf(comicId), ReviewEntity.class);
     }
 
 
     @Override
-    public Observable<List<ReviewEntity>> getReviewsByUser(@NonNull String userId) {
-        final Query query = databaseReference.child(CHILD_USER_REVIEWS).child(userId);
-        return getReviews(query);
+    public Observable<List<MyReviewEntity>> getReviewsByUser(@NonNull String userId) {
+        return getList(CHILD_USER_REVIEWS, userId, MyReviewEntity.class);
     }
 
     @SuppressWarnings("unchecked")
-    private Observable<List<ReviewEntity>> getReviews(@NonNull Query query) {
+    private <T> Observable<List<T>> getList(@NonNull String table, @NonNull String id, Class<T> itemClass) {
+        final Query query = databaseReference.child(table).child(id);
         return Observable.create(subscriber -> {
             if (NetworkUtils.isOnline(context)) {
-                final ValueEventListener eventListener = new SingleValueEventListener(query, subscriber, ReviewEntity.class);
+                final ValueEventListener eventListener = new SingleValueEventListener(query, subscriber, itemClass);
                 query.addListenerForSingleValueEvent(eventListener);
             } else {
                 final ConnectionException exception = new ConnectionException(context);

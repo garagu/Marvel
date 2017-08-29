@@ -2,7 +2,7 @@ package com.garagu.marvel.data.mapper;
 
 import android.support.annotation.NonNull;
 
-import com.garagu.marvel.data.entity.common.UserEntity;
+import com.garagu.marvel.data.entity.auth.UserEntity;
 import com.garagu.marvel.domain.model.common.User;
 
 import javax.inject.Inject;

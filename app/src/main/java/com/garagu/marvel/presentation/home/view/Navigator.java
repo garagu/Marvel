@@ -9,7 +9,7 @@ import com.garagu.marvel.presentation.character.view.CharacterActivity;
 import com.garagu.marvel.presentation.comic.view.list.ComicListActivity;
 import com.garagu.marvel.presentation.common.view.BaseNavigator;
 import com.garagu.marvel.presentation.favorites.view.MyFavoritesActivity;
-import com.garagu.marvel.presentation.reviews.view.MyReviewsActivity;
+import com.garagu.marvel.presentation.myreviews.view.MyReviewsActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

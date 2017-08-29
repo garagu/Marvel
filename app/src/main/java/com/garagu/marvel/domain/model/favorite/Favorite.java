@@ -1,9 +1,9 @@
-package com.garagu.marvel.data.entity.common;
+package com.garagu.marvel.domain.model.favorite;
 
 /**
  * Created by garagu.
  */
-public class FavoriteEntity {
+public class Favorite {
 
     private final String userId;
     private final int favoriteId;
@@ -11,7 +11,7 @@ public class FavoriteEntity {
     private final String thumbnail;
     private final int type;
 
-    public FavoriteEntity(String userId, int favoriteId, String name, String thumbnail, int type) {
+    public Favorite(String userId, int favoriteId, String name, String thumbnail, int type) {
         this.userId = userId;
         this.favoriteId = favoriteId;
         this.name = name;

@@ -1,4 +1,4 @@
-package com.garagu.marvel.data.entity.common;
+package com.garagu.marvel.data.entity.auth;
 
 /**
  * Created by garagu.

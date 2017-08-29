@@ -1,6 +1,6 @@
 package com.garagu.marvel.domain.usecase;
 
-import com.garagu.marvel.domain.model.common.Review;
+import com.garagu.marvel.domain.model.review.MyReview;
 import com.garagu.marvel.domain.repository.ReviewRepository;
 import com.garagu.marvel.domain.thread.ExecutorThread;
 import com.garagu.marvel.domain.thread.PostExecutionThread;
@@ -31,17 +31,17 @@ public class AddReviewToComic extends UseCase<InputParam, Boolean> {
 
     public static class InputParam {
 
-        private String comicId;
+        private int comicId;
         private String userId;
-        private Review review;
+        private MyReview review;
 
-        public InputParam(String comicId, String userId, Review review) {
+        public InputParam(int comicId, String userId, MyReview review) {
             this.comicId = comicId;
             this.userId = userId;
             this.review = review;
         }
 
-        public String getComicId() {
+        public int getComicId() {
             return comicId;
         }
 
@@ -49,7 +49,7 @@ public class AddReviewToComic extends UseCase<InputParam, Boolean> {
             return userId;
         }
 
-        public Review getReview() {
+        public MyReview getReview() {
             return review;
         }
 

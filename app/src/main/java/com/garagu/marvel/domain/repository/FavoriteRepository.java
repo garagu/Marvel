@@ -1,6 +1,6 @@
 package com.garagu.marvel.domain.repository;
 
-import com.garagu.marvel.domain.model.common.Favorite;
+import com.garagu.marvel.domain.model.favorite.Favorite;
 
 import java.util.List;
 
