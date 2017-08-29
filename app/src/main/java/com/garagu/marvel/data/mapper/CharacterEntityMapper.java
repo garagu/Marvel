@@ -23,7 +23,7 @@ import java.util.List;
 public class CharacterEntityMapper {
 
     @NonNull
-    public PaginatedCharacterList mapEntityToModel(ResultEntity<CharacterListEntity> entity) {
+    public PaginatedCharacterList listEntityToModel(ResultEntity<CharacterListEntity> entity) {
         final List<Character> characters = mapCharacters(entity.getData().getResults());
         return new PaginatedCharacterList.Builder()
                 .withCount(entity.getData().getCount())
@@ -37,14 +37,14 @@ public class CharacterEntityMapper {
     private List<Character> mapCharacters(CharacterEntity[] entityArray) {
         final List<Character> modelList = new ArrayList<>();
         for (CharacterEntity entityItem : entityArray) {
-            final Character modelItem = mapCharacter(entityItem);
+            final Character modelItem = simpleEntityToModel(entityItem);
             modelList.add(modelItem);
         }
         return modelList;
     }
 
     @NonNull
-    private Character mapCharacter(CharacterEntity entity) {
+    public Character simpleEntityToModel(CharacterEntity entity) {
         final Collection comics = mapCollection(entity.getComics());
         final Collection events = mapCollection(entity.getEvents());
         final Collection series = mapCollection(entity.getSeries());

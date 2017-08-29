@@ -44,7 +44,7 @@ public class NewReviewPresenter extends BasePresenter<NewReviewView> {
 
     @Override
     public void unsubscribe() {
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
         getView().hideKeyboard();
     }
 

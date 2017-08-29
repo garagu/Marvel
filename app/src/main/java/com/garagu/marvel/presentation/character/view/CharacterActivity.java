@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import com.garagu.marvel.presentation.character.di.CharacterComponent;
 import com.garagu.marvel.presentation.character.di.DaggerCharacterComponent;
+import com.garagu.marvel.presentation.character.model.CharacterViewModel;
 import com.garagu.marvel.presentation.common.view.BaseActivity;
 import com.garagu.marvel.presentation.common.view.HasInjection;
 
@@ -17,6 +18,8 @@ import javax.inject.Inject;
  */
 public class CharacterActivity extends BaseActivity implements HasInjection<CharacterComponent> {
 
+    private static final String KEY_CHARACTER = "character";
+
     @Inject
     Navigator navigator;
 
@@ -26,12 +29,18 @@ public class CharacterActivity extends BaseActivity implements HasInjection<Char
         return new Intent(activity, CharacterActivity.class);
     }
 
+    public static Intent getCallingIntent(@NonNull Activity activity, @NonNull CharacterViewModel character) {
+        final Intent intent = new Intent(activity, CharacterActivity.class);
+        intent.putExtra(KEY_CHARACTER, character);
+        return intent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initDependencyInjection();
         showBackButton();
-        navigator.openList(this);
+        navigator.openFirstScreen(this, (getIntent() != null) ? getIntent().getParcelableExtra(KEY_CHARACTER) : null);
     }
 
     private void initDependencyInjection() {

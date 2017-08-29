@@ -40,7 +40,7 @@ public class SplashPresenter extends BasePresenter<SplashView> {
 
     @Override
     public void unsubscribe() {
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     interface SplashView extends BaseView {

@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Toast;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.application.di.AppComponent;
@@ -150,6 +149,11 @@ public class HomeFragment extends BaseFragment implements HomeView, OnLateralMen
     }
 
     @Override
+    public void openMyFavorites() {
+        navigator.openMyFavorites(getActivity());
+    }
+
+    @Override
     public void openMyReviews() {
         navigator.openMyReviews(getActivity());
     }
@@ -176,11 +180,6 @@ public class HomeFragment extends BaseFragment implements HomeView, OnLateralMen
         final AdapteeCollection<HomeOptionViewModel> collection = new ListAdapteeCollection<>(homeOptions);
         final RVRendererAdapter adapter = new RVRendererAdapter<>(rendererBuilder, collection);
         recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void showNextVersionMessage() {
-        Toast.makeText(getActivity(), R.string.message_next_version, Toast.LENGTH_SHORT).show();
     }
 
 }

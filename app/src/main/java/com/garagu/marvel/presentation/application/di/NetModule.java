@@ -1,6 +1,7 @@
 package com.garagu.marvel.presentation.application.di;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import com.garagu.marvel.BuildConfig;
@@ -26,8 +27,8 @@ public class NetModule {
 
     @Provides
     @Singleton
-    ImageLoader provideImageLoader(Application application) {
-        final Picasso picasso = new Picasso.Builder(application)
+    ImageLoader provideImageLoader(Context context) {
+        final Picasso picasso = new Picasso.Builder(context)
                 .listener((p, uri, e) -> {
                     if (BuildConfig.DEBUG) {
                         Log.e("Picasso", e.getMessage());
@@ -35,15 +36,15 @@ public class NetModule {
                 })
                 .build();
         if (BuildConfig.DEBUG) {
-            picasso.setIndicatorsEnabled(true);
+            // picasso.setIndicatorsEnabled(true);
         }
         return new PicassoImpl(picasso);
     }
 
     @Provides
     @Singleton
-    MarvelApi provideApi(Application application) {
-        return new ApiConnection(application).getServices(MarvelApi.class, MarvelApi.BASE_URL);
+    MarvelApi provideApi(Context context) {
+        return new ApiConnection(context).getServices(MarvelApi.class, MarvelApi.BASE_URL);
     }
 
     @Provides

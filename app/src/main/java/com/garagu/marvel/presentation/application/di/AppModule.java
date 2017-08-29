@@ -1,6 +1,7 @@
 package com.garagu.marvel.presentation.application.di;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.garagu.marvel.data.BackgroundThread;
 import com.garagu.marvel.data.local.FileManager;
@@ -29,7 +30,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    Application providesApplication() {
+    Context providesContext() {
         return application;
     }
 

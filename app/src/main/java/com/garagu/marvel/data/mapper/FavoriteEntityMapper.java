@@ -6,6 +6,9 @@ import com.garagu.marvel.data.entity.common.FavoriteEntity;
 import com.garagu.marvel.domain.model.common.Favorite;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 
 /**
@@ -19,7 +22,17 @@ public class FavoriteEntityMapper {
     }
 
     @NonNull
-    public Favorite entityToModel(@NonNull FavoriteEntity entity) {
+    public List<Favorite> listEntityToModel(@NonNull List<FavoriteEntity> entityList) {
+        final List<Favorite> modelList = new ArrayList<>();
+        for (FavoriteEntity entity : entityList) {
+            final Favorite model = simpleEntityToModel(entity);
+            modelList.add(model);
+        }
+        return modelList;
+    }
+
+    @NonNull
+    public Favorite simpleEntityToModel(@NonNull FavoriteEntity entity) {
         return new Favorite(entity.getUserId(), entity.getFavoriteId(), entity.getName(), entity.getThumbnail(), entity.getType());
     }
 

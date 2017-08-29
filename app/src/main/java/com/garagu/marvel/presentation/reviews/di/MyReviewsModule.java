@@ -1,6 +1,6 @@
 package com.garagu.marvel.presentation.reviews.di;
 
-import android.app.Application;
+import android.content.Context;
 
 import com.garagu.marvel.data.datasource.ReviewDatasource;
 import com.garagu.marvel.data.datasource.remote.ReviewRemoteDatasource;
@@ -21,8 +21,8 @@ public class MyReviewsModule {
 
     @Provides
     @ActivityScope
-    ReviewDatasource provideReviewDatasource(Application application, DatabaseReference dbReference) {
-        return new ReviewRemoteDatasource(application, dbReference);
+    ReviewDatasource provideReviewDatasource(Context context, DatabaseReference dbReference) {
+        return new ReviewRemoteDatasource(context, dbReference);
     }
 
     @Provides

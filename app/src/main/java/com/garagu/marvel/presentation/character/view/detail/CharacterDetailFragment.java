@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.CardView;
@@ -124,6 +125,11 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
         presenter.onInitView(character);
     }
 
+    @OnClick(R.id.fab_favorite)
+    void onFavoriteClick() {
+        presenter.onFavoriteClick(fabFavorite, character);
+    }
+
     @OnClick(R.id.btn_character_comics)
     void onMoreComicsClick() {
         presenter.onMoreComicsClick();
@@ -168,12 +174,15 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     }
 
     @Override
+    public void showError(@StringRes int errorStringRes) {
+        showSnackbar(errorStringRes);
+    }
+
+    @Override
     public void showFab(boolean isFavorite) {
         final int drawableRes = isFavorite ? R.drawable.ic_favorite_on : R.drawable.ic_favorite_off;
         fabFavorite.setImageResource(drawableRes);
         fabFavorite.setVisibility(View.VISIBLE);
-        // final Animation animation = AnimationUtils.loadAnimation(getActivity(), android.support.design.R.anim.design_fab_in);
-        // fabFavorite.startAnimation(animation);
     }
 
     @Override

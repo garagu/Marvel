@@ -54,7 +54,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
     @Override
     public void unsubscribe() {
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     private List<HomeOptionViewModel> getHomeOptions() {
@@ -79,7 +79,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
     void onFavoritesOptionClick() {
-        getView().showNextVersionMessage();
+        getView().openMyFavorites();
     }
 
     void onReviewsOptionClick() {
@@ -104,6 +104,8 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
         void openComics();
 
+        void openMyFavorites();
+
         void openMyReviews();
 
         void openSignIn();
@@ -113,8 +115,6 @@ public class HomePresenter extends BasePresenter<HomeView> {
         void showError(@NonNull String message);
 
         void showHomeOptions(@NonNull List<HomeOptionViewModel> homeOptions);
-
-        void showNextVersionMessage();
     }
 
 }

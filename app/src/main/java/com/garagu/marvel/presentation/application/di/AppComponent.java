@@ -1,6 +1,7 @@
 package com.garagu.marvel.presentation.application.di;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.garagu.marvel.data.local.FileManager;
 import com.garagu.marvel.data.net.MarvelApi;
@@ -28,7 +29,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class, NetModule.class, AuthModule.class})
 public interface AppComponent {
-    Application application();
+    Context context();
 
     FileManager fileManager();
 
@@ -41,8 +42,6 @@ public interface AppComponent {
     ImageLoader imageLoader();
 
     MarvelApi api();
-
-    FirebaseAuth firebaseAuth();
 
     DatabaseReference dbReference();
 

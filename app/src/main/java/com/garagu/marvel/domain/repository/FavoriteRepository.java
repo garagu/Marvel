@@ -10,9 +10,11 @@ import io.reactivex.Observable;
  * Created by garagu.
  */
 public interface FavoriteRepository {
+    Observable<Boolean> deleteFavorite(String userId, int id, int type);
+
     Observable<List<Favorite>> getFavorites(String userId);
 
     Observable<Boolean> isFavorite(String userId, int id, int type);
 
-    void setFavorite(Favorite favorite);
+    Observable<Boolean> addFavorite(Favorite favorite);
 }

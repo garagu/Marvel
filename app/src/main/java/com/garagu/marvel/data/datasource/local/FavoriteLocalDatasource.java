@@ -1,5 +1,7 @@
 package com.garagu.marvel.data.datasource.local;
 
+import android.support.annotation.NonNull;
+
 import com.garagu.marvel.data.datasource.FavoriteDatasource;
 import com.garagu.marvel.data.entity.common.FavoriteEntity;
 import com.garagu.marvel.data.local.FileManager;
@@ -30,7 +32,30 @@ public class FavoriteLocalDatasource implements FavoriteDatasource {
     }
 
     @Override
-    public Observable<List<FavoriteEntity>> getFavorites(String userId) {
+    public Observable<Boolean> addFavorite(@NonNull FavoriteEntity entity) {
+        return getAllFavorites().map(list -> {
+            list.add(entity);
+            final String fileContent = gson.toJson(list);
+            fileManager.writeIntoInternalMemory(FILE_NAME, fileContent);
+            return true;
+        });
+    }
+
+    @Override
+    public Observable<Boolean> deleteFavorite(@NonNull String userId, int id, int type) {
+        return getAllFavorites().flatMapIterable(list -> list)
+                .filter(favorite -> !((favorite.getType() == type) && (favorite.getFavoriteId() == id) && favorite.getUserId().equals(userId)))
+                .toList()
+                .toObservable()
+                .map(list -> {
+                    final String fileContent = gson.toJson(list);
+                    fileManager.writeIntoInternalMemory(FILE_NAME, fileContent);
+                    return true;
+                });
+    }
+
+    @Override
+    public Observable<List<FavoriteEntity>> getFavorites(@NonNull String userId) {
         return getAllFavorites().flatMapIterable(list -> list)
                 .filter(favorite -> favorite.getUserId().equals(userId))
                 .toList()
@@ -38,7 +63,7 @@ public class FavoriteLocalDatasource implements FavoriteDatasource {
     }
 
     @Override
-    public Observable<Boolean> isFavorite(String userId, int id, int type) {
+    public Observable<Boolean> isFavorite(@NonNull String userId, int id, int type) {
         return getAllFavorites().flatMapIterable(list -> list)
                 .filter(favorite -> favorite.getUserId().equals(userId) && (favorite.getFavoriteId() == id) && (favorite.getType() == type))
                 .toList()
@@ -46,15 +71,7 @@ public class FavoriteLocalDatasource implements FavoriteDatasource {
                 .map(list -> !list.isEmpty());
     }
 
-    @Override
-    public void setFavorite(FavoriteEntity entity) {
-        getAllFavorites().subscribe(list -> {
-            list.add(entity);
-            final String fileContent = gson.toJson(list);
-            fileManager.writeIntoInternalMemory(FILE_NAME, fileContent);
-        });
-    }
-
+    @NonNull
     private Observable<List<FavoriteEntity>> getAllFavorites() {
         final List<FavoriteEntity> list = new ArrayList<>();
         try {

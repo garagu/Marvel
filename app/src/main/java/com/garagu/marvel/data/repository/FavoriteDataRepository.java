@@ -26,8 +26,14 @@ public class FavoriteDataRepository implements FavoriteRepository {
     }
 
     @Override
+    public Observable<Boolean> deleteFavorite(String userId, int id, int type) {
+        return datasource.deleteFavorite(userId, id, type);
+    }
+
+    @Override
     public Observable<List<Favorite>> getFavorites(String userId) {
-        return null;
+        return datasource.getFavorites(userId)
+                .map(mapper::listEntityToModel);
     }
 
     @Override
@@ -36,10 +42,10 @@ public class FavoriteDataRepository implements FavoriteRepository {
     }
 
     @Override
-    public void setFavorite(Favorite favorite) {
-        Observable.just(favorite)
+    public Observable<Boolean> addFavorite(Favorite favorite) {
+        return Observable.just(favorite)
                 .map(mapper::modelToEntity)
-                .subscribe(datasource::setFavorite);
+                .flatMap(datasource::addFavorite);
     }
 
 }

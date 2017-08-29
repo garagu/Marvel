@@ -39,13 +39,13 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
 
     @Override
     public void unsubscribe() {
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     private void getCharacters(int offset) {
         getView().showProgress();
         getCharacters.execute(offset)
-                .map(mapper::mapModelToViewModel)
+                .map(mapper::listModelToViewModel)
                 .subscribe(
                         paginatedListOfCharacters -> getView().showCharacters(paginatedListOfCharacters),
                         error -> {

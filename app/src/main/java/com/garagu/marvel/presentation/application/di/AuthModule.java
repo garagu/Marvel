@@ -1,6 +1,6 @@
 package com.garagu.marvel.presentation.application.di;
 
-import android.app.Application;
+import android.content.Context;
 
 import com.garagu.marvel.data.datasource.AuthDatasource;
 import com.garagu.marvel.data.datasource.remote.AuthRemoteDatasource;
@@ -22,8 +22,8 @@ public class AuthModule {
 
     @Provides
     @Singleton
-    AuthDatasource provideAuthDatasource(Application application, FirebaseAuth firebaseAuth) {
-        return new AuthRemoteDatasource(application, firebaseAuth);
+    AuthDatasource provideAuthDatasource(Context context, FirebaseAuth firebaseAuth) {
+        return new AuthRemoteDatasource(context, firebaseAuth);
     }
 
     @Provides

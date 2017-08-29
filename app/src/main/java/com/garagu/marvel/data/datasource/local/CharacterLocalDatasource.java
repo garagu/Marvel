@@ -3,6 +3,7 @@ package com.garagu.marvel.data.datasource.local;
 import android.util.Log;
 
 import com.garagu.marvel.data.datasource.CharacterDatasource;
+import com.garagu.marvel.data.entity.character.CharacterEntity;
 import com.garagu.marvel.data.entity.character.CharacterListEntity;
 import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.data.local.FileManager;
@@ -40,6 +41,11 @@ public class CharacterLocalDatasource implements CharacterDatasource {
             Log.e("Error reading file!", e.getMessage());
         }
         return Observable.just(entity);
+    }
+
+    @Override
+    public Observable<CharacterEntity> getCharacter(int id) {
+        return getCharacters(0).map(list -> list.getData().getResults()[0]);
     }
 
 }

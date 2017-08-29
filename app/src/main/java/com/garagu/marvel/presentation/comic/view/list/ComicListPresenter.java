@@ -58,7 +58,7 @@ public class ComicListPresenter extends BasePresenter<ListView> {
 
     @Override
     public void unsubscribe() {
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     void onInitView(int characterId) {
