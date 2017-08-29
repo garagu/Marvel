@@ -8,6 +8,7 @@ import com.garagu.marvel.presentation.auth.AuthActivity;
 import com.garagu.marvel.presentation.character.view.CharacterActivity;
 import com.garagu.marvel.presentation.comic.view.list.ComicListActivity;
 import com.garagu.marvel.presentation.common.view.BaseNavigator;
+import com.garagu.marvel.presentation.favorites.view.MyFavoritesActivity;
 import com.garagu.marvel.presentation.reviews.view.MyReviewsActivity;
 
 import javax.inject.Inject;
@@ -34,6 +35,11 @@ public class Navigator extends BaseNavigator {
 
     void openComics(@NonNull Activity activity) {
         final Intent intent = ComicListActivity.getCallingIntent(activity);
+        activity.startActivity(intent);
+    }
+
+    void openMyFavorites(@NonNull Activity activity) {
+        final Intent intent = MyFavoritesActivity.getCallingIntent(activity);
         activity.startActivity(intent);
     }
 

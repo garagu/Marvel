@@ -55,7 +55,7 @@ public class ComicReviewsPresenter extends BasePresenter<ComicReviewsView> {
 
     @Override
     public void unsubscribe() {
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     void onAddReviewClick() {

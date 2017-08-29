@@ -34,7 +34,7 @@ public class RegisterPresenter extends BasePresenter<RegisterView> {
 
     @Override
     public void unsubscribe() {
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     void onRegisterClick(@NonNull String username, @NonNull String email, @NonNull String password) {

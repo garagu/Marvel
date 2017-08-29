@@ -41,23 +41,20 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     ImageLoader imageLoader;
     @Inject
     CharacterListPresenter presenter;
-    private final OnCardClickListener onCardClickListener = new OnCardClickListener() {
-        @Override
-        public void onFavoriteClick(@NonNull CharacterViewModel character) {
-            // TODO
-        }
+    @Inject
+    Navigator navigator;
 
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+
+    private final OnCardClickListener onCardClickListener = new OnCardClickListener() {
         @Override
         public void onThumbnailClick(@NonNull View view, @NonNull CharacterViewModel character) {
             presenter.onThumbnailClicked(character.isThumbnailAvailable() ? view : null, character);
         }
     };
-    @Inject
-    Navigator navigator;
-    @BindView(R.id.progress_bar)
-    ProgressBar progressBar;
-    @BindView(R.id.recycler_view)
-    RecyclerView recyclerView;
     private RVAnimRendererAdapter<CharacterViewModel> adapter;
     private boolean hasMore;
     private int offset;

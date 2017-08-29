@@ -22,8 +22,7 @@ class CharacterRenderer extends RVRenderer<CharacterViewModel> {
 
     private final ImageLoader imageLoader;
     private final OnCardClickListener onCardClickListener;
-    //@BindView(R.id.img_favorite)
-    //LottieAnimationView imgFavorite;
+
     @BindView(R.id.img_thumbnail_character)
     ImageView imgThumbnail;
     @BindView(R.id.txt_character_name)
@@ -59,21 +58,7 @@ class CharacterRenderer extends RVRenderer<CharacterViewModel> {
         onCardClickListener.onThumbnailClick(view, getContent());
     }
 
-    /*
-    @OnClick(R.id.img_favorite)
-    void onFavoriteClick() {
-        final ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f).setDuration(1000);
-        animator.addUpdateListener(animation -> {
-            final float progress = (float) animation.getAnimatedValue();
-            imgFavorite.setProgress(progress);
-        });
-        animator.start();
-    }
-    */
-
     interface OnCardClickListener {
-        void onFavoriteClick(@NonNull CharacterViewModel character);
-
         void onThumbnailClick(@NonNull View view, @NonNull CharacterViewModel character);
     }
 

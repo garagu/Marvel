@@ -21,35 +21,13 @@
             android:scaleType="centerCrop"
             tools:src="@drawable/placeholder_character" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/txt_character_name"
+            style="@style/TitleBig"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:padding="@dimen/margin_small">
-
-            <TextView
-                android:id="@+id/txt_character_name"
-                style="@style/TitleBig"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_small"
-                tools:text="Name" />
-            <!--
-                android:layout_weight="1"
-            -->
-
-            <!--
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/img_favorite"
-                android:layout_width="@dimen/card_view_icon_size"
-                android:layout_height="@dimen/card_view_icon_size"
-                android:layout_weight="0"
-                android:visibility="gone"
-                app:lottie_fileName="" />
-            -->
-
-        </LinearLayout>
+            android:layout_margin="@dimen/margin"
+            tools:text="Name" />
 
     </LinearLayout>
 

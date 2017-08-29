@@ -34,7 +34,7 @@ public class SignInPresenter extends BasePresenter<SignInView> {
 
     @Override
     public void unsubscribe() {
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     void onGoClick(@NonNull String email, @NonNull String password) {

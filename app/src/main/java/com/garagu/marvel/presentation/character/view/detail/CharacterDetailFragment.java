@@ -1,16 +1,21 @@
 package com.garagu.marvel.presentation.character.view.detail;
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.TextViewCompat;
+import android.support.v7.widget.CardView;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.garagu.marvel.R;
@@ -23,6 +28,7 @@ import com.garagu.marvel.presentation.common.view.ImageLoader;
 
 import javax.inject.Inject;
 
+import butterknife.BindDimen;
 import butterknife.BindDrawable;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -51,14 +57,23 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     LinearLayout layoutLinks;
     @BindView(R.id.txt_characters_links)
     TextView txtLinks;
+    @BindView(R.id.card_comics)
+    CardView cardComics;
     @BindView(R.id.txt_character_comics_count)
     TextView txtComicsCount;
     @BindView(R.id.txt_character_first_comics)
     TextView txtFirstComics;
     @BindView(R.id.btn_character_comics)
     Button btnComics;
+    @BindView(R.id.fab_favorite)
+    FloatingActionButton fabFavorite;
     @BindDrawable(R.drawable.placeholder_character)
     Drawable placeholder;
+    @BindDimen(R.dimen.margin)
+    int margin;
+    @SuppressLint("PrivateResource")
+    @BindDimen(android.support.design.R.dimen.design_fab_size_normal)
+    int fabSize;
 
     private CharacterViewModel character;
 
@@ -85,6 +100,7 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     protected void onCreateView() {
         super.onCreateView();
         initDependencyInjection();
+        setCardComicsMargin();
         initPresenter();
     }
 
@@ -98,9 +114,20 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
         getComponent(CharacterComponent.class).inject(this);
     }
 
+    private void setCardComicsMargin() {
+        final LayoutParams layoutParams = (LayoutParams) cardComics.getLayoutParams();
+        layoutParams.bottomMargin = fabSize + 2 * margin;
+        cardComics.setLayoutParams(layoutParams);
+    }
+
     private void initPresenter() {
         presenter.setView(this);
         presenter.onInitView(character);
+    }
+
+    @OnClick(R.id.fab_favorite)
+    void onFavoriteClick() {
+        presenter.onFavoriteClick(fabFavorite, character);
     }
 
     @OnClick(R.id.btn_character_comics)
@@ -144,6 +171,18 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     @Override
     public void showDescription(@NonNull String description) {
         txtDescription.setText(description);
+    }
+
+    @Override
+    public void showError(@StringRes int errorStringRes) {
+        showSnackbar(errorStringRes);
+    }
+
+    @Override
+    public void showFab(boolean isFavorite) {
+        final int drawableRes = isFavorite ? R.drawable.ic_favorite_on : R.drawable.ic_favorite_off;
+        fabFavorite.setImageResource(drawableRes);
+        fabFavorite.setVisibility(View.VISIBLE);
     }
 
     @Override

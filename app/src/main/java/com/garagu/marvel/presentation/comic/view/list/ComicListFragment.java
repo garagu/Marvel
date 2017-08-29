@@ -150,7 +150,7 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
                 }
             }
         });
-        final Renderer<ComicViewModel> renderer = new ComicRenderer(comic -> presenter.onComicClick(comic), imageLoader);
+        final Renderer<ComicViewModel> renderer = new ComicRenderer(presenter::onComicClick, imageLoader);
         final RendererBuilder<ComicViewModel> rendererBuilder = new RendererBuilder<>(renderer);
         final AdapteeCollection<ComicViewModel> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
         adapter = new RVRendererAdapter<>(rendererBuilder, emptyList);

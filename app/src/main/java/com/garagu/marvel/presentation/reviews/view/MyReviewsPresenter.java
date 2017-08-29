@@ -56,7 +56,7 @@ public class MyReviewsPresenter extends BasePresenter<MyReviewsView> {
 
     @Override
     public void unsubscribe() {
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 
     interface MyReviewsView extends BaseView {

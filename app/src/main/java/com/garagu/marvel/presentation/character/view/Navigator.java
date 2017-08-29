@@ -20,8 +20,8 @@ import com.garagu.marvel.presentation.common.view.BaseNavigator;
  */
 public class Navigator extends BaseNavigator {
 
-    public void openList(@NonNull Activity activity) {
-        openFragment(activity, CharacterListFragment.newInstance());
+    public void openFirstScreen(@NonNull Activity activity, @Nullable CharacterViewModel character) {
+        openFragment(activity, (character == null) ? CharacterListFragment.newInstance() : CharacterDetailFragment.newInstance(character));
     }
 
     public void openDetail(@NonNull Fragment currentFragment, @Nullable View clickedView, @NonNull CharacterViewModel character) {
