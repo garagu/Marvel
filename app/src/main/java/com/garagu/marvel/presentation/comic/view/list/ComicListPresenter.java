@@ -93,7 +93,7 @@ public class ComicListPresenter extends BasePresenter<ListView> {
     private void getComics(int offset) {
         getView().showProgress();
         getComics.execute(offset)
-                .map(mapper::mapModelToViewModel)
+                .map(mapper::listModelToViewModel)
                 .subscribe(onNext, onError, onComplete, onSubscribe);
     }
 
@@ -101,7 +101,7 @@ public class ComicListPresenter extends BasePresenter<ListView> {
         final GetComicsByCharacter.InputParam inputParam = new GetComicsByCharacter.InputParam(characterId, offset);
         getView().showProgress();
         getComicsByCharacter.execute(inputParam)
-                .map(mapper::mapModelToViewModel)
+                .map(mapper::listModelToViewModel)
                 .subscribe(onNext, onError, onComplete, onSubscribe);
     }
 
@@ -109,7 +109,7 @@ public class ComicListPresenter extends BasePresenter<ListView> {
         final GetComicsByTitle.InputParam inputParam = new GetComicsByTitle.InputParam(title, offset);
         getView().showProgress();
         getComicsByTitle.execute(inputParam)
-                .map(mapper::mapModelToViewModel)
+                .map(mapper::listModelToViewModel)
                 .subscribe(onNext, onError, onComplete, onSubscribe);
     }
 

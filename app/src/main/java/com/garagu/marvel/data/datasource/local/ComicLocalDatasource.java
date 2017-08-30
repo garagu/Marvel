@@ -3,6 +3,7 @@ package com.garagu.marvel.data.datasource.local;
 import android.util.Log;
 
 import com.garagu.marvel.data.datasource.ComicDatasource;
+import com.garagu.marvel.data.entity.comic.ComicEntity;
 import com.garagu.marvel.data.entity.comic.ComicListEntity;
 import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.data.local.FileManager;
@@ -26,6 +27,11 @@ public class ComicLocalDatasource implements ComicDatasource {
     public ComicLocalDatasource(FileManager fileManager, Gson gson) {
         this.fileManager = fileManager;
         this.gson = gson;
+    }
+
+    @Override
+    public Observable<ComicEntity> getComic(int comicId) {
+        return getComics(0).map(list -> list.getData().getResults()[0]);
     }
 
     @Override
