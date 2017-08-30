@@ -2,7 +2,7 @@ package com.garagu.marvel.data.datasource;
 
 import android.support.annotation.NonNull;
 
-import com.garagu.marvel.data.entity.common.FavoriteEntity;
+import com.garagu.marvel.data.entity.favorite.FavoriteEntity;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.garagu.marvel.domain.usecase;
 
-import com.garagu.marvel.domain.model.common.Favorite;
+import com.garagu.marvel.domain.model.favorite.Favorite;
 import com.garagu.marvel.domain.repository.FavoriteRepository;
 import com.garagu.marvel.domain.thread.ExecutorThread;
 import com.garagu.marvel.domain.thread.PostExecutionThread;

@@ -1,4 +1,4 @@
-package com.garagu.marvel.presentation.reviews.view;
+package com.garagu.marvel.presentation.myreviews.view;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,8 +7,8 @@ import android.support.annotation.NonNull;
 
 import com.garagu.marvel.presentation.common.view.BaseActivity;
 import com.garagu.marvel.presentation.common.view.HasInjection;
-import com.garagu.marvel.presentation.reviews.di.DaggerMyReviewsComponent;
-import com.garagu.marvel.presentation.reviews.di.MyReviewsComponent;
+import com.garagu.marvel.presentation.myreviews.di.DaggerMyReviewsComponent;
+import com.garagu.marvel.presentation.myreviews.di.MyReviewsComponent;
 
 import javax.inject.Inject;
 

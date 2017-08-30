@@ -27,7 +27,7 @@ public class ComicModelMapper {
     public ComicModelMapper() {
     }
 
-    public PaginatedListViewModel<ComicViewModel> mapModelToViewModel(PaginatedComicList model) {
+    public PaginatedListViewModel<ComicViewModel> listModelToViewModel(PaginatedComicList model) {
         final List<ComicViewModel> items = mapList(model.getList());
         final int offset = model.getOffset() + model.getCount();
         return new PaginatedListViewModel.Builder<ComicViewModel>()
@@ -40,29 +40,33 @@ public class ComicModelMapper {
     private List<ComicViewModel> mapList(List<Comic> model) {
         final List<ComicViewModel> list = new ArrayList<>();
         for (Comic comic : model) {
-            final List<String> characters = mapCharacters(comic.getCharacters());
-            final List<CreatorViewModel> creators = mapCreators(comic.getCreators());
-            final String description = mapDescription(comic.getDescription());
-            final String pages = String.valueOf(comic.getPages());
-            final String seriesTitle = mapSeriesTitle(comic.getSeries());
-            final List<ComicDateViewModel> dates = mapDates(comic.getDates());
-            final ComicViewModel viewModel = new ComicViewModel.Builder()
-                    .withCharacters(characters)
-                    .withCreators(creators)
-                    .withDescription(description)
-                    .withFormat(comic.getFormat())
-                    .withId(String.valueOf(comic.getId()))
-                    .withIsbn(comic.getIsbn())
-                    .withPages(pages)
-                    .withSeriesTitle(seriesTitle)
-                    .withTitle(comic.getTitle())
-                    .withUrlThumbnail(comic.getUrlThumbnail())
-                    .withImages(comic.getImages())
-                    .withDates(dates)
-                    .build();
+            final ComicViewModel viewModel = simpleModelToViewModel(comic);
             list.add(viewModel);
         }
         return list;
+    }
+
+    public ComicViewModel simpleModelToViewModel(Comic model) {
+        final List<String> characters = mapCharacters(model.getCharacters());
+        final List<CreatorViewModel> creators = mapCreators(model.getCreators());
+        final String description = mapDescription(model.getDescription());
+        final String pages = String.valueOf(model.getPages());
+        final String seriesTitle = mapSeriesTitle(model.getSeries());
+        final List<ComicDateViewModel> dates = mapDates(model.getDates());
+        return new ComicViewModel.Builder()
+                .withCharacters(characters)
+                .withCreators(creators)
+                .withDescription(description)
+                .withFormat(model.getFormat())
+                .withId(model.getId())
+                .withIsbn(model.getIsbn())
+                .withPages(pages)
+                .withSeriesTitle(seriesTitle)
+                .withTitle(model.getTitle())
+                .withUrlThumbnail(model.getUrlThumbnail())
+                .withImages(model.getImages())
+                .withDates(dates)
+                .build();
     }
 
     private List<String> mapCharacters(List<ComicCharacter> model) {

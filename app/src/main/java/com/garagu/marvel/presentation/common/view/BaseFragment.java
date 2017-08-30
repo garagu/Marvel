@@ -1,5 +1,6 @@
 package com.garagu.marvel.presentation.common.view;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -69,6 +70,13 @@ public abstract class BaseFragment extends Fragment {
 
     protected void showSnackbar(@StringRes int message) {
         Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
+    }
+
+    protected void showAlertDialog(@StringRes int idResTitle, @StringRes int idResMessage) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(idResTitle)
+                .setMessage(idResMessage)
+                .show();
     }
 
 }

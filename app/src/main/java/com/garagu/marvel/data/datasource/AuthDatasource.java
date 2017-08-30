@@ -1,6 +1,6 @@
 package com.garagu.marvel.data.datasource;
 
-import com.garagu.marvel.data.entity.common.UserEntity;
+import com.garagu.marvel.data.entity.auth.UserEntity;
 
 import io.reactivex.Observable;
 

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
@@ -164,8 +165,8 @@ public class HomeFragment extends BaseFragment implements HomeView, OnLateralMen
     }
 
     @Override
-    public void showAbout() {
-        showSnackbar(R.string.about_data);
+    public void showAbout(@StringRes int title, @StringRes int message) {
+        showAlertDialog(title, message);
     }
 
     @Override

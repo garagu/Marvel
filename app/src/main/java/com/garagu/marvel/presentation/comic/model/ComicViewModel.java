@@ -23,7 +23,7 @@ public class ComicViewModel implements Parcelable {
         }
     };
 
-    private final String id;
+    private final int id;
     private final String title;
     private final String description;
     private final String pages;
@@ -36,7 +36,7 @@ public class ComicViewModel implements Parcelable {
     private final List<String> images;
     private final List<ComicDateViewModel> dates;
 
-    private ComicViewModel(String id, String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn,
+    private ComicViewModel(int id, String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn,
                            String format, String urlThumbnail, List<String> images, List<ComicDateViewModel> dates) {
         this.id = id;
         this.title = title;
@@ -53,7 +53,7 @@ public class ComicViewModel implements Parcelable {
     }
 
     protected ComicViewModel(Parcel in) {
-        id = in.readString();
+        id = in.readInt();
         title = in.readString();
         description = in.readString();
         pages = in.readString();
@@ -69,7 +69,7 @@ public class ComicViewModel implements Parcelable {
         in.readList(dates, ComicDateViewModel.class.getClassLoader());
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -124,7 +124,7 @@ public class ComicViewModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
+        dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(description);
         dest.writeString(pages);
@@ -140,7 +140,7 @@ public class ComicViewModel implements Parcelable {
 
     public static class Builder {
 
-        private String id;
+        private int id;
         private String title;
         private String description;
         private String pages;
@@ -153,7 +153,7 @@ public class ComicViewModel implements Parcelable {
         private List<String> images;
         private List<ComicDateViewModel> dates;
 
-        public Builder withId(String id) {
+        public Builder withId(int id) {
             this.id = id;
             return this;
         }

@@ -4,8 +4,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.domain.model.common.Review;
 import com.garagu.marvel.domain.model.common.User;
+import com.garagu.marvel.domain.model.review.MyReview;
 import com.garagu.marvel.domain.usecase.AddReviewToComic;
 import com.garagu.marvel.domain.usecase.GetUser;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
@@ -72,7 +72,7 @@ public class NewReviewPresenter extends BasePresenter<NewReviewView> {
     }
 
     private AddReviewToComic.InputParam getAddReviewInputParam(@NonNull ComicViewModel comic, int rate, @NonNull String reviewText, @NonNull User user) {
-        final Review review = new Review(rate, reviewText, user.getName(), comic.getTitle(), getCurrentDate());
+        final MyReview review = new MyReview(rate, reviewText, user.getName(), comic.getId(), comic.getTitle(), getCurrentDate());
         return new AddReviewToComic.InputParam(comic.getId(), user.getId(), review);
     }
 

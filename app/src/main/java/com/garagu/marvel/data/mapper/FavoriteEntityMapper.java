@@ -2,8 +2,8 @@ package com.garagu.marvel.data.mapper;
 
 import android.support.annotation.NonNull;
 
-import com.garagu.marvel.data.entity.common.FavoriteEntity;
-import com.garagu.marvel.domain.model.common.Favorite;
+import com.garagu.marvel.data.entity.favorite.FavoriteEntity;
+import com.garagu.marvel.domain.model.favorite.Favorite;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
 
 import java.util.ArrayList;

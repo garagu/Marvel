@@ -1,6 +1,6 @@
 package com.garagu.marvel.domain.usecase;
 
-import com.garagu.marvel.domain.model.common.Review;
+import com.garagu.marvel.domain.model.review.MyReview;
 import com.garagu.marvel.domain.repository.ReviewRepository;
 import com.garagu.marvel.domain.thread.ExecutorThread;
 import com.garagu.marvel.domain.thread.PostExecutionThread;
@@ -14,7 +14,7 @@ import io.reactivex.Observable;
 /**
  * Created by garagu.
  */
-public class GetReviewsByUser extends UseCase<String, List<Review>> {
+public class GetReviewsByUser extends UseCase<String, List<MyReview>> {
 
     private final ReviewRepository repository;
 
@@ -25,7 +25,7 @@ public class GetReviewsByUser extends UseCase<String, List<Review>> {
     }
 
     @Override
-    protected Observable<List<Review>> buildObservable(String userId) {
+    protected Observable<List<MyReview>> buildObservable(String userId) {
         return repository.getReviewsByUser(userId);
     }
 

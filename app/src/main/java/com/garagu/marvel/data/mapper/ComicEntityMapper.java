@@ -36,7 +36,7 @@ public class ComicEntityMapper {
         this.dateMapper = dateMapper;
     }
 
-    public PaginatedComicList mapEntityToModel(ResultEntity<ComicListEntity> entity) {
+    public PaginatedComicList listEntityToModel(ResultEntity<ComicListEntity> entity) {
         final List<Comic> comicList = mapComicList(entity.getData().getResults());
         return new PaginatedComicList(
                 entity.getData().getCount(),
@@ -49,13 +49,13 @@ public class ComicEntityMapper {
     private List<Comic> mapComicList(ComicEntity[] entity) {
         final List<Comic> model = new ArrayList<>();
         for (ComicEntity entityItem : entity) {
-            final Comic modelItem = mapComic(entityItem);
+            final Comic modelItem = simpleEntityToModel(entityItem);
             model.add(modelItem);
         }
         return model;
     }
 
-    private Comic mapComic(ComicEntity entity) {
+    public Comic simpleEntityToModel(ComicEntity entity) {
         return new Comic(
                 entity.getId(),
                 entity.getTitle(),

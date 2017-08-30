@@ -11,7 +11,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.domain.model.common.Favorite;
+import com.garagu.marvel.domain.model.favorite.Favorite;
 import com.garagu.marvel.domain.usecase.AddFavorite;
 import com.garagu.marvel.domain.usecase.DeleteFavorite;
 import com.garagu.marvel.domain.usecase.GetUser;

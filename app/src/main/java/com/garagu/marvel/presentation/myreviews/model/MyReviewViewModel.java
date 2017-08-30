@@ -1,21 +1,23 @@
-package com.garagu.marvel.presentation.common.model;
+package com.garagu.marvel.presentation.myreviews.model;
 
 /**
  * Created by garagu.
  */
-public class ReviewViewModel {
+public class MyReviewViewModel {
 
     private final int rate;
     private final String text;
     private final String author;
-    private final String title;
+    private final int comicId;
+    private final String comicTitle;
     private final String date;
 
-    private ReviewViewModel(int rate, String text, String author, String title, String date) {
+    private MyReviewViewModel(int rate, String text, String author, int comicId, String comicTitle, String date) {
         this.rate = rate;
         this.text = text;
         this.author = author;
-        this.title = title;
+        this.comicId = comicId;
+        this.comicTitle = comicTitle;
         this.date = date;
     }
 
@@ -31,8 +33,12 @@ public class ReviewViewModel {
         return author;
     }
 
-    public String getTitle() {
-        return title;
+    public int getComicId() {
+        return comicId;
+    }
+
+    public String getComicTitle() {
+        return comicTitle;
     }
 
     public String getDate() {
@@ -44,7 +50,8 @@ public class ReviewViewModel {
         private int rate;
         private String text;
         private String author;
-        private String title;
+        private int comicId;
+        private String comicTitle;
         private String date;
 
         public Builder withRate(int rate) {
@@ -62,8 +69,13 @@ public class ReviewViewModel {
             return this;
         }
 
-        public Builder withTitle(String title) {
-            this.title = title;
+        public Builder withComicId(int comicId) {
+            this.comicId = comicId;
+            return this;
+        }
+
+        public Builder withComicTitle(String comicTitle) {
+            this.comicTitle = comicTitle;
             return this;
         }
 
@@ -72,8 +84,8 @@ public class ReviewViewModel {
             return this;
         }
 
-        public ReviewViewModel build() {
-            return new ReviewViewModel(rate, text, author, title, date);
+        public MyReviewViewModel build() {
+            return new MyReviewViewModel(rate, text, author, comicId, comicTitle, date);
         }
 
     }

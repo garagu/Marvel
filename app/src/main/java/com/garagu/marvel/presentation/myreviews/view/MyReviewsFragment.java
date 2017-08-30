@@ -1,17 +1,19 @@
-package com.garagu.marvel.presentation.reviews.view;
+package com.garagu.marvel.presentation.myreviews.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.garagu.marvel.R;
-import com.garagu.marvel.presentation.common.model.ReviewViewModel;
+import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
 import com.garagu.marvel.presentation.common.view.DividingLineDecoration;
-import com.garagu.marvel.presentation.reviews.di.MyReviewsComponent;
-import com.garagu.marvel.presentation.reviews.view.MyReviewsPresenter.MyReviewsView;
+import com.garagu.marvel.presentation.myreviews.di.MyReviewsComponent;
+import com.garagu.marvel.presentation.myreviews.model.MyReviewViewModel;
+import com.garagu.marvel.presentation.myreviews.view.MyReviewsPresenter.MyReviewsView;
 import com.pedrogomez.renderers.AdapteeCollection;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
@@ -32,13 +34,15 @@ public class MyReviewsFragment extends BaseFragment implements MyReviewsView {
 
     @Inject
     MyReviewsPresenter presenter;
+    @Inject
+    Navigator navigator;
 
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
-    private RVRendererAdapter<ReviewViewModel> adapter;
+    private RVRendererAdapter<MyReviewViewModel> adapter;
 
     @NonNull
     public static MyReviewsFragment newInstance() {
@@ -71,11 +75,11 @@ public class MyReviewsFragment extends BaseFragment implements MyReviewsView {
     private void initComponents() {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-        final RecyclerView.ItemDecoration dividerDecoration = new DividingLineDecoration(getActivity());
+        final ItemDecoration dividerDecoration = new DividingLineDecoration(getActivity());
         recyclerView.addItemDecoration(dividerDecoration);
-        final Renderer<ReviewViewModel> renderer = new MyReviewRenderer();
-        final RendererBuilder<ReviewViewModel> rendererBuilder = new RendererBuilder<>(renderer);
-        final AdapteeCollection<ReviewViewModel> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
+        final Renderer<MyReviewViewModel> renderer = new MyReviewRenderer(presenter::onOpenComicClick);
+        final RendererBuilder<MyReviewViewModel> rendererBuilder = new RendererBuilder<>(renderer);
+        final AdapteeCollection<MyReviewViewModel> emptyList = new ListAdapteeCollection<>(new ArrayList<>());
         adapter = new RVRendererAdapter<>(rendererBuilder, emptyList);
         recyclerView.setAdapter(adapter);
     }
@@ -91,6 +95,11 @@ public class MyReviewsFragment extends BaseFragment implements MyReviewsView {
     }
 
     @Override
+    public void openComicDetail(@NonNull ComicViewModel comic) {
+        navigator.openComicDetail(getActivity(), comic);
+    }
+
+    @Override
     public void showError(@NonNull String message) {
         showSnackbar(message);
     }
@@ -101,7 +110,7 @@ public class MyReviewsFragment extends BaseFragment implements MyReviewsView {
     }
 
     @Override
-    public void showReviews(@NonNull List<ReviewViewModel> reviews) {
+    public void showReviews(@NonNull List<MyReviewViewModel> reviews) {
         final int positionStart = adapter.getItemCount();
         adapter.addAll(reviews);
         adapter.notifyItemRangeChanged(positionStart, adapter.getItemCount());

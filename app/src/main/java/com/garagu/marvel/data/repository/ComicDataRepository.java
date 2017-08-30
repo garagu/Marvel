@@ -2,6 +2,7 @@ package com.garagu.marvel.data.repository;
 
 import com.garagu.marvel.data.datasource.ComicDatasource;
 import com.garagu.marvel.data.mapper.ComicEntityMapper;
+import com.garagu.marvel.domain.model.comic.Comic;
 import com.garagu.marvel.domain.model.comic.PaginatedComicList;
 import com.garagu.marvel.domain.repository.ComicRepository;
 
@@ -24,20 +25,26 @@ public class ComicDataRepository implements ComicRepository {
     }
 
     @Override
+    public Observable<Comic> getComic(int comicId) {
+        return datasource.getComic(comicId)
+                .map(mapper::simpleEntityToModel);
+    }
+
+    @Override
     public Observable<PaginatedComicList> getComics(int offset) {
         return datasource.getComics(offset)
-                .map(mapper::mapEntityToModel);
+                .map(mapper::listEntityToModel);
     }
 
     public Observable<PaginatedComicList> getComicsByCharacter(int id, int offset) {
         return datasource.getComicsByCharacter(id, offset)
-                .map(mapper::mapEntityToModel);
+                .map(mapper::listEntityToModel);
     }
 
     @Override
     public Observable<PaginatedComicList> getComicsByTitle(String title, int offset) {
         return datasource.getComicsByTitle(title, offset)
-                .map(mapper::mapEntityToModel);
+                .map(mapper::listEntityToModel);
     }
 
 }

@@ -3,7 +3,7 @@ package com.garagu.marvel.data.datasource.local;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.data.datasource.FavoriteDatasource;
-import com.garagu.marvel.data.entity.common.FavoriteEntity;
+import com.garagu.marvel.data.entity.favorite.FavoriteEntity;
 import com.garagu.marvel.data.local.FileManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;

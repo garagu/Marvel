@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.data.datasource.AuthDatasource;
-import com.garagu.marvel.data.entity.common.UserEntity;
+import com.garagu.marvel.data.entity.auth.UserEntity;
 import com.garagu.marvel.data.net.exception.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener;

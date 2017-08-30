@@ -2,6 +2,7 @@ package com.garagu.marvel.presentation.home.view;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.view.Gravity;
 
 import com.garagu.marvel.R;
@@ -67,7 +68,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
     }
 
     void onAboutClick() {
-        getView().showAbout();
+        getView().showAbout(R.string.home_nav_about, R.string.about_data);
     }
 
     void onCharactersOptionClick() {
@@ -110,7 +111,7 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
         void openSignIn();
 
-        void showAbout();
+        void showAbout(@StringRes int title, @StringRes int message);
 
         void showError(@NonNull String message);
 
