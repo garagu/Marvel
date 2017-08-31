@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="@color/colorMarvel" />
+    </item>
+    <item
+        android:left="@dimen/margin_xlarge"
+        android:right="@dimen/margin_xlarge">
+        <bitmap
+            android:gravity="center|fill_horizontal"
+            android:src="@mipmap/marvel_logo" />
+    </item>
+</layer-list>
