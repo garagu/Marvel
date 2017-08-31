@@ -13,18 +13,14 @@ public class ViewConfig {
     private final boolean showBack;
     @MenuRes
     private int bottomNavMenu;
-    private OnNavigationItemSelectedListener onBottonNavItemSelectedListener;
+    private OnNavigationItemSelectedListener onBottomNavItemSelectedListener;
     @IdRes
     private int bottomNavItemSelected;
 
-    public ViewConfig(boolean showBack) {
-        this.showBack = showBack;
-    }
-
-    public ViewConfig(boolean showBack, int bottomNavMenu, OnNavigationItemSelectedListener onBottonNavItemSelectedListener, int bottomNavItemSelected) {
+    public ViewConfig(boolean showBack, int bottomNavMenu, OnNavigationItemSelectedListener onBottomNavItemSelectedListener, int bottomNavItemSelected) {
         this.showBack = showBack;
         this.bottomNavMenu = bottomNavMenu;
-        this.onBottonNavItemSelectedListener = onBottonNavItemSelectedListener;
+        this.onBottomNavItemSelectedListener = onBottomNavItemSelectedListener;
         this.bottomNavItemSelected = bottomNavItemSelected;
     }
 
@@ -37,8 +33,8 @@ public class ViewConfig {
         return bottomNavMenu;
     }
 
-    public OnNavigationItemSelectedListener getOnBottonNavItemSelectedListener() {
-        return onBottonNavItemSelectedListener;
+    public OnNavigationItemSelectedListener getOnBottomNavItemSelectedListener() {
+        return onBottomNavItemSelectedListener;
     }
 
     @IdRes

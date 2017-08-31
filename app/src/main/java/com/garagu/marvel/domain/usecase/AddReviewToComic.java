@@ -31,9 +31,9 @@ public class AddReviewToComic extends UseCase<InputParam, Boolean> {
 
     public static class InputParam {
 
-        private int comicId;
-        private String userId;
-        private MyReview review;
+        private final int comicId;
+        private final String userId;
+        private final MyReview review;
 
         public InputParam(int comicId, String userId, MyReview review) {
             this.comicId = comicId;

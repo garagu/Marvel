@@ -34,9 +34,9 @@ public class NetModule {
                     }
                 })
                 .build();
-        if (BuildConfig.DEBUG) {
-            // picasso.setIndicatorsEnabled(true);
-        }
+//        if (BuildConfig.DEBUG) {
+//            picasso.setIndicatorsEnabled(true);
+//        }
         return new PicassoImpl(picasso);
     }
 

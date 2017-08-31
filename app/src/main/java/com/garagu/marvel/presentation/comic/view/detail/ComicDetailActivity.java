@@ -12,7 +12,7 @@ import com.garagu.marvel.presentation.comic.di.DaggerComicComponent;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.comic.view.Navigator;
 import com.garagu.marvel.presentation.common.model.ViewConfig;
-import com.garagu.marvel.presentation.common.view.BottonNavActivity;
+import com.garagu.marvel.presentation.common.view.BottomNavActivity;
 import com.garagu.marvel.presentation.common.view.HasInjection;
 
 import javax.inject.Inject;
@@ -20,7 +20,7 @@ import javax.inject.Inject;
 /**
  * Created by garagu.
  */
-public class ComicDetailActivity extends BottonNavActivity implements HasInjection<ComicComponent> {
+public class ComicDetailActivity extends BottomNavActivity implements HasInjection<ComicComponent> {
 
     private static final String KEY_SELECTED_COMIC = "selectedComic";
 

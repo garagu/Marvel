@@ -59,7 +59,6 @@ public class SignInPresenter extends BasePresenter<SignInView> {
                             getView().openHome();
                         },
                         error -> {
-                            ;
                             getView().hideProgress();
                             getView().showError(error.getMessage());
                         },

@@ -194,7 +194,7 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
 
     @Override
     public void showName(@NonNull String name) {
-        txtName.setText(character.getName());
+        txtName.setText(name);
     }
 
     @Override

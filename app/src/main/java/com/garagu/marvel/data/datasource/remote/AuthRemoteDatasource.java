@@ -53,16 +53,15 @@ public class AuthRemoteDatasource implements AuthDatasource {
 
     @Override
     public Observable<UserEntity> signIn(String email, String password) {
-        return Observable.create(subscriber -> {
-            firebaseAuth.signInWithEmailAndPassword(email, password)
-                    .addOnSuccessListener(authResult -> {
-                        final FirebaseUser firebaseUser = authResult.getUser();
-                        final UserEntity user = new UserEntity(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
-                        subscriber.onNext(user);
-                        subscriber.onComplete();
-                    })
-                    .addOnFailureListener(subscriber::onError);
-        });
+        return Observable.create(subscriber -> firebaseAuth.signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener(authResult -> {
+                    final FirebaseUser firebaseUser = authResult.getUser();
+                    final UserEntity user = new UserEntity(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
+                    subscriber.onNext(user);
+                    subscriber.onComplete();
+                })
+                .addOnFailureListener(subscriber::onError)
+        );
     }
 
     @Override

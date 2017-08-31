@@ -7,7 +7,6 @@
     <dimen name="margin_large">20dp</dimen>
     <dimen name="margin_xlarge">24dp</dimen>
     <dimen name="thumbnail_height">128dp</dimen>
-    <dimen name="card_view_icon_size">36dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="card_auth_width">280dp</dimen>
 </resources>

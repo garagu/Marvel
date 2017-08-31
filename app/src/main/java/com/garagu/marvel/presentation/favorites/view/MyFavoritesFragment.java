@@ -119,7 +119,6 @@ public class MyFavoritesFragment extends BaseFragment implements MyFavoritesView
 
     @Override
     public void showFavorites(@NonNull List<FavoriteViewModel> favorites) {
-        final int positionStart = adapter.getItemCount();
         adapter.clear();
         adapter.addAll(favorites);
         adapter.notifyDataSetChanged();

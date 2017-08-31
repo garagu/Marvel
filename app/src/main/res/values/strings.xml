@@ -6,17 +6,15 @@
     <string name="error_empty_field">Please enter a value</string>
     <string name="menu_search">Search</string>
     <!-- Sign in -->
-    <string name="signin_toolbar_title">Welcome</string>
+    <string name="auth_toolbar_title">Welcome</string>
     <string name="signin_card_title">Sign in</string>
     <string name="signin_hint_email">Email</string>
     <string name="signin_hint_password">Password</string>
     <string name="signin_button_go">Go</string>
     <string name="signin_button_register">Create user</string>
-    <string name="signin_button_forgot_password">Forgot your password?</string>
     <string name="signin_pd_message">Signing in&#8230;</string>
     <string name="signin_error_unauthenticated">No user is signed in</string>
     <!-- Create user -->
-    <string name="register_toolbar_title">Welcome</string>
     <string name="register_card_title">Create user</string>
     <string name="register_hint_username">Username</string>
     <string name="register_hint_email">Email</string>
