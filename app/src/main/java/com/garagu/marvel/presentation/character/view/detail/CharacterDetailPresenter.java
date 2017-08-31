@@ -1,11 +1,8 @@
 package com.garagu.marvel.presentation.character.view.detail;
 
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -74,8 +71,8 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
                 );
     }
 
-    void onFavoriteClick(@NonNull FloatingActionButton fab, @NonNull CharacterViewModel character) {
-        if (isMarkedAsFavorite(fab)) {
+    void onFavoriteClick(boolean isFavorite, @NonNull CharacterViewModel character) {
+        if (isFavorite) {
             deleteFavorite(character.getId());
         } else {
             addFavorite(character.getId(), character.getName(), character.getUrlThumbnail());
@@ -184,11 +181,6 @@ public class CharacterDetailPresenter extends BasePresenter<CharacterDetailView>
         } else {
             getView().loadImage(urlThumbnail);
         }
-    }
-
-    private boolean isMarkedAsFavorite(@NonNull FloatingActionButton fab) {
-        final Drawable favoriteDrawable = ContextCompat.getDrawable(fab.getContext(), R.drawable.ic_favorite_on);
-        return (favoriteDrawable.getConstantState() == fab.getDrawable().getConstantState());
     }
 
     interface CharacterDetailView extends BaseView {

@@ -98,6 +98,7 @@ public class ComicModelMapper {
         return role;
     }
 
+    @SuppressWarnings("deprecation")
     private String mapDescription(String description) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             return Html.fromHtml(description).toString();

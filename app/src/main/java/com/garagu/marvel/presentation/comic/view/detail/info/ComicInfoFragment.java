@@ -143,8 +143,8 @@ public class ComicInfoFragment extends BaseFragment {
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setNestedScrollingEnabled(false);
         final RendererBuilder<T> rendererBuilder = new RendererBuilder<>(renderer);
-        final AdapteeCollection<T> adapteeCollection = new ListAdapteeCollection<>(list);
-        final RVRendererAdapter<T> adapter = new RVRendererAdapter<>(rendererBuilder, adapteeCollection);
+        final AdapteeCollection<T> collection = new ListAdapteeCollection<>(list);
+        final RVRendererAdapter<T> adapter = new RVRendererAdapter<>(rendererBuilder, collection);
         recyclerView.setAdapter(adapter);
     }
 

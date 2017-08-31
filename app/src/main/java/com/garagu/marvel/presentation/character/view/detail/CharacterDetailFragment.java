@@ -127,7 +127,7 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
 
     @OnClick(R.id.fab_favorite)
     void onFavoriteClick() {
-        presenter.onFavoriteClick(fabFavorite, character);
+        presenter.onFavoriteClick((Boolean) fabFavorite.getTag(), character);
     }
 
     @OnClick(R.id.btn_character_comics)
@@ -182,6 +182,7 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     public void showFab(boolean isFavorite) {
         final int drawableRes = isFavorite ? R.drawable.ic_favorite_on : R.drawable.ic_favorite_off;
         fabFavorite.setImageResource(drawableRes);
+        fabFavorite.setTag(isFavorite);
         fabFavorite.setVisibility(View.VISIBLE);
     }
 
@@ -193,7 +194,7 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
 
     @Override
     public void showName(@NonNull String name) {
-        txtName.setText(character.getName());
+        txtName.setText(name);
     }
 
     @Override
