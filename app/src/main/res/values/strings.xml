@@ -57,6 +57,7 @@
     <string name="characterdetail_button_comics">More</string>
     <!-- My reviews -->
     <string name="myreviews_button">Open comic</string>
+    <string name="myreviews_warning_empty">There is no review</string>
     <!-- About -->
     <string name="about_data">Data provided by Marvel. © 2017 Marvel</string>
 </resources>

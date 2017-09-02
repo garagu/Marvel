@@ -34,6 +34,10 @@
 
     <style name="TitleSmall" parent="@style/TextAppearance.AppCompat.Body2" />
 
+    <style name="TitleBig.Colored">
+        <item name="android:textColor">@color/colorBackgroundDark</item>
+    </style>
+
     <style name="FieldEmpty">
         <item name="android:textColor">@color/colorBackground</item>
         <item name="android:textStyle">italic</item>

@@ -9,4 +9,5 @@
     <dimen name="thumbnail_height">128dp</dimen>
     <dimen name="nav_header_height">160dp</dimen>
     <dimen name="card_auth_width">280dp</dimen>
+    <dimen name="logo_size">80dp</dimen>
 </resources>

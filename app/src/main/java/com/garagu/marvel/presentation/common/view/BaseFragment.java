@@ -64,6 +64,10 @@ public abstract class BaseFragment extends Fragment {
         getBaseActivity().initNavigationView(username, email, onItemSelectedListener);
     }
 
+    protected void initToolbar(@StringRes int toolbarTitle) {
+        getBaseActivity().initToolbar(toolbarTitle);
+    }
+
     protected void showSnackbar(String message) {
         Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
     }

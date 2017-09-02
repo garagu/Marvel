@@ -5,7 +5,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
@@ -37,6 +40,12 @@ public class MyReviewsFragment extends BaseFragment implements MyReviewsView {
     @Inject
     Navigator navigator;
 
+    @BindView(R.id.layout_empty_data)
+    LinearLayout layoutEmptyData;
+    @BindView(R.id.img_empty_data)
+    ImageView imgEmptyData;
+    @BindView(R.id.txt_empty_data)
+    TextView txtEmptyData;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.recycler_view)
@@ -73,6 +82,17 @@ public class MyReviewsFragment extends BaseFragment implements MyReviewsView {
     }
 
     private void initComponents() {
+        initToolbar(R.string.home_reviews);
+        initEmptyWarning();
+        initList();
+    }
+
+    private void initEmptyWarning() {
+        imgEmptyData.setImageResource(R.drawable.logo_reviews);
+        txtEmptyData.setText(R.string.myreviews_warning_empty);
+    }
+
+    private void initList() {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration dividerDecoration = new DividingLineDecoration(getActivity());
@@ -100,6 +120,12 @@ public class MyReviewsFragment extends BaseFragment implements MyReviewsView {
     }
 
     @Override
+    public void showEmptyWarning() {
+        recyclerView.setVisibility(View.GONE);
+        layoutEmptyData.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showError(@NonNull String message) {
         showSnackbar(message);
     }
@@ -111,9 +137,11 @@ public class MyReviewsFragment extends BaseFragment implements MyReviewsView {
 
     @Override
     public void showReviews(@NonNull List<MyReviewViewModel> reviews) {
-        final int positionStart = adapter.getItemCount();
+        layoutEmptyData.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        adapter.clear();
         adapter.addAll(reviews);
-        adapter.notifyItemRangeChanged(positionStart, adapter.getItemCount());
+        adapter.notifyDataSetChanged();
     }
 
 }
