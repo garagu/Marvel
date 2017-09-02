@@ -83,13 +83,21 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
         }
     }
 
+    void onCloseSearch(boolean searchExecuted) {
+        if (searchExecuted) {
+            getView().clearScreen();
+            getCharacters(0);
+        }
+    }
+
     void onSearchClick(@NonNull String name) {
         getView().clearScreen();
         getCharactersByName(name, 0);
     }
 
-    void onThumbnailClick(@Nullable View clickedView, @NonNull CharacterViewModel character) {
+    void onThumbnailClick(@Nullable View clickedView, @NonNull CharacterViewModel character, boolean searchExecuted) {
         getView().openDetail(clickedView, character);
+        onCloseSearch(searchExecuted);
     }
 
     interface CharacterListView extends BaseView {

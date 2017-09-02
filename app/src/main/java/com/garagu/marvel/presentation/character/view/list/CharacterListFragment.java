@@ -2,6 +2,7 @@ package com.garagu.marvel.presentation.character.view.list;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
@@ -39,7 +40,7 @@ import butterknife.BindView;
 /**
  * Created by garagu.
  */
-public class CharacterListFragment extends BaseFragment implements CharacterListView, SearchView.OnQueryTextListener {
+public class CharacterListFragment extends BaseFragment implements CharacterListView, SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener {
 
     @Inject
     ImageLoader imageLoader;
@@ -54,10 +55,11 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     RecyclerView recyclerView;
 
     private SearchView searchView;
+    private boolean searchExecuted;
     private final OnCardClickListener onCardClickListener = new OnCardClickListener() {
         @Override
         public void onThumbnailClick(@NonNull View view, @NonNull CharacterViewModel character) {
-            presenter.onThumbnailClick(character.isThumbnailAvailable() ? view : null, character);
+            presenter.onThumbnailClick(character.isThumbnailAvailable() ? view : null, character, searchExecuted);
         }
     };
     private RVAnimRendererAdapter<CharacterViewModel> adapter;
@@ -91,6 +93,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search, menu);
         final MenuItem searchItem = menu.findItem(R.id.item_search);
+        MenuItemCompat.setOnActionExpandListener(searchItem, this);
         searchView = (SearchView) searchItem.getActionView();
         searchView.setQueryHint(getString(R.string.characters_hint_search));
         searchView.setOnQueryTextListener(this);
@@ -103,8 +106,21 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        searchExecuted = true;
         recyclerView.requestFocus();
         presenter.onSearchClick(query);
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem item) {
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        presenter.onCloseSearch(searchExecuted);
+        searchExecuted = false;
         return true;
     }
 
