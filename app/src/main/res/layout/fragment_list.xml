@@ -9,6 +9,8 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
 
+    <include layout="@layout/layout_empty_data" />
+
     <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="wrap_content"
