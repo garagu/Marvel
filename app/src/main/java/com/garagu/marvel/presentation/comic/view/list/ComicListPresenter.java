@@ -69,6 +69,13 @@ public class ComicListPresenter extends BasePresenter<ListView> {
         }
     }
 
+    void onCloseSearch(boolean searchExecuted) {
+        if (searchExecuted) {
+            getView().clearScreen();
+            getComics(0);
+        }
+    }
+
     void onComicClick(@NonNull ComicViewModel comic) {
         getView().openDetail(comic);
     }

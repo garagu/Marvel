@@ -1,9 +1,9 @@
 package com.garagu.marvel.presentation.comic.view.list;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 
 import com.garagu.marvel.R;
@@ -42,7 +41,7 @@ import butterknife.BindView;
 /**
  * Created by garagu.
  */
-public class ComicListFragment extends BaseFragment implements ListView, SearchView.OnQueryTextListener {
+public class ComicListFragment extends BaseFragment implements ListView, SearchView.OnQueryTextListener, MenuItemCompat.OnActionExpandListener {
 
     private static final String KEY_CHARACTER_ID = "characterId";
 
@@ -59,6 +58,7 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
     RecyclerView recyclerView;
 
     private SearchView searchView;
+    private boolean searchExecuted;
     private RVRendererAdapter<ComicViewModel> adapter;
     private boolean hasMore;
     private int offset;
@@ -108,6 +108,7 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
         if (characterId == CharacterViewModel.DEFAULT_ID) {
             inflater.inflate(R.menu.menu_search, menu);
             final MenuItem searchItem = menu.findItem(R.id.item_search);
+            MenuItemCompat.setOnActionExpandListener(searchItem, this);
             searchView = (SearchView) searchItem.getActionView();
             searchView.setQueryHint(getString(R.string.comicinfo_hint_search));
             searchView.setOnQueryTextListener(this);
@@ -121,8 +122,21 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        searchExecuted = true;
         recyclerView.requestFocus();
         presenter.onSearchClick(query);
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionExpand(MenuItem item) {
+        return true;
+    }
+
+    @Override
+    public boolean onMenuItemActionCollapse(MenuItem item) {
+        presenter.onCloseSearch(searchExecuted);
+        searchExecuted = false;
         return true;
     }
 
