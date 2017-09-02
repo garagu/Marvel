@@ -95,7 +95,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
         final MenuItem searchItem = menu.findItem(R.id.item_search);
         MenuItemCompat.setOnActionExpandListener(searchItem, this);
         searchView = (SearchView) searchItem.getActionView();
-        searchView.setQueryHint(getString(R.string.characters_hint_search));
+        searchView.setQueryHint(getString(R.string.characterslist_hint_search));
         searchView.setOnQueryTextListener(this);
     }
 
@@ -125,6 +125,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     }
 
     private void initComponents() {
+        initToolbar(R.string.home_characters);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration itemDecoration = new CardDecoration(getActivity());

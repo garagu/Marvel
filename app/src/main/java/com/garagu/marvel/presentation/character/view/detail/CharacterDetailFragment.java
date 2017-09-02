@@ -100,7 +100,7 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
     protected void onCreateView() {
         super.onCreateView();
         initDependencyInjection();
-        setCardComicsMargin();
+        initComponents();
         initPresenter();
     }
 
@@ -112,6 +112,11 @@ public class CharacterDetailFragment extends BaseFragment implements CharacterDe
 
     private void initDependencyInjection() {
         getComponent(CharacterComponent.class).inject(this);
+    }
+
+    private void initComponents() {
+        initToolbar(R.string.characterdetail_toolbar_title);
+        setCardComicsMargin();
     }
 
     private void setCardComicsMargin() {

@@ -52,7 +52,8 @@
     <string name="comicnewreview_message_confirmation">Review published!</string>
     <!-- Characters -->
     <string name="transition_character_detail">character_detail</string>
-    <string name="characters_hint_search">Search character</string>
+    <string name="characterslist_hint_search">Search character</string>
+    <string name="characterdetail_toolbar_title">Character detail</string>
     <string name="characterdetail_label_description_empty">No description yet</string>
     <string name="characterdetail_title_links">Links</string>
     <string name="characterdetail_title_comics">Comics</string>
