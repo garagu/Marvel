@@ -51,7 +51,13 @@ public class MyFavoritesPresenter extends BasePresenter<MyFavoritesView> {
                 .flatMap(getFavorites::execute)
                 .map(favoriteMapper::listModelToViewModel)
                 .subscribe(
-                        favorites -> getView().showFavorites(favorites),
+                        favorites -> {
+                            if (favorites.isEmpty()) {
+                                getView().showEmptyWarning();
+                            } else {
+                                getView().showFavorites(favorites);
+                            }
+                        },
                         error -> {
                             getView().showError(error.getMessage());
                             getView().hideProgress();
@@ -85,6 +91,8 @@ public class MyFavoritesPresenter extends BasePresenter<MyFavoritesView> {
         void hideProgress();
 
         void showCharacter(@NonNull CharacterViewModel character);
+
+        void showEmptyWarning();
 
         void showError(@NonNull String message);
 

@@ -5,7 +5,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
@@ -40,6 +43,12 @@ public class MyFavoritesFragment extends BaseFragment implements MyFavoritesView
     @Inject
     Navigator navigator;
 
+    @BindView(R.id.layout_empty_data)
+    LinearLayout layoutEmptyData;
+    @BindView(R.id.img_empty_data)
+    ImageView imgEmptyData;
+    @BindView(R.id.txt_empty_data)
+    TextView txtEmptyData;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.recycler_view)
@@ -81,6 +90,17 @@ public class MyFavoritesFragment extends BaseFragment implements MyFavoritesView
     }
 
     private void initComponents() {
+        initToolbar(R.string.home_favorites);
+        initEmptyWarning();
+        initList();
+    }
+
+    private void initEmptyWarning() {
+        imgEmptyData.setImageResource(R.drawable.logo_favorites);
+        txtEmptyData.setText(R.string.favorite_warning_empty);
+    }
+
+    private void initList() {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration dividerDecoration = new CardDecoration(getActivity());
@@ -108,6 +128,12 @@ public class MyFavoritesFragment extends BaseFragment implements MyFavoritesView
     }
 
     @Override
+    public void showEmptyWarning() {
+        recyclerView.setVisibility(View.GONE);
+        layoutEmptyData.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showError(@NonNull String message) {
         showSnackbar(message);
     }
@@ -119,6 +145,8 @@ public class MyFavoritesFragment extends BaseFragment implements MyFavoritesView
 
     @Override
     public void showFavorites(@NonNull List<FavoriteViewModel> favorites) {
+        layoutEmptyData.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
         adapter.clear();
         adapter.addAll(favorites);
         adapter.notifyDataSetChanged();
