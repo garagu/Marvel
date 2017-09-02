@@ -7,29 +7,29 @@ import android.os.Parcelable;
  * Created by garagu.
  */
 
-public class ComicDateViewModel implements Parcelable {
+public class DateViewModel implements Parcelable {
 
-    public static final Creator<ComicDateViewModel> CREATOR = new Creator<ComicDateViewModel>() {
+    public static final Creator<DateViewModel> CREATOR = new Creator<DateViewModel>() {
         @Override
-        public ComicDateViewModel createFromParcel(Parcel source) {
-            return new ComicDateViewModel(source);
+        public DateViewModel createFromParcel(Parcel source) {
+            return new DateViewModel(source);
         }
 
         @Override
-        public ComicDateViewModel[] newArray(int size) {
-            return new ComicDateViewModel[size];
+        public DateViewModel[] newArray(int size) {
+            return new DateViewModel[size];
         }
     };
 
     private final String type;
     private final String date;
 
-    private ComicDateViewModel(String type, String date) {
+    private DateViewModel(String type, String date) {
         this.type = type;
         this.date = date;
     }
 
-    protected ComicDateViewModel(Parcel in) {
+    protected DateViewModel(Parcel in) {
         type = in.readString();
         date = in.readString();
     }
@@ -68,8 +68,8 @@ public class ComicDateViewModel implements Parcelable {
             return this;
         }
 
-        public ComicDateViewModel build() {
-            return new ComicDateViewModel(type, date);
+        public DateViewModel build() {
+            return new DateViewModel(type, date);
         }
 
     }

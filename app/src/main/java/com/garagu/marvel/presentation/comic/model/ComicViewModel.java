@@ -34,10 +34,10 @@ public class ComicViewModel implements Parcelable {
     private final String format;
     private final String urlThumbnail;
     private final List<String> images;
-    private final List<ComicDateViewModel> dates;
+    private final List<DateViewModel> dates;
 
     private ComicViewModel(int id, String title, String description, String pages, String seriesTitle, List<CreatorViewModel> creators, List<String> characters, String isbn,
-                           String format, String urlThumbnail, List<String> images, List<ComicDateViewModel> dates) {
+                           String format, String urlThumbnail, List<String> images, List<DateViewModel> dates) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -66,7 +66,7 @@ public class ComicViewModel implements Parcelable {
         urlThumbnail = in.readString();
         images = in.createStringArrayList();
         dates = new ArrayList<>();
-        in.readList(dates, ComicDateViewModel.class.getClassLoader());
+        in.readList(dates, DateViewModel.class.getClassLoader());
     }
 
     public int getId() {
@@ -113,7 +113,7 @@ public class ComicViewModel implements Parcelable {
         return images;
     }
 
-    public List<ComicDateViewModel> getDates() {
+    public List<DateViewModel> getDates() {
         return dates;
     }
 
@@ -151,7 +151,7 @@ public class ComicViewModel implements Parcelable {
         private String format;
         private String urlThumbnail;
         private List<String> images;
-        private List<ComicDateViewModel> dates;
+        private List<DateViewModel> dates;
 
         public Builder withId(int id) {
             this.id = id;
@@ -208,7 +208,7 @@ public class ComicViewModel implements Parcelable {
             return this;
         }
 
-        public Builder withDates(List<ComicDateViewModel> dates) {
+        public Builder withDates(List<DateViewModel> dates) {
             this.dates = dates;
             return this;
         }
