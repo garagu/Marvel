@@ -137,7 +137,6 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
     }
 
     private void initComponents() {
-        setHasOptionsMenu(true);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
@@ -162,14 +161,6 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
         offset = 0;
         adapter.clear();
         adapter.notifyDataSetChanged();
-    }
-
-    private void hideKeyboard() {
-        final View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
     }
 
     private boolean isNotLoading() {

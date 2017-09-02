@@ -47,6 +47,12 @@ public interface MarvelApi {
             @Query("offset") int offset,
             @QueryMap Map<String, String> authParameters);
 
+    @GET("characters")
+    Observable<ResultEntity<CharacterListEntity>> getCharactersByName(
+            @Query("name") String name,
+            @Query("offset") int offset,
+            @QueryMap Map<String, String> authParameters);
+
     @GET("characters/{id}")
     Observable<ResultEntity<CharacterListEntity>> getCharacter(
             @Path("id") int id,

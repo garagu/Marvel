@@ -7,8 +7,6 @@ import com.garagu.marvel.data.net.MarvelApi;
 import com.garagu.marvel.data.repository.CharacterDataRepository;
 import com.garagu.marvel.domain.repository.CharacterRepository;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
-import com.garagu.marvel.presentation.character.model.CharacterModelMapper;
-import com.garagu.marvel.presentation.character.view.Navigator;
 
 import dagger.Module;
 import dagger.Provides;
@@ -35,26 +33,8 @@ public class CharacterModule {
 
     @Provides
     @ActivityScope
-    CharacterEntityMapper provideCharacterEntityMapper() {
-        return new CharacterEntityMapper();
-    }
-
-    @Provides
-    @ActivityScope
     CharacterRepository provideRepository(CharacterDatasource datasource, CharacterEntityMapper mapper) {
         return new CharacterDataRepository(datasource, mapper);
-    }
-
-    @Provides
-    @ActivityScope
-    CharacterModelMapper provideCharacterModelMapper() {
-        return new CharacterModelMapper();
-    }
-
-    @Provides
-    @ActivityScope
-    Navigator provideNavigator() {
-        return new Navigator();
     }
 
 }

@@ -31,6 +31,12 @@ public class CharacterDataRepository implements CharacterRepository {
     }
 
     @Override
+    public Observable<PaginatedCharacterList> getCharactersByName(int offset, String name) {
+        return datasource.getCharactersByName(offset, name)
+                .map(mapper::listEntityToModel);
+    }
+
+    @Override
     public Observable<Character> getCharacter(int id) {
         return datasource.getCharacter(id)
                 .map(mapper::simpleEntityToModel);

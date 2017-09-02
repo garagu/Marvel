@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.garagu.marvel.R;
+import com.garagu.marvel.presentation.application.di.ActivityScope;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
 import com.garagu.marvel.presentation.character.view.detail.CharacterDetailFragment;
 import com.garagu.marvel.presentation.character.view.list.CharacterListFragment;
@@ -15,10 +16,17 @@ import com.garagu.marvel.presentation.comic.view.list.ComicListActivity;
 import com.garagu.marvel.presentation.common.model.FragmentTransition;
 import com.garagu.marvel.presentation.common.view.BaseNavigator;
 
+import javax.inject.Inject;
+
 /**
  * Created by garagu.
  */
+@ActivityScope
 public class Navigator extends BaseNavigator {
+
+    @Inject
+    public Navigator() {
+    }
 
     public void openFirstScreen(@NonNull Activity activity, @Nullable CharacterViewModel character) {
         openFragment(activity, (character == null) ? CharacterListFragment.newInstance() : CharacterDetailFragment.newInstance(character));
