@@ -12,7 +12,7 @@ public class Comic {
     private final String description;
     private final int pages;
     private final ComicSeries series;
-    private final List<ComicCreator> creators;
+    private final List<Creator> creators;
     private final List<ComicCharacter> characters;
     private final String isbn;
     private final String format;
@@ -20,7 +20,7 @@ public class Comic {
     private final List<String> images;
     private final List<ComicDate> dates;
 
-    public Comic(int id, String title, String description, int pages, ComicSeries series, List<ComicCreator> creators, List<ComicCharacter> characters, String isbn, String format,
+    public Comic(int id, String title, String description, int pages, ComicSeries series, List<Creator> creators, List<ComicCharacter> characters, String isbn, String format,
                  String urlThumbnail, List<String> images, List<ComicDate> dates) {
         this.id = id;
         this.title = title;
@@ -56,7 +56,7 @@ public class Comic {
         return series;
     }
 
-    public List<ComicCreator> getCreators() {
+    public List<Creator> getCreators() {
         return creators;
     }
 

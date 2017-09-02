@@ -7,7 +7,7 @@ import com.garagu.marvel.domain.usecase.GetComics;
 import com.garagu.marvel.domain.usecase.GetComicsByCharacter;
 import com.garagu.marvel.domain.usecase.GetComicsByTitle;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
-import com.garagu.marvel.presentation.comic.model.ComicModelMapper;
+import com.garagu.marvel.presentation.comic.model.mapper.ComicModelMapper;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.comic.view.list.ComicListPresenter.ListView;
 import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
@@ -69,6 +69,13 @@ public class ComicListPresenter extends BasePresenter<ListView> {
         }
     }
 
+    void onCloseSearch(boolean searchExecuted) {
+        if (searchExecuted) {
+            getView().clearScreen();
+            getComics(0);
+        }
+    }
+
     void onComicClick(@NonNull ComicViewModel comic) {
         getView().openDetail(comic);
     }
@@ -93,7 +100,7 @@ public class ComicListPresenter extends BasePresenter<ListView> {
     private void getComics(int offset) {
         getView().showProgress();
         getComics.execute(offset)
-                .map(mapper::listModelToViewModel)
+                .map(mapper::paginatedListModelToViewModel)
                 .subscribe(onNext, onError, onComplete, onSubscribe);
     }
 
@@ -101,7 +108,7 @@ public class ComicListPresenter extends BasePresenter<ListView> {
         final GetComicsByCharacter.InputParam inputParam = new GetComicsByCharacter.InputParam(characterId, offset);
         getView().showProgress();
         getComicsByCharacter.execute(inputParam)
-                .map(mapper::listModelToViewModel)
+                .map(mapper::paginatedListModelToViewModel)
                 .subscribe(onNext, onError, onComplete, onSubscribe);
     }
 
@@ -109,7 +116,7 @@ public class ComicListPresenter extends BasePresenter<ListView> {
         final GetComicsByTitle.InputParam inputParam = new GetComicsByTitle.InputParam(title, offset);
         getView().showProgress();
         getComicsByTitle.execute(inputParam)
-                .map(mapper::listModelToViewModel)
+                .map(mapper::paginatedListModelToViewModel)
                 .subscribe(onNext, onError, onComplete, onSubscribe);
     }
 

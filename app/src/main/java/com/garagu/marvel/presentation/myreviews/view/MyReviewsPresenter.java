@@ -7,7 +7,7 @@ import com.garagu.marvel.domain.usecase.GetComic;
 import com.garagu.marvel.domain.usecase.GetReviewsByUser;
 import com.garagu.marvel.domain.usecase.GetUser;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
-import com.garagu.marvel.presentation.comic.model.ComicModelMapper;
+import com.garagu.marvel.presentation.comic.model.mapper.ComicModelMapper;
 import com.garagu.marvel.presentation.comic.model.ComicViewModel;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
 import com.garagu.marvel.presentation.common.view.BaseView;

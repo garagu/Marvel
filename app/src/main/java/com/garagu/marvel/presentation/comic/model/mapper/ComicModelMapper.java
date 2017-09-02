@@ -1,15 +1,18 @@
-package com.garagu.marvel.presentation.comic.model;
+package com.garagu.marvel.presentation.comic.model.mapper;
 
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.text.Html;
 
 import com.garagu.marvel.domain.model.comic.Comic;
 import com.garagu.marvel.domain.model.comic.ComicCharacter;
-import com.garagu.marvel.domain.model.comic.ComicCreator;
-import com.garagu.marvel.domain.model.comic.ComicDate;
 import com.garagu.marvel.domain.model.comic.ComicSeries;
 import com.garagu.marvel.domain.model.comic.PaginatedComicList;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
+import com.garagu.marvel.presentation.comic.model.DateViewModel;
+import com.garagu.marvel.presentation.comic.model.ComicViewModel;
+import com.garagu.marvel.presentation.comic.model.CreatorViewModel;
+import com.garagu.marvel.presentation.common.model.ModelToViewModelMapper;
 import com.garagu.marvel.presentation.common.model.PaginatedListViewModel;
 
 import java.util.ArrayList;
@@ -21,14 +24,20 @@ import javax.inject.Inject;
  * Created by garagu.
  */
 @ActivityScope
-public class ComicModelMapper {
+public class ComicModelMapper extends ModelToViewModelMapper<Comic, ComicViewModel> {
+
+    private final CreatorModelMapper creatorMapper;
+    private final DateModelMapper dateMapper;
 
     @Inject
-    public ComicModelMapper() {
+    public ComicModelMapper(CreatorModelMapper creatorMapper, DateModelMapper dateMapper) {
+        this.creatorMapper = creatorMapper;
+        this.dateMapper = dateMapper;
     }
 
-    public PaginatedListViewModel<ComicViewModel> listModelToViewModel(PaginatedComicList model) {
-        final List<ComicViewModel> items = mapList(model.getList());
+    @NonNull
+    public PaginatedListViewModel<ComicViewModel> paginatedListModelToViewModel(@NonNull PaginatedComicList model) {
+        final List<ComicViewModel> items = listModelToViewModel(model.getList());
         final int offset = model.getOffset() + model.getCount();
         return new PaginatedListViewModel.Builder<ComicViewModel>()
                 .withHasMore(offset < model.getTotal())
@@ -37,22 +46,15 @@ public class ComicModelMapper {
                 .build();
     }
 
-    private List<ComicViewModel> mapList(List<Comic> model) {
-        final List<ComicViewModel> list = new ArrayList<>();
-        for (Comic comic : model) {
-            final ComicViewModel viewModel = simpleModelToViewModel(comic);
-            list.add(viewModel);
-        }
-        return list;
-    }
-
-    public ComicViewModel simpleModelToViewModel(Comic model) {
+    @NonNull
+    @Override
+    public ComicViewModel simpleModelToViewModel(@NonNull Comic model) {
         final List<String> characters = mapCharacters(model.getCharacters());
-        final List<CreatorViewModel> creators = mapCreators(model.getCreators());
+        final List<CreatorViewModel> creators = creatorMapper.listModelToViewModel(model.getCreators());
         final String description = mapDescription(model.getDescription());
         final String pages = String.valueOf(model.getPages());
         final String seriesTitle = mapSeriesTitle(model.getSeries());
-        final List<ComicDateViewModel> dates = mapDates(model.getDates());
+        final List<DateViewModel> dates = dateMapper.listModelToViewModel(model.getDates());
         return new ComicViewModel.Builder()
                 .withCharacters(characters)
                 .withCreators(creators)
@@ -78,26 +80,6 @@ public class ComicModelMapper {
         return items;
     }
 
-    private List<CreatorViewModel> mapCreators(List<ComicCreator> model) {
-        final List<CreatorViewModel> items = new ArrayList<>();
-        for (ComicCreator item : model) {
-            final String role = mapRole(item.getRole());
-            final CreatorViewModel viewModel = new CreatorViewModel.Builder()
-                    .withName(item.getName())
-                    .withRole(role)
-                    .build();
-            items.add(viewModel);
-        }
-        return items;
-    }
-
-    private String mapRole(String role) {
-        if ((role != null) && (role.length() > 1)) {
-            return Character.toUpperCase(role.charAt(0)) + role.substring(1);
-        }
-        return role;
-    }
-
     @SuppressWarnings("deprecation")
     private String mapDescription(String description) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
@@ -109,18 +91,6 @@ public class ComicModelMapper {
 
     private String mapSeriesTitle(ComicSeries model) {
         return model.getName();
-    }
-
-    private List<ComicDateViewModel> mapDates(List<ComicDate> modelList) {
-        final List<ComicDateViewModel> viewModelList = new ArrayList<>();
-        for (ComicDate model : modelList) {
-            final ComicDateViewModel viewModel = new ComicDateViewModel.Builder()
-                    .withDate(model.getDate())
-                    .withType(model.getType())
-                    .build();
-            viewModelList.add(viewModel);
-        }
-        return viewModelList;
     }
 
 }

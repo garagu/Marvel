@@ -10,7 +10,7 @@ import com.garagu.marvel.data.entity.common.NameEntity;
 import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.domain.model.comic.Comic;
 import com.garagu.marvel.domain.model.comic.ComicCharacter;
-import com.garagu.marvel.domain.model.comic.ComicCreator;
+import com.garagu.marvel.domain.model.comic.Creator;
 import com.garagu.marvel.domain.model.comic.ComicSeries;
 import com.garagu.marvel.domain.model.comic.PaginatedComicList;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
@@ -79,14 +79,14 @@ public class ComicEntityMapper {
         );
     }
 
-    private List<ComicCreator> mapCreators(CreatorCollectionEntity entity) {
-        final List<ComicCreator> items = new ArrayList<>();
+    private List<Creator> mapCreators(CreatorCollectionEntity entity) {
+        final List<Creator> items = new ArrayList<>();
         if (entity.getItems() != null) {
             for (CreatorEntity item : entity.getItems()) {
-                final ComicCreator comicCreator = new ComicCreator(
+                final Creator comicCreator = new Creator(
                         item.getResourceURI(),
                         item.getName(),
-                        item.getRole()
+                        (item.getRole() != null) ? item.getRole() : ""
                 );
                 items.add(comicCreator);
             }

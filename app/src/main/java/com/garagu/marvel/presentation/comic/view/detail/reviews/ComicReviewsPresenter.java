@@ -3,7 +3,7 @@ package com.garagu.marvel.presentation.comic.view.detail.reviews;
 import android.support.annotation.NonNull;
 
 import com.garagu.marvel.domain.usecase.GetReviewsByComic;
-import com.garagu.marvel.presentation.comic.model.ReviewModelMapper;
+import com.garagu.marvel.presentation.comic.model.mapper.ReviewModelMapper;
 import com.garagu.marvel.presentation.comic.model.ReviewViewModel;
 import com.garagu.marvel.presentation.comic.view.detail.reviews.ComicReviewsPresenter.ComicReviewsView;
 import com.garagu.marvel.presentation.common.view.BasePresenter;
