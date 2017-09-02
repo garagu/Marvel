@@ -11,5 +11,7 @@ import io.reactivex.Observable;
 public interface CharacterRepository {
     Observable<PaginatedCharacterList> getCharacters(int offset);
 
+    Observable<PaginatedCharacterList> getCharactersByName(int offset, String name);
+
     Observable<Character> getCharacter(int id);
 }

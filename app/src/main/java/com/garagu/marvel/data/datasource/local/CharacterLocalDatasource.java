@@ -1,5 +1,6 @@
 package com.garagu.marvel.data.datasource.local;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.garagu.marvel.data.datasource.CharacterDatasource;
@@ -41,6 +42,11 @@ public class CharacterLocalDatasource implements CharacterDatasource {
             Log.e("Error reading file!", e.getMessage());
         }
         return Observable.just(entity);
+    }
+
+    @Override
+    public Observable<ResultEntity<CharacterListEntity>> getCharactersByName(int offset, @NonNull String name) {
+        return getCharacters(0);
     }
 
     @Override
