@@ -51,7 +51,13 @@ public class MyReviewsPresenter extends BasePresenter<MyReviewsView> {
                 .flatMap(getReviewsByUser::execute)
                 .map(reviewMapper::listModelToViewModel)
                 .subscribe(
-                        getView()::showReviews,
+                        reviews -> {
+                            if (reviews.isEmpty()) {
+                                getView().showEmptyWarning();
+                            } else {
+                                getView().showReviews(reviews);
+                            }
+                        },
                         error -> {
                             getView().showError(error.getMessage());
                             getView().hideProgress();
@@ -85,6 +91,8 @@ public class MyReviewsPresenter extends BasePresenter<MyReviewsView> {
         void hideProgress();
 
         void openComicDetail(@NonNull ComicViewModel comic);
+
+        void showEmptyWarning();
 
         void showError(@NonNull String message);
 
