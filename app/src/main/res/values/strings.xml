@@ -33,9 +33,10 @@
     <string name="home_favorites">My favorites</string>
     <string name="home_reviews">My reviews</string>
     <!-- Comics -->
-    <string name="comics_nav_info">Info</string>
-    <string name="comics_nav_reviews">Reviews</string>
-    <string name="comics_nav_gallery">Gallery</string>
+    <string name="comicdetail_toolbar">Comic detail</string>
+    <string name="comicdetail_nav_info">Info</string>
+    <string name="comicdetail_nav_reviews">Reviews</string>
+    <string name="comicdetail_nav_gallery">Gallery</string>
     <string name="comicinfo_hint_search">Search comic</string>
     <string name="comicinfo_label_summary">Summary</string>
     <string name="comicinfo_label_series">Series:</string>

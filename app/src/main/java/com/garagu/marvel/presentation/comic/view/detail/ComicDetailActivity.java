@@ -53,6 +53,7 @@ public class ComicDetailActivity extends BottomNavActivity implements HasInjecti
 
     private ViewConfig getViewConfig() {
         return new ViewConfig(
+                R.string.comicdetail_toolbar,
                 true,
                 R.menu.comics_bottom_nav,
                 this::onBottomNavItemSelectedListener,

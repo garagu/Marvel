@@ -17,6 +17,7 @@ public class BottomNavActivity extends BaseActivity {
     BottomNavigationView bottomNavView;
 
     protected void initBaseView(ViewConfig viewConfig) {
+        initToolbar(viewConfig.getToolbarTitle());
         if (viewConfig.showBack()) {
             showBackButton();
         }

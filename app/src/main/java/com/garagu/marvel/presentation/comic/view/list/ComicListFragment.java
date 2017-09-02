@@ -151,6 +151,7 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
     }
 
     private void initComponents() {
+        initToolbar(R.string.home_comics);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
