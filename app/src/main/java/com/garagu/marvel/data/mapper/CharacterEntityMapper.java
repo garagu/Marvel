@@ -13,14 +13,22 @@ import com.garagu.marvel.domain.model.character.Character;
 import com.garagu.marvel.domain.model.character.Link;
 import com.garagu.marvel.domain.model.character.PaginatedCharacterList;
 import com.garagu.marvel.domain.model.common.Collection;
+import com.garagu.marvel.presentation.application.di.ActivityScope;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by garagu.
  */
+@ActivityScope
 public class CharacterEntityMapper {
+
+    @Inject
+    public CharacterEntityMapper() {
+    }
 
     @NonNull
     public PaginatedCharacterList listEntityToModel(ResultEntity<CharacterListEntity> entity) {

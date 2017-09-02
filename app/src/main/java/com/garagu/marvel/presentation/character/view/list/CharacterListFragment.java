@@ -5,6 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
+import android.support.v7.widget.SearchView;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -35,7 +39,7 @@ import butterknife.BindView;
 /**
  * Created by garagu.
  */
-public class CharacterListFragment extends BaseFragment implements CharacterListView {
+public class CharacterListFragment extends BaseFragment implements CharacterListView, SearchView.OnQueryTextListener {
 
     @Inject
     ImageLoader imageLoader;
@@ -49,10 +53,11 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
 
+    private SearchView searchView;
     private final OnCardClickListener onCardClickListener = new OnCardClickListener() {
         @Override
         public void onThumbnailClick(@NonNull View view, @NonNull CharacterViewModel character) {
-            presenter.onThumbnailClicked(character.isThumbnailAvailable() ? view : null, character);
+            presenter.onThumbnailClick(character.isThumbnailAvailable() ? view : null, character);
         }
     };
     private RVAnimRendererAdapter<CharacterViewModel> adapter;
@@ -82,6 +87,27 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
         super.onDestroyView();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_search, menu);
+        final MenuItem searchItem = menu.findItem(R.id.item_search);
+        searchView = (SearchView) searchItem.getActionView();
+        searchView.setQueryHint(getString(R.string.characters_hint_search));
+        searchView.setOnQueryTextListener(this);
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        recyclerView.requestFocus();
+        presenter.onSearchClick(query);
+        return true;
+    }
+
     private void initComponents() {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
@@ -91,7 +117,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
             @Override
             public void onBottomReached() {
                 if (isNotLoading() && hasMore) {
-                    presenter.onListScrolled(offset);
+                    presenter.onListScrolled(searchView != null ? searchView.getQuery().toString() : "", offset);
                 }
             }
         });
@@ -111,14 +137,27 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
         presenter.subscribe();
     }
 
+    private void clearList() {
+        hasMore = false;
+        offset = 0;
+        adapter.clear();
+        adapter.notifyDataSetChanged();
+    }
+
     private boolean isNotLoading() {
         return (progressBar.getVisibility() == View.GONE);
     }
 
-    private void updateList(@NonNull List<CharacterViewModel> comics) {
+    private void updateList(@NonNull List<CharacterViewModel> characters) {
         final int positionStart = adapter.getItemCount();
-        adapter.addAll(comics);
+        adapter.addAll(characters);
         adapter.notifyItemRangeChanged(positionStart, adapter.getItemCount());
+    }
+
+    @Override
+    public void clearScreen() {
+        hideKeyboard();
+        clearList();
     }
 
     @Override
