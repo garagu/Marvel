@@ -8,6 +8,7 @@
     <color name="colorAccentDark">#001e4e</color>
     <color name="colorAccentLight">#5b6faa</color>
     <color name="colorBackground">#D5D5D5</color>
+    <color name="colorBackgroundDark">#ADADAD</color>
     <color name="colorBottomNavEnabled">#FFFFFF</color>
     <color name="colorBottomNavDisabled">#99FFFFFF</color>
     <color name="colorDivider">#DCDCDC</color>
