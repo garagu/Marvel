@@ -3,6 +3,7 @@ package com.garagu.marvel.presentation.common.view;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -84,6 +85,12 @@ public class BaseActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
             return false;
         });
+    }
+
+    protected void initToolbar(@StringRes int toolbarTitle) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(toolbarTitle);
+        }
     }
 
     protected void showBackButton() {
