@@ -10,8 +10,8 @@ import com.garagu.marvel.data.entity.common.NameEntity;
 import com.garagu.marvel.data.entity.common.ResultEntity;
 import com.garagu.marvel.domain.model.comic.Comic;
 import com.garagu.marvel.domain.model.comic.ComicCharacter;
-import com.garagu.marvel.domain.model.comic.Creator;
 import com.garagu.marvel.domain.model.comic.ComicSeries;
+import com.garagu.marvel.domain.model.comic.Creator;
 import com.garagu.marvel.domain.model.comic.PaginatedComicList;
 import com.garagu.marvel.presentation.application.di.ActivityScope;
 

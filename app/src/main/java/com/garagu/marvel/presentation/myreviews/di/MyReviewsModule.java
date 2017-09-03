@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.garagu.marvel.data.datasource.ReviewDatasource;
 import com.garagu.marvel.data.datasource.remote.ReviewRemoteDatasource;
+import com.garagu.marvel.data.mapper.MyReviewEntityMapper;
 import com.garagu.marvel.data.mapper.ReviewEntityMapper;
 import com.garagu.marvel.data.repository.ReviewDataRepository;
 import com.garagu.marvel.domain.repository.ReviewRepository;
@@ -27,8 +28,8 @@ public class MyReviewsModule {
 
     @Provides
     @ActivityScope
-    ReviewRepository provideReviewRepository(ReviewDatasource datasource, ReviewEntityMapper mapper) {
-        return new ReviewDataRepository(datasource, mapper);
+    ReviewRepository provideReviewRepository(ReviewDatasource datasource, ReviewEntityMapper comicReviewMapper, MyReviewEntityMapper userReviewMapper) {
+        return new ReviewDataRepository(datasource, comicReviewMapper, userReviewMapper);
     }
 
 }

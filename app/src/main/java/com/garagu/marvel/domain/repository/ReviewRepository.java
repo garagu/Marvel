@@ -13,6 +13,8 @@ import io.reactivex.Observable;
 public interface ReviewRepository {
     Observable<Boolean> addReviewToComic(int comicId, String userId, MyReview review);
 
+    Observable<Boolean> checkIfUserHasReviewed(String userId, int comicId);
+
     Observable<List<Review>> getReviewByComic(int comicId);
 
     Observable<List<MyReview>> getReviewsByUser(String userId);

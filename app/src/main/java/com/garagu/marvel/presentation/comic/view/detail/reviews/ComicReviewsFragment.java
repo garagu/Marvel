@@ -3,6 +3,7 @@ package com.garagu.marvel.presentation.comic.view.detail.reviews;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ItemDecoration;
@@ -54,6 +55,8 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
     RatingBar ratingBar;
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
+    @BindView(R.id.fab_add)
+    FloatingActionButton fabNewReview;
 
     private ComicViewModel selectedComic;
     private RVRendererAdapter<ReviewViewModel> adapter;
@@ -113,7 +116,7 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
 
     private void initPresenter() {
         presenter.setView(this);
-        presenter.subscribe(selectedComic.getId());
+        presenter.onInitView(selectedComic.getId());
     }
 
     @OnClick(R.id.fab_add)
@@ -134,6 +137,11 @@ public class ComicReviewsFragment extends BaseFragment implements ComicReviewsVi
     @Override
     public void showError(@NonNull String message) {
         showSnackbar(message);
+    }
+
+    @Override
+    public void showFab(boolean hasReviewed) {
+        fabNewReview.setVisibility(hasReviewed ? View.GONE : View.VISIBLE);
     }
 
     @Override

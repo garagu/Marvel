@@ -40,6 +40,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin"
         android:src="@drawable/ic_add"
-        app:fabSize="normal" />
+        android:visibility="gone"
+        app:fabSize="normal"
+        tools:visibility="visible" />
 
 </FrameLayout>
