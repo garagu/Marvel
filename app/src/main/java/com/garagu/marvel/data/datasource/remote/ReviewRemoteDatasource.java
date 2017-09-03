@@ -72,10 +72,18 @@ public class ReviewRemoteDatasource implements ReviewDatasource {
     }
 
     @Override
+    public Observable<Boolean> checkIfUserHasReviewed(String userId, int comicId) {
+        return getReviewsByUser(userId).flatMapIterable(list -> list)
+                .filter(review -> review.getComicId() == comicId)
+                .toList()
+                .toObservable()
+                .map(list -> !list.isEmpty());
+    }
+
+    @Override
     public Observable<List<ReviewEntity>> getReviewsByComic(int comicId) {
         return getList(CHILD_REVIEWS, String.valueOf(comicId), ReviewEntity.class);
     }
-
 
     @Override
     public Observable<List<MyReviewEntity>> getReviewsByUser(@NonNull String userId) {

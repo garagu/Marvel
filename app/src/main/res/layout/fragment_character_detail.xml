@@ -155,6 +155,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/margin"
+        android:tint="@android:color/white"
         android:visibility="gone"
         app:fabSize="normal"
         tools:src="@drawable/ic_favorite_off"

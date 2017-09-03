@@ -15,6 +15,8 @@ import io.reactivex.Observable;
 public interface ReviewDatasource {
     Observable<Boolean> addReview(int comicId, @NonNull ReviewEntity comicReview, @NonNull String userId, @NonNull MyReviewEntity userReview);
 
+    Observable<Boolean> checkIfUserHasReviewed(String userId, int comicId);
+
     Observable<List<ReviewEntity>> getReviewsByComic(int comicId);
 
     Observable<List<MyReviewEntity>> getReviewsByUser(@NonNull String userId);

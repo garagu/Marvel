@@ -46,6 +46,10 @@ public abstract class BaseFragment extends Fragment {
         unbinder.unbind();
     }
 
+    protected void clearFocus() {
+        rootView.requestFocus();
+    }
+
     protected BaseActivity getBaseActivity() {
         if (!(getActivity() instanceof BaseActivity)) {
             throw new UnsupportedOperationException(getActivity().getClass().getSimpleName() + " isn't an instance of BaseActivity");

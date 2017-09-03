@@ -21,7 +21,6 @@ public class BottomNavActivity extends BaseActivity {
         if (viewConfig.showBack()) {
             showBackButton();
         }
-        // TODO create here the bottom nav and not change app_bar_base
         bottomNavView.inflateMenu(viewConfig.getBottomNavMenu());
         bottomNavView.setOnNavigationItemSelectedListener(viewConfig.getOnBottomNavItemSelectedListener());
         bottomNavView.setSelectedItemId(viewConfig.getBottomNavItemSelected());
