@@ -13,7 +13,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.character.model.CharacterViewModel;
@@ -52,6 +55,12 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
     @Inject
     ImageLoader imageLoader;
 
+    @BindView(R.id.layout_empty_data)
+    LinearLayout layoutEmptyData;
+    @BindView(R.id.img_empty_data)
+    ImageView imgEmptyData;
+    @BindView(R.id.txt_empty_data)
+    TextView txtEmptyData;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.recycler_view)
@@ -152,6 +161,16 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
 
     private void initComponents() {
         initToolbar(R.string.home_comics);
+        initEmptyWarning();
+        initList();
+    }
+
+    private void initEmptyWarning() {
+        imgEmptyData.setImageResource(R.drawable.logo_comics);
+        txtEmptyData.setText(R.string.error_no_results);
+    }
+
+    private void initList() {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
@@ -199,7 +218,15 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
     }
 
     @Override
+    public void showEmptyWarning() {
+        recyclerView.setVisibility(View.GONE);
+        layoutEmptyData.setVisibility(View.VISIBLE);
+    }
+
+    @Override
     public void showList(@NonNull PaginatedListViewModel<ComicViewModel> paginatedList) {
+        layoutEmptyData.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
         hasMore = paginatedList.hasMore();
         offset = paginatedList.getOffset();
         updateList(paginatedList.getItems());

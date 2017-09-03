@@ -47,7 +47,13 @@ public class ComicListPresenter extends BasePresenter<ListView> {
 
     @Override
     public void subscribe() {
-        onNext = comicsPaginatedList -> getView().showList(comicsPaginatedList);
+        onNext = comicsPaginatedList -> {
+            if (comicsPaginatedList.getItems().isEmpty()) {
+                getView().showEmptyWarning();
+            } else {
+                getView().showList(comicsPaginatedList);
+            }
+        };
         onError = error -> {
             getView().showError(error.getMessage());
             getView().hideProgress();
@@ -126,6 +132,8 @@ public class ComicListPresenter extends BasePresenter<ListView> {
         void hideProgress();
 
         void openDetail(@NonNull ComicViewModel comic);
+
+        void showEmptyWarning();
 
         void showList(@NonNull PaginatedListViewModel<ComicViewModel> paginatedList);
 

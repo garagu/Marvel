@@ -10,5 +10,5 @@
             <solid android:color="@color/colorBackground" />
         </shape>
     </item>
-    <item android:drawable="@drawable/ic_favorite_on" />
+    <item android:drawable="@drawable/ic_book" />
 </layer-list>

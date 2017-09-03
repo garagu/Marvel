@@ -23,6 +23,7 @@
         style="@style/TitleBig.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         tools:text="@string/myreviews_warning_empty" />
 
 </LinearLayout>

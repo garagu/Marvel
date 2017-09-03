@@ -3,10 +3,10 @@
     <item>
         <shape android:shape="oval">
             <padding
-                android:bottom="@dimen/border"
-                android:left="@dimen/border"
-                android:right="@dimen/border"
-                android:top="@dimen/border" />
+                android:bottom="@dimen/margin_xsmall"
+                android:left="@dimen/margin_xsmall"
+                android:right="@dimen/margin_xsmall"
+                android:top="@dimen/margin_xsmall" />
             <solid android:color="@color/colorBackground" />
         </shape>
     </item>
