@@ -11,7 +11,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.character.di.CharacterComponent;
@@ -49,6 +53,12 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     @Inject
     Navigator navigator;
 
+    @BindView(R.id.layout_empty_data)
+    LinearLayout layoutEmptyData;
+    @BindView(R.id.img_empty_data)
+    ImageView imgEmptyData;
+    @BindView(R.id.txt_empty_data)
+    TextView txtEmptyData;
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
     @BindView(R.id.recycler_view)
@@ -107,7 +117,7 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
     @Override
     public boolean onQueryTextSubmit(String query) {
         searchExecuted = true;
-        recyclerView.requestFocus();
+        clearFocus();
         presenter.onSearchClick(query);
         return true;
     }
@@ -126,6 +136,16 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
 
     private void initComponents() {
         initToolbar(R.string.home_characters);
+        initEmptyWarning();
+        initList();
+    }
+
+    private void initEmptyWarning() {
+        imgEmptyData.setImageResource(R.drawable.logo_characters);
+        txtEmptyData.setText(R.string.error_no_results);
+    }
+
+    private void initList() {
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         final ItemDecoration itemDecoration = new CardDecoration(getActivity());
@@ -189,9 +209,17 @@ public class CharacterListFragment extends BaseFragment implements CharacterList
 
     @Override
     public void showCharacters(@NonNull PaginatedListViewModel<CharacterViewModel> paginatedListOfCharacters) {
+        layoutEmptyData.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
         hasMore = paginatedListOfCharacters.hasMore();
         offset = paginatedListOfCharacters.getOffset();
         updateList(paginatedListOfCharacters.getItems());
+    }
+
+    @Override
+    public void showEmptyWarning() {
+        recyclerView.setVisibility(View.GONE);
+        layoutEmptyData.setVisibility(View.VISIBLE);
     }
 
     @Override

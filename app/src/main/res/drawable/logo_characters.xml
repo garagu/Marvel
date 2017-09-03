@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <padding
+                android:bottom="@dimen/margin_xsmall"
+                android:left="@dimen/margin_xsmall"
+                android:right="@dimen/margin_xsmall"
+                android:top="@dimen/margin_xsmall" />
+            <solid android:color="@color/colorBackground" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_user" />
+</layer-list>

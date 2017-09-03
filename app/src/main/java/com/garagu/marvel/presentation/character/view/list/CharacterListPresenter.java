@@ -45,7 +45,13 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
 
     @Override
     public void subscribe() {
-        onNext = getView()::showCharacters;
+        onNext = charactersPaginatedList -> {
+            if (charactersPaginatedList.getItems().isEmpty()) {
+                getView().showEmptyWarning();
+            } else {
+                getView().showCharacters(charactersPaginatedList);
+            }
+        };
         onError = error -> {
             getView().showError(error.getMessage());
             getView().hideProgress();
@@ -108,6 +114,8 @@ public class CharacterListPresenter extends BasePresenter<CharacterListView> {
         void openDetail(@Nullable View clickedView, @NonNull CharacterViewModel character);
 
         void showCharacters(@NonNull PaginatedListViewModel<CharacterViewModel> paginatedListOfCharacters);
+
+        void showEmptyWarning();
 
         void showError(@NonNull String message);
 
