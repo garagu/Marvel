@@ -132,7 +132,7 @@ public class ComicListFragment extends BaseFragment implements ListView, SearchV
     @Override
     public boolean onQueryTextSubmit(String query) {
         searchExecuted = true;
-        recyclerView.requestFocus();
+        clearFocus();
         presenter.onSearchClick(query);
         return true;
     }
