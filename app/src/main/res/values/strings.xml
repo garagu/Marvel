@@ -64,5 +64,5 @@
     <!-- Favorites -->
     <string name="favorite_warning_empty">There are no favorites</string>
     <!-- About -->
-    <string name="about_data">Data provided by Marvel. © 2017 Marvel</string>
+    <string name="about_data">Data provided by Marvel. © 2017 Marvel.\n\n<div>App icon made by <a href="https://www.flaticon.com/authors/creaticca-creative-agency" title="Creaticca Creative Agency">Creaticca Creative Agency</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div></string>
 </resources>

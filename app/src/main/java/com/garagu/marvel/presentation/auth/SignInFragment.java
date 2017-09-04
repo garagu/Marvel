@@ -1,6 +1,7 @@
 package com.garagu.marvel.presentation.auth;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.widget.EditText;
@@ -9,6 +10,12 @@ import com.garagu.marvel.R;
 import com.garagu.marvel.presentation.application.di.AppComponent;
 import com.garagu.marvel.presentation.auth.SignInPresenter.SignInView;
 import com.garagu.marvel.presentation.common.view.BaseFragment;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import javax.inject.Inject;
 
@@ -18,7 +25,9 @@ import butterknife.OnClick;
 /**
  * Created by garagu.
  */
-public class SignInFragment extends BaseFragment implements SignInView {
+public class SignInFragment extends BaseFragment implements SignInView, GoogleApiClient.OnConnectionFailedListener {
+
+    private static final int RC_GOOGLE_SIGN_IN = 200;
 
     @Inject
     SignInPresenter presenter;
@@ -34,6 +43,7 @@ public class SignInFragment extends BaseFragment implements SignInView {
     @BindView(R.id.edtxt_password)
     EditText edtxtPassword;
 
+    private GoogleApiClient googleApiClient;
     private ProgressDialog pd;
 
     @NonNull
@@ -59,6 +69,15 @@ public class SignInFragment extends BaseFragment implements SignInView {
         super.onDestroyView();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_GOOGLE_SIGN_IN) {
+            final GoogleSignInResult signInResult = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            presenter.onGoogleSignIn(signInResult);
+        }
+    }
+
     private void initDependencyInjection() {
         getComponent(AppComponent.class).inject(this);
     }
@@ -73,9 +92,32 @@ public class SignInFragment extends BaseFragment implements SignInView {
         presenter.onGoClick(edtxtEmail.getText().toString(), edtxtPassword.getText().toString());
     }
 
+    @OnClick(R.id.btn_google)
+    void onGoogleSignInClick() {
+        presenter.onGoogleSignInClick();
+    }
+
     @OnClick(R.id.btn_register)
     void onRegisterClick() {
         presenter.onRegisterClick();
+    }
+
+    @Override
+    public void connectGoogle() {
+        final GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        googleApiClient = new GoogleApiClient.Builder(getActivity())
+                .addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions)
+                .enableAutoManage(getBaseActivity(), this)
+                .build();
+    }
+
+    @Override
+    public void disconnectGoogle() {
+        googleApiClient.stopAutoManage(getBaseActivity());
+        googleApiClient.disconnect();
     }
 
     @Override
@@ -93,6 +135,13 @@ public class SignInFragment extends BaseFragment implements SignInView {
     }
 
     @Override
+    public void showGoogleAccountChooser() {
+        Auth.GoogleSignInApi.signOut(googleApiClient); // Sign out to show the account chooser every time
+        final Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+        startActivityForResult(intent, RC_GOOGLE_SIGN_IN);
+    }
+
+    @Override
     public void openRegister() {
         navigator.openCreateUser(getActivity());
     }
@@ -100,6 +149,11 @@ public class SignInFragment extends BaseFragment implements SignInView {
     @Override
     public void showError(@NonNull String message) {
         showSnackbar(message);
+    }
+
+    @Override
+    public void showGoogleError(int errorCode) {
+        GoogleApiAvailability.getInstance().showErrorDialogFragment(getActivity(), errorCode, 0);
     }
 
     @Override
@@ -118,6 +172,11 @@ public class SignInFragment extends BaseFragment implements SignInView {
         txtLayoutEmail.setError(email ? getString(R.string.error_empty_field) : null);
         txtLayoutPassword.setErrorEnabled(password);
         txtLayoutPassword.setError(password ? getString(R.string.error_empty_field) : null);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult result) {
+        presenter.onGoogleConnectionFailed(result);
     }
 
 }

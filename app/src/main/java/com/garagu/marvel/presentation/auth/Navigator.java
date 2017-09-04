@@ -20,8 +20,8 @@ public class Navigator extends BaseNavigator {
     public Navigator() {
     }
 
-    public void openSignIn(@NonNull Activity activity) {
-        openFragment(activity, SignInFragment.newInstance());
+    public void openCreateUser(@NonNull Activity activity) {
+        openFragment(activity, RegisterFragment.newInstance());
     }
 
     public void openHome(@NonNull Activity activity) {
@@ -30,8 +30,8 @@ public class Navigator extends BaseNavigator {
         activity.finish();
     }
 
-    public void openCreateUser(@NonNull Activity activity) {
-        openFragment(activity, RegisterFragment.newInstance());
+    public void openSignIn(@NonNull Activity activity) {
+        openFragment(activity, SignInFragment.newInstance());
     }
 
 }
