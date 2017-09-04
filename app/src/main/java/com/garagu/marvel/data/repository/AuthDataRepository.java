@@ -25,17 +25,26 @@ public class AuthDataRepository implements AuthRepository {
 
     @Override
     public Observable<User> createUser(String name, String email, String password) {
-        return datasource.createUser(name, email, password).map(mapper::mapUserEntityToModel);
+        return datasource.createUser(name, email, password)
+                .map(mapper::mapUserEntityToModel);
     }
 
     @Override
     public Observable<User> getUser() {
-        return datasource.getUser().map(mapper::mapUserEntityToModel);
+        return datasource.getUser()
+                .map(mapper::mapUserEntityToModel);
+    }
+
+    @Override
+    public Observable<User> googleSignIn(String token) {
+        return datasource.googleSignIn(token)
+                .map(mapper::mapUserEntityToModel);
     }
 
     @Override
     public Observable<User> signIn(String email, String password) {
-        return datasource.signIn(email, password).map(mapper::mapUserEntityToModel);
+        return datasource.signIn(email, password)
+                .map(mapper::mapUserEntityToModel);
     }
 
     @Override

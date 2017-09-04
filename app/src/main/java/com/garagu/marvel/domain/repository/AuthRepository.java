@@ -12,6 +12,8 @@ public interface AuthRepository {
 
     Observable<User> getUser();
 
+    Observable<User> googleSignIn(String token);
+
     Observable<User> signIn(String email, String password);
 
     Observable<Boolean> signOut();

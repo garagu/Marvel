@@ -3,6 +3,7 @@ ext {
     minSdk = 21
     buildTools = "25.0.3"
 
+    playServicesVersion = '11.0.4'
     supportVersion = '25.4.0'
     firebaseVersion = '11.0.4'
     retrofitVersion = '2.3.0'
@@ -14,7 +15,11 @@ ext {
     gsonVersion = '2.8.0'
     picassoVersion = '2.5.2'
     renderersVersion = '3.3.0'
-
+    
+    playServicesPackage = 'com.google.android.gms'
+    playServices = [
+            auth: "${playServicesPackage}:play-services-auth:${playServicesVersion}"
+    ]
     androidSupportPackage = 'com.android.support'
     androidSupport = [
             appCompat: "${androidSupportPackage}:appcompat-v7:${supportVersion}",
@@ -24,8 +29,8 @@ ext {
     ]
     firebasePackage = 'com.google.firebase'
     firebase = [
-            auth: "${firebasePackage}:firebase-auth:${firebaseVersion}",
-            core: "${firebasePackage}:firebase-core:${firebaseVersion}",
+            auth    : "${firebasePackage}:firebase-auth:${firebaseVersion}",
+            core    : "${firebasePackage}:firebase-core:${firebaseVersion}",
             database: "${firebasePackage}:firebase-database:${firebaseVersion}"
     ]
     retrofitPackage = 'com.squareup.retrofit2'
@@ -41,12 +46,12 @@ ext {
     ]
     butterknifePackage = 'com.jakewharton'
     butterknife = [
-            library: "${butterknifePackage}:butterknife:${butterknifeVersion}",
+            library : "${butterknifePackage}:butterknife:${butterknifeVersion}",
             compiler: "${butterknifePackage}:butterknife-compiler:${butterknifeVersion}"
     ]
     daggerPackage = 'com.google.dagger'
     dagger = [
-            library: "${daggerPackage}:dagger:${daggerVersion}",
+            library : "${daggerPackage}:dagger:${daggerVersion}",
             compiler: "${daggerPackage}:dagger-compiler:${daggerVersion}"
     ]
     okhttp = "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
