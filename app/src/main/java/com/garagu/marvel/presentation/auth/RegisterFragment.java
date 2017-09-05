@@ -107,11 +107,13 @@ public class RegisterFragment extends BaseFragment implements RegisterPresenter.
 
     @Override
     public void showConfirmation() {
+        hideKeyboard();
         showSnackbar(R.string.register_message_confirmation);
     }
 
     @Override
     public void showError(String message) {
+        hideKeyboard();
         showSnackbar(message);
     }
 

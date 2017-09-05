@@ -10,7 +10,7 @@ import io.reactivex.Observable;
 public interface AuthDatasource {
     Observable<UserEntity> getUser();
 
-    Observable<UserEntity> googleSignIn(String token);
+    Observable<UserEntity> googleSignIn(String email, String token);
 
     Observable<UserEntity> signIn(String email, String password);
 

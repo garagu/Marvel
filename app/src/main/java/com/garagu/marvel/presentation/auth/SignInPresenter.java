@@ -66,8 +66,8 @@ public class SignInPresenter extends BasePresenter<SignInView> {
     void onGoClick(@NonNull String email, @NonNull String password) {
         getView().showRequiredFieldError(email.isEmpty(), password.isEmpty());
         if (!email.isEmpty() && !password.isEmpty()) {
-            final SignIn.InputParam input = new SignIn.InputParam(email, password);
-            signIn(input);
+            final SignIn.InputParam inputParam = new SignIn.InputParam(email, password);
+            signIn(inputParam);
         }
     }
 
@@ -85,8 +85,10 @@ public class SignInPresenter extends BasePresenter<SignInView> {
 
     void onGoogleSignIn(@NonNull GoogleSignInResult signInResult) {
         if (signInResult.isSuccess() && (signInResult.getSignInAccount() != null)) {
+            getView().showProgress();
+            final String email = signInResult.getSignInAccount().getEmail();
             final String token = signInResult.getSignInAccount().getIdToken();
-            googleSignIn.execute(token)
+            googleSignIn.execute(new GoogleSignIn.InputParam(email, token))
                     .map(mapper::mapUserModelToViewModel)
                     .subscribe(onNext, onError, onComplete, onSubscribe);
         }

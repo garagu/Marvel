@@ -2,19 +2,24 @@ package com.garagu.marvel.data.datasource.remote;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.garagu.marvel.R;
 import com.garagu.marvel.data.datasource.AuthDatasource;
 import com.garagu.marvel.data.entity.auth.UserEntity;
+import com.garagu.marvel.data.net.exception.EmailAlreadyInUseException;
 import com.garagu.marvel.data.net.exception.FirebaseException;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -33,11 +38,16 @@ public class AuthRemoteDatasource implements AuthDatasource {
     }
 
     @Override
-    public Observable<UserEntity> googleSignIn(String token) {
-        final AuthCredential authCredential = GoogleAuthProvider.getCredential(token, null);
-        return Observable.create(subscriber -> firebaseAuth.signInWithCredential(authCredential)
-                .addOnSuccessListener(getOnSignInListener(subscriber))
-                .addOnFailureListener(subscriber::onError)
+    public Observable<UserEntity> createUser(String name, String email, String password) {
+        return Observable.create(subscriber ->
+                firebaseAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnSuccessListener(authResult -> {
+                            final UserProfileChangeRequest updateRequest = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name)
+                                    .build();
+                            updateProfile(authResult.getUser(), updateRequest, subscriber);
+                        })
+                        .addOnFailureListener(subscriber::onError)
         );
     }
 
@@ -65,6 +75,25 @@ public class AuthRemoteDatasource implements AuthDatasource {
     }
 
     @Override
+    public Observable<UserEntity> googleSignIn(String email, String token) {
+        return Observable.create(subscriber ->
+                firebaseAuth.fetchProvidersForEmail(email)
+                        .addOnCompleteListener(task -> {
+                            if (emailAlreadyInUse(task.getResult().getProviders(), EmailAuthProvider.PROVIDER_ID)) {
+                                final EmailAlreadyInUseException exception = new EmailAlreadyInUseException(context);
+                                subscriber.onError(exception);
+                            } else {
+                                final AuthCredential authCredential = GoogleAuthProvider.getCredential(token, null);
+                                firebaseAuth.signInWithCredential(authCredential)
+                                        .addOnSuccessListener(getOnSignInListener(subscriber))
+                                        .addOnFailureListener(subscriber::onError);
+                            }
+                        })
+                        .addOnFailureListener(subscriber::onError)
+        );
+    }
+
+    @Override
     public Observable<UserEntity> signIn(String email, String password) {
         return Observable.create(subscriber -> firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnSuccessListener(getOnSignInListener(subscriber))
@@ -78,20 +107,6 @@ public class AuthRemoteDatasource implements AuthDatasource {
         return Observable.just(firebaseAuth.getCurrentUser() == null);
     }
 
-    @Override
-    public Observable<UserEntity> createUser(String name, String email, String password) {
-        return Observable.create(subscriber ->
-                firebaseAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnSuccessListener(authResult -> {
-                            final UserProfileChangeRequest updateRequest = new UserProfileChangeRequest.Builder()
-                                    .setDisplayName(name)
-                                    .build();
-                            updateProfile(authResult.getUser(), updateRequest, subscriber);
-                        })
-                        .addOnFailureListener(subscriber::onError)
-        );
-    }
-
     private void updateProfile(@NonNull FirebaseUser firebaseUser, @NonNull UserProfileChangeRequest updateRequest, @NonNull ObservableEmitter<UserEntity> subscriber) {
         firebaseUser.updateProfile(updateRequest)
                 .addOnSuccessListener(voidObject -> {
@@ -102,6 +117,7 @@ public class AuthRemoteDatasource implements AuthDatasource {
                 .addOnFailureListener(subscriber::onError);
     }
 
+    @NonNull
     private OnSuccessListener<AuthResult> getOnSignInListener(@NonNull ObservableEmitter<UserEntity> subscriber) {
         return authResult -> {
             final FirebaseUser firebaseUser = authResult.getUser();
@@ -109,6 +125,10 @@ public class AuthRemoteDatasource implements AuthDatasource {
             subscriber.onNext(user);
             subscriber.onComplete();
         };
+    }
+
+    private boolean emailAlreadyInUse(@Nullable List<String> providers, @NonNull String providerId) {
+        return (providers != null) && (providers.contains(providerId));
     }
 
 }
