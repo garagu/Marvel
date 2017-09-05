@@ -12,7 +12,7 @@ public interface AuthRepository {
 
     Observable<User> getUser();
 
-    Observable<User> googleSignIn(String token);
+    Observable<User> googleSignIn(String email, String token);
 
     Observable<User> signIn(String email, String password);
 

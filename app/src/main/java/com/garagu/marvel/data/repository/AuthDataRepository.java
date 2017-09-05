@@ -36,8 +36,8 @@ public class AuthDataRepository implements AuthRepository {
     }
 
     @Override
-    public Observable<User> googleSignIn(String token) {
-        return datasource.googleSignIn(token)
+    public Observable<User> googleSignIn(String email, String token) {
+        return datasource.googleSignIn(email, token)
                 .map(mapper::mapUserEntityToModel);
     }
 

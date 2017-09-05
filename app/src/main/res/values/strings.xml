@@ -2,6 +2,7 @@
     <string name="app_name">Marvel</string>
     <string name="error_generic">Oops! Something was wrong.</string>
     <string name="error_connection">Oops! There\'s no Internet connection and no more saved info. Check the network and try again.</string>
+    <string name="error_email_already_in_use">The email address is already in use by another account.</string>
     <string name="error_empty_field">Please enter a value</string>
     <string name="error_no_results">There are no results that match your search</string>
     <string name="menu_search">Search</string>
