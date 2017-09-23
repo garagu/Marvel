@@ -14,7 +14,6 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuth.AuthStateListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -53,6 +52,16 @@ public class AuthRemoteDatasource implements AuthDatasource {
 
     @Override
     public Observable<UserEntity> getUser() {
+        final FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+            final UserEntity user = new UserEntity(firebaseUser.getUid(), firebaseUser.getDisplayName(), firebaseUser.getEmail());
+            return Observable.just(user);
+        } else {
+            final String errorMessage = context.getString(R.string.signin_error_unauthenticated);
+            final FirebaseException exception = new FirebaseException(errorMessage);
+            return Observable.error(exception);
+        }
+        /*
         return Observable.create(subscriber -> {
             final AuthStateListener authStateListener = new AuthStateListener() {
                 @Override
@@ -72,6 +81,7 @@ public class AuthRemoteDatasource implements AuthDatasource {
             };
             firebaseAuth.addAuthStateListener(authStateListener);
         });
+        */
     }
 
     @Override
